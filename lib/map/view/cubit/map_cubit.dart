@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:free_fire_location/map/data/repositories/map_repository.dart';
-import 'package:free_fire_location/map/data/response_models/map_page_response.dart';
+import 'package:free_fire_location/map/data/repositories/fire_repository.dart';
+import 'package:free_fire_location/map/data/response_models/fire_page_response.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
 import 'package:meta/meta.dart';
 

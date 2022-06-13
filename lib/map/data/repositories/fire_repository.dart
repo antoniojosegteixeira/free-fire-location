@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:csv/csv.dart';
 import 'package:dio/dio.dart';
-import 'package:free_fire_location/map/data/response_models/map_page_response.dart';
+import 'package:free_fire_location/map/data/response_models/fire_page_response.dart';
 import 'package:free_fire_location/map/models/file_name.dart';
 
 class MapRepository {

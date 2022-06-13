@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:csv/csv.dart';
-import 'package:free_fire_location/map/data/response_models/map_info_response.dart';
+import 'package:free_fire_location/map/data/response_models/fire_info_response.dart';
 
 class MapPageResponse {
   final coordinatesList;
