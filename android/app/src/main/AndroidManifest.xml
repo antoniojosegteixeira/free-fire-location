@@ -4,6 +4,8 @@
         android:label="free_fire_location"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,5 +32,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!-- TODO: Add your Google Maps API key here -->
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCQHAhQFwoAyiRw1uIu2MhPOrrT78RO910"/> 
+
     </application>
 </manifest>

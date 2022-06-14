@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:free_fire_location/map/view/cubit/map_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -8,7 +8,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mapCubit = MapCubit();
+    final fireCubit = FireCubit();
+
     return MaterialApp(
       title: 'FreeFire Locator',
       theme: ThemeData(
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => mapCubit..getMapInfo()),
+          BlocProvider(create: (_) => fireCubit..getFireInfo()),
         ],
         child: const MapPage(),
       ),
