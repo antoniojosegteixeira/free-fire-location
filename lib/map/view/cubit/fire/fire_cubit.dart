@@ -6,11 +6,11 @@ import 'package:meta/meta.dart';
 
 part 'fire_state.dart';
 
-class MapCubit extends Cubit<FireState> {
+class FireCubit extends Cubit<FireState> {
   final _mapRepository = FireRepository();
-  MapCubit() : super(FireInitial());
+  FireCubit() : super(FireInitial());
 
-  void getMapInfo() async {
+  void getFireInfo() async {
     emit.call(FireLoading());
     try {
       final FirePageResponse fireInfo = await _mapRepository.getFireLocations();

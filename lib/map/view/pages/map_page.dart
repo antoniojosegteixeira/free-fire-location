@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
 import 'package:free_fire_location/map/view/widgets/map_widget.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class MapPage extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.blue),
       home: Scaffold(
-        body: BlocBuilder<MapCubit, FireState>(
+        body: BlocBuilder<FireCubit, FireState>(
           builder: ((context, state) {
             if (state is FireLoading) {
               return const Center(
@@ -27,7 +28,11 @@ class MapPage extends StatelessWidget {
 
             if (state is FireSuccess) {
               return const Center(
-                child: SizedBox(height: 400, width: 300, child: MapWidget()),
+                child: SizedBox(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: MapWidget(),
+                ),
               );
             }
 

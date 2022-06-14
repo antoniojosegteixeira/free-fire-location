@@ -8,7 +8,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mapCubit = MapCubit();
+    final fireCubit = FireCubit();
+
     return MaterialApp(
       title: 'FreeFire Locator',
       theme: ThemeData(
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => mapCubit..getMapInfo()),
+          BlocProvider(create: (_) => fireCubit..getFireInfo()),
         ],
         child: const MapPage(),
       ),
