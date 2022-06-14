@@ -4,7 +4,7 @@ import 'package:csv/csv.dart';
 import 'package:free_fire_location/map/data/response_models/fire_info_response.dart';
 
 class FirePageResponse {
-  final coordinatesList;
+  final List<MapInfoResponse> coordinatesList;
   FirePageResponse({required this.coordinatesList});
 
   factory FirePageResponse.fromCsv(dynamic csv) {

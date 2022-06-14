@@ -1,8 +1,8 @@
 class MapInfoResponse {
-  final latitude;
-  final longitude;
-  final satelliteName;
-  final date;
+  final double latitude;
+  final double longitude;
+  final String satelliteName;
+  final String date;
   MapInfoResponse({
     required this.latitude,
     required this.longitude,
