@@ -1,12 +1,9 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-class MapMarker {
+class FireInfo {
   final double latitude;
   final double longitude;
   final String satelliteName;
   final String date;
-
-  MapMarker({
+  FireInfo({
     required this.latitude,
     required this.longitude,
     required this.satelliteName,
