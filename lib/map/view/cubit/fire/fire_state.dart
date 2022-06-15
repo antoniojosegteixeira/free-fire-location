@@ -8,8 +8,9 @@ class FireInitial extends FireState {}
 class FireLoading extends FireState {}
 
 class FireSuccess extends FireState {
-  final FirePageResponse fireInfo;
-  FireSuccess({required this.fireInfo});
+  final List<Marker> markers;
+
+  FireSuccess({required this.markers});
 }
 
 class FireError extends FireState {}
