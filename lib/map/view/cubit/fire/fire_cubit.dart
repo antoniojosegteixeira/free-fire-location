@@ -19,7 +19,7 @@ class FireCubit extends Cubit<FireState> {
 
       final customMarker = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(size: Size(20, 20)),
-        "assets/images/icon.png",
+        "assets/images/splash.png",
       ); // size of custom image as marker
 
       List<Marker> markers = fireInfo.coordinatesList.map((item) {

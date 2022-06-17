@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
-import 'package:free_fire_location/map/view/pages/map_page.dart';
+import 'package:free_fire_location/map/view/pages/map.dart';
+import 'package:free_fire_location/map/view/pages/splash.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => Scaffold(
                   body: Column(
                 children: [
-                  const Text("SPLASH"),
+                  SplashPage(),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed("/map");
