@@ -1,13 +1,11 @@
-class MapInfoResponse {
-  final double latitude;
-  final double longitude;
-  final String satelliteName;
-  final String date;
+import 'package:free_fire_location/map/models/fire_info.dart';
+
+class MapInfoResponse extends FireInfo {
   MapInfoResponse({
-    required this.latitude,
-    required this.longitude,
-    required this.satelliteName,
-    required this.date,
+    required super.latitude,
+    required super.longitude,
+    required super.satelliteName,
+    required super.date,
   });
 
   factory MapInfoResponse.fromCsv(dynamic csv) {
