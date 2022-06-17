@@ -14,12 +14,7 @@ class MapPage extends StatelessWidget {
         body: SafeArea(
           child: BlocBuilder<FireCubit, FireState>(
             builder: ((context, state) {
-              if (state is FireLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-
+              
               if (state is FireError) {
                 return const Center(
                   child: Text('Error'),
