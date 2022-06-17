@@ -12,34 +12,36 @@ class MapPage extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.blue),
       home: Scaffold(
-        body: BlocBuilder<FireCubit, FireState>(
-          builder: ((context, state) {
-            if (state is FireLoading) {
+        body: SafeArea(
+          child: BlocBuilder<FireCubit, FireState>(
+            builder: ((context, state) {
+              if (state is FireLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (state is FireError) {
+                return const Center(
+                  child: Text('Error'),
+                );
+              }
+
+              if (state is FireSuccess) {
+                return const Center(
+                  child: SizedBox(
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: MapWidget(),
+                  ),
+                );
+              }
+
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            }
-
-            if (state is FireError) {
-              return const Center(
-                child: Text('Error'),
-              );
-            }
-
-            if (state is FireSuccess) {
-              return const Center(
-                child: SizedBox(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: MapWidget(),
-                ),
-              );
-            }
-
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
+            }),
+          ),
         ),
       ),
     );
