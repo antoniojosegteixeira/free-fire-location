@@ -28,8 +28,11 @@ class _MapWidgetState extends State<MapWidget> {
     return BlocBuilder<FireCubit, FireState>(
       builder: ((context, state) {
         if (state is FireSuccess) {
-          print(state.markers);
           return GoogleMap(
+            mapToolbarEnabled: true,
+            compassEnabled: true,
+            myLocationButtonEnabled: true,
+            myLocationEnabled: true,
             onMapCreated: _onMapCreated,
             markers: Set<Marker>.of(state.markers),
             initialCameraPosition: const CameraPosition(

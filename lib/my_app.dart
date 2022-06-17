@@ -10,16 +10,31 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final fireCubit = FireCubit();
 
-    return MaterialApp(
-      title: 'FreeFire Locator',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => fireCubit..getFireInfo()),
-        ],
-        child: const MapPage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => fireCubit..getFireInfo()),
+      ],
+      child: MaterialApp(
+        title: 'FreeFire Locator',
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => Scaffold(
+                  body: Column(
+                children: [
+                  const Text("SPLASH"),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed("/map");
+                    },
+                    child: const Text("Next Page"),
+                  )
+                ],
+              )),
+          '/map': (context) => const MapPage(),
+        },
       ),
     );
   }
