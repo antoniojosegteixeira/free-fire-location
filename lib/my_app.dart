@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => fireCubit..getFireInfo()),
+        BlocProvider(create: (_) => fireCubit..startRequesting()),
       ],
       child: MaterialApp(
         title: 'FreeFire Locator',
