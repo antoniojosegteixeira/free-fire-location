@@ -25,13 +25,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => Scaffold(
                   body: Column(
                 children: [
-                  SplashPage(),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed("/map");
-                    },
-                    child: const Text("Next Page"),
-                  )
+                  const SplashPage(),
                 ],
               )),
           '/map': (context) => const MapPage(),
