@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
 
@@ -15,12 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => fireCubit..getFireInfo()),
-        ],
-        child: const MapPage(),
-      ),
+      home: const MapPage(),
     );
   }
 }
