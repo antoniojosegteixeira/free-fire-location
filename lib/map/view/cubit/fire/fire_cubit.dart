@@ -1,16 +1,16 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/map/data/repositories/fire_repository.dart';
 import 'package:free_fire_location/map/models/fire_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
-import 'package:cron/cron.dart';
 
 part 'fire_state.dart';
 
 class FireCubit extends Cubit<FireState> {
   final _mapRepository = FireRepository();
-  final _cron = Cron();
   late final List<Marker> markers;
   FireCubit() : super(FireInitial());
 
@@ -38,10 +38,18 @@ class FireCubit extends Cubit<FireState> {
     }
   }
 
+  void updateEveryTenMinutes() {
+    Timer.periodic(const Duration(minutes: 1), (timer) {
+      DateTime currentTime = DateTime.now();
+
+      if (currentTime.minute.toString().padLeft(2, '0').substring(1) == '0') {
+        getFireInfo();
+      }
+    });
+  }
+
   void startRequesting() {
     getFireInfo();
-    _cron.schedule(Schedule.parse('*/10 * * * *'), () async {
-      getFireInfo();
-    });
+    updateEveryTenMinutes();
   }
 }
