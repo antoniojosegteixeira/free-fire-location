@@ -22,12 +22,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => Scaffold(
-                  body: Column(
-                children: [
-                  const SplashPage(),
-                ],
-              )),
+          '/': (context) => Scaffold(body: const SplashPage()),
           '/map': (context) => const MapPage(),
         },
       ),

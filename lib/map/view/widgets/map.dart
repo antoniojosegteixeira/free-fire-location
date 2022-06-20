@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
+import 'package:free_fire_location/map/view/pages/splash.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapWidget extends StatefulWidget {
@@ -42,9 +43,7 @@ class _MapWidgetState extends State<MapWidget> {
           );
         }
 
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const SplashPage();
       }),
     );
   }
