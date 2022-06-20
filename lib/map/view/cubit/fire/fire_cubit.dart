@@ -11,27 +11,30 @@ class FireCubit extends Cubit<FireState> {
   final _mapRepository = FireRepository();
   FireCubit() : super(FireInitial());
 
+  Future<List<Marker>> _generateMarkers(fireInfo) async {
+    final customMarker = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(20, 20)),
+      "assets/images/splash.png",
+    );
+
+    List<Marker> markers = fireInfo.coordinatesList.map((item) {
+      return Marker(
+          markerId: MarkerId('${item.latitude}${item.longitude}${item.date}'),
+          position: LatLng(item.latitude, item.longitude),
+          infoWindow: InfoWindow(title: '${item.satelliteName} - ${item.date}'),
+          icon: customMarker);
+    }).toList();
+
+    return markers;
+  }
+
   void getFireInfo() async {
     emit.call(FireLoading());
 
     try {
       final FirePage fireInfo = await _mapRepository.getFireLocations();
 
-      final customMarker = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(20, 20)),
-        "assets/images/splash.png",
-      ); // size of custom image as marker
-
-      List<Marker> markers = fireInfo.coordinatesList.map((item) {
-        return Marker(
-            markerId: MarkerId('${item.latitude}${item.longitude}${item.date}'),
-            position: LatLng(item.latitude, item.longitude),
-            infoWindow:
-                InfoWindow(title: '${item.satelliteName} - ${item.date}'),
-            icon: customMarker);
-      }).toList();
-
-      emit.call(FireSuccess(markers: markers));
+      emit.call(FireSuccess(markers: await _generateMarkers(fireInfo)));
     } catch (e) {
       emit.call(FireError());
     }
