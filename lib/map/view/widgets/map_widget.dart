@@ -10,10 +10,10 @@ class MapWidget extends StatefulWidget {
   const MapWidget({Key? key}) : super(key: key);
 
   @override
-  _MapWidgetState createState() => _MapWidgetState();
+  MapWidgetState createState() => MapWidgetState();
 }
 
-class _MapWidgetState extends State<MapWidget> {
+class MapWidgetState extends State<MapWidget> {
   final Completer<GoogleMapController> _controller = Completer();
 
   // Implement user coordinates
