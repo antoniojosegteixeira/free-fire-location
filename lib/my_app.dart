@@ -20,14 +20,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        initialRoute: '/',
+        initialRoute: '/map',
         routes: {
-          '/': (context) => Scaffold(
-                  body: Column(
-                children: [
-                  const SplashPage(),
-                ],
-              )),
           '/map': (context) => const MapPage(),
         },
       ),
