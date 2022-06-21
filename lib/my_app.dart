@@ -10,14 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final fireCubit = FireCubit();
 
-<<<<<<< HEAD
-    return MaterialApp(
-      title: 'FreeFire Locator',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: const MapPage(),
-=======
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => fireCubit..startRequesting()),
@@ -27,13 +20,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        initialRoute: '/',
+        initialRoute: '/map',
         routes: {
-          '/': (context) => Scaffold(body: const SplashPage()),
           '/map': (context) => const MapPage(),
         },
       ),
->>>>>>> a3cb0508cf2a24d1c238fd72c64fd2af4ea7e7ff
     );
   }
 }

@@ -15,6 +15,8 @@ class FireCubit extends Cubit<FireState> {
   FireCubit() : super(FireInitial());
 
   void getFireInfo() async {
+    emit.call(FireLoading());
+
     final customMarker = await BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(size: Size(20, 20)),
       "assets/images/splash.png",
@@ -48,7 +50,12 @@ class FireCubit extends Cubit<FireState> {
     });
   }
 
-  void startRequesting() {
+  Future showSplash() {
+    return Future.delayed(const Duration(seconds: 3), () {});
+  }
+
+  void startRequesting() async {
+    await showSplash();
     getFireInfo();
     updateEveryTenMinutes();
   }
