@@ -12,7 +12,7 @@ class SplashPage extends StatelessWidget {
         Expanded(
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 2000),
-            color: AppColors.hufflepuffDarkBrown,
+            color: AppColors.darkBrown,
             child: Center(
               child: Column(children: [
                 const SizedBox(
