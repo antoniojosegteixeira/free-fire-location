@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:free_fire_location/consts/colors.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'FreeFire Locator',
         theme: ThemeData(
-          primarySwatch: Colors.red,
+          primarySwatch: Colors.orange,
         ),
         initialRoute: '/map',
         routes: {
