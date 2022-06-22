@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/consts/colors.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
 import 'package:free_fire_location/map/view/pages/splash_page.dart';
+import 'package:free_fire_location/map/view/widgets/controls/control_box.dart';
 import 'package:free_fire_location/map/view/widgets/map_widget.dart';
 
 class MapPage extends StatelessWidget {
@@ -42,11 +43,14 @@ class MapPage extends StatelessWidget {
               }
 
               if (state is FireSuccess) {
-                return const Center(
+                return Center(
                   child: SizedBox(
                     height: double.infinity,
                     width: double.infinity,
-                    child: MapWidget(),
+                    child: Stack(
+                      alignment: AlignmentDirectional.centerEnd,
+                      children: const [MapWidget(), ControlBox()],
+                    ),
                   ),
                 );
               }
