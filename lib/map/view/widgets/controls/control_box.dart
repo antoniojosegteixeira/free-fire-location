@@ -11,7 +11,7 @@ class ControlBox extends StatelessWidget {
       child: Column(
         children: const [
           Padding(
-            padding: EdgeInsets.all(4.0),
+            padding: EdgeInsets.fromLTRB(4, 80, 4, 4),
             child: MapTypeButton(),
           ),
           Padding(

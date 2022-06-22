@@ -10,7 +10,7 @@ class LocationButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           primary: AppColors.primary,
           shape: const CircleBorder(),
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(12),
         ),
         onPressed: () {},
         child: const Icon(
