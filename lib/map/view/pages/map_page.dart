@@ -5,8 +5,8 @@ import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
 import 'package:free_fire_location/map/view/pages/splash_page.dart';
 import 'package:free_fire_location/map/view/widgets/appbar/custom_app_bar.dart';
 import 'package:free_fire_location/map/view/widgets/controls/control_box.dart';
-import 'package:free_fire_location/map/view/widgets/input/search_input.dart';
-import 'package:free_fire_location/map/view/widgets/map_widget.dart';
+import 'package:free_fire_location/map/view/widgets/map/map_widget.dart';
+import 'package:free_fire_location/map/view/widgets/menu/menu_widget.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -16,6 +16,7 @@ class MapPage extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primaryColor: AppColors.darkBrown),
       home: Scaffold(
+        drawer: const MenuWidget(),
         body: SafeArea(
           child: BlocBuilder<FireCubit, FireState>(
             builder: ((context, state) {
@@ -50,7 +51,7 @@ class MapPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   child: Stack(
                     alignment: AlignmentDirectional.topEnd,
-                    children: [
+                    children: const [
                       MapWidget(),
                       CustomAppBar(),
                       ControlBox(),
