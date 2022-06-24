@@ -9,12 +9,12 @@ class ControlBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Column(
-        children: const [
+        children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(4, 80, 4, 4),
+            padding: const EdgeInsets.fromLTRB(4, 80, 4, 4),
             child: MapTypeButton(),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(4.0),
             child: LocationButton(),
           ),
