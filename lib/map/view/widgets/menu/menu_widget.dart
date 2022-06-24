@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/consts/colors.dart';
+import 'package:free_fire_location/map/view/widgets/menu/menu_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuWidget extends StatelessWidget {
   const MenuWidget({Key? key}) : super(key: key);
@@ -26,50 +28,16 @@ class MenuWidget extends StatelessWidget {
                           color: AppColors.white,
                           fontWeight: FontWeight.bold))),
               const SizedBox(height: 57),
-              GestureDetector(
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: const Text(
-                    'Adicionar local padrão',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
-                onTap: () {},
-                onLongPress: () {},
-              ),
+              const MenuField(description: 'Configurações'),
               const SizedBox(height: 20),
-              GestureDetector(
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: const Text('Configurações',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.white,
-                      )),
-                ),
-                onTap: () {},
-                onLongPress: () {},
-              ),
-              const SizedBox(height: 20),
-              GestureDetector(
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: const Text('Sobre',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.white,
-                      )),
-                ),
-                onTap: () {},
-                onLongPress: () {},
-              ),
+              const MenuField(description: 'Sobre'),
               Expanded(child: Container()),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: AppColors.primary),
-                  onPressed: () {},
+                  onPressed: () async {
+                    Uri uri = Uri(scheme: 'tel', path: '193');
+                    await launchUrl(uri);
+                  },
                   child: const Text('Chamar corpo de bombeiros'))
             ],
           )),
