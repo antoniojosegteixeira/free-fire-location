@@ -29,7 +29,7 @@ class MenuWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold))),
               const SizedBox(height: 57),
               const MenuField(description: 'Configurações'),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               const MenuField(description: 'Sobre'),
               Expanded(child: Container()),
               ElevatedButton(
