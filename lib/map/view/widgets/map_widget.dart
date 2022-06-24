@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
 import 'package:free_fire_location/map/view/pages/splash_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -27,20 +28,24 @@ class MapWidgetState extends State<MapWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FireCubit, FireState>(
-      builder: ((context, state) {
-        if (state is FireSuccess) {
-          return GoogleMap(
-            mapToolbarEnabled: true,
-            compassEnabled: true,
-            myLocationButtonEnabled: true,
-            myLocationEnabled: true,
-            onMapCreated: _onMapCreated,
-            markers: Set<Marker>.of(state.markers),
-            initialCameraPosition: const CameraPosition(
-              target: _center,
-              zoom: 11.0,
-            ),
-          );
+      builder: ((fireContext, fireState) {
+        if (fireState is FireSuccess) {
+          return BlocBuilder<OptionsCubit, MapType>(
+              builder: ((optionsContext, mapType) {
+            return GoogleMap(
+              mapToolbarEnabled: true,
+              mapType: mapType,
+              compassEnabled: true,
+              myLocationButtonEnabled: true,
+              myLocationEnabled: true,
+              onMapCreated: _onMapCreated,
+              markers: Set<Marker>.of(fireState.markers),
+              initialCameraPosition: const CameraPosition(
+                target: _center,
+                zoom: 11.0,
+              ),
+            );
+          }));
         }
 
         return const SplashPage();
