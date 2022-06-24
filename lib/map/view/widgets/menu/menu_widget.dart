@@ -27,11 +27,14 @@ class MenuWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold))),
               const SizedBox(height: 57),
               GestureDetector(
-                child: const Text(
-                  'Adicionar local padrão',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: AppColors.white,
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    'Adicionar local padrão',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
                 onTap: () {},
@@ -39,21 +42,27 @@ class MenuWidget extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               GestureDetector(
-                child: const Text('Configurações',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppColors.white,
-                    )),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: const Text('Configurações',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.white,
+                      )),
+                ),
                 onTap: () {},
                 onLongPress: () {},
               ),
               const SizedBox(height: 20),
               GestureDetector(
-                child: const Text('Sobre',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppColors.white,
-                    )),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: const Text('Sobre',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.white,
+                      )),
+                ),
                 onTap: () {},
                 onLongPress: () {},
               ),
