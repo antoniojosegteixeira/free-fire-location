@@ -8,20 +8,18 @@ class MenuField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
+    return Container(
         padding: const EdgeInsets.only(left: 15),
         alignment: Alignment.centerLeft,
-        child: Text(
-          description,
-          style: const TextStyle(
-            fontSize: 16,
-            color: AppColors.white,
-          ),
-        ),
-      ),
-      onTap: () {},
-      onLongPress: () {},
-    );
+        child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              primary: AppColors.darkBrown,
+              elevation: 0,
+            ),
+            child: Text(
+              description,
+              style: const TextStyle(fontSize: 16),
+            )));
   }
 }
