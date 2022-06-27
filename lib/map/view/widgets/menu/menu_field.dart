@@ -3,8 +3,13 @@ import 'package:free_fire_location/consts/colors.dart';
 
 class MenuField extends StatelessWidget {
   final String description;
+  final Widget? nav;
 
-  const MenuField({Key? key, required this.description}) : super(key: key);
+  const MenuField({
+    Key? key,
+    required this.description,
+    this.nav,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,12 @@ class MenuField extends StatelessWidget {
           ),
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        if (nav != null) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => nav as Widget));
+        }
+      },
       onLongPress: () {},
     );
   }
