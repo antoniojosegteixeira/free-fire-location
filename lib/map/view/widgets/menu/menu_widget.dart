@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/consts/colors.dart';
+import 'package:free_fire_location/map/view/pages/config_page.dart';
 import 'package:free_fire_location/map/view/widgets/menu/menu_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MenuWidget extends StatelessWidget {
+class MenuWidget extends StatefulWidget {
   const MenuWidget({Key? key}) : super(key: key);
 
+  @override
+  State<MenuWidget> createState() => _MenuWidgetState();
+}
+
+class _MenuWidgetState extends State<MenuWidget> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -28,8 +34,8 @@ class MenuWidget extends StatelessWidget {
                           color: AppColors.white,
                           fontWeight: FontWeight.bold))),
               const SizedBox(height: 57),
-              const MenuField(description: 'Configurações'),
-              const SizedBox(height: 15),
+              const MenuField(description: 'Configurações', nav: ConfigPage()),
+              const SizedBox(height: 20),
               const MenuField(description: 'Sobre'),
               Expanded(child: Container()),
               ElevatedButton(
