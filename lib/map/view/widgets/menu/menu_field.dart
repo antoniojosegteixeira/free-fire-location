@@ -13,25 +13,23 @@ class MenuField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
+    return Container(
         padding: const EdgeInsets.only(left: 15),
         alignment: Alignment.centerLeft,
-        child: Text(
-          description,
-          style: const TextStyle(
-            fontSize: 16,
-            color: AppColors.white,
-          ),
-        ),
-      ),
-      onTap: () {
-        if (nav != null) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => nav as Widget));
-        }
-      },
-      onLongPress: () {},
-    );
+        child: ElevatedButton(
+            onPressed: () {
+              if (nav != null) {
+                Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => nav as Widget));
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              primary: AppColors.darkBrown,
+              elevation: 0,
+            ),
+            child: Text(
+              description,
+              style: const TextStyle(fontSize: 16),
+            )));
   }
 }
