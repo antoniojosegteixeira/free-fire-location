@@ -6,7 +6,7 @@ import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapTypeButton extends StatefulWidget {
-  MapTypeButton({Key? key}) : super(key: key);
+  const MapTypeButton({Key? key}) : super(key: key);
 
   @override
   State<MapTypeButton> createState() => _MapTypeButtonState();
@@ -20,7 +20,7 @@ class _MapTypeButtonState extends State<MapTypeButton> {
       case MapType.satellite:
         return 'Satélite';
       case MapType.terrain:
-        return 'Terrreno';
+        return 'Terreno';
       case MapType.hybrid:
         return 'Híbrido';
       default:
