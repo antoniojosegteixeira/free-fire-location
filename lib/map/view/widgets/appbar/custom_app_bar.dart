@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:free_fire_location/map/view/widgets/controls/menu_button.dart';
+import 'package:free_fire_location/map/view/widgets/map/controls/menu_button.dart';
 import 'package:free_fire_location/map/view/widgets/input/search_input.dart';
 
 class CustomAppBar extends StatelessWidget {
