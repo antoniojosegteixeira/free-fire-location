@@ -19,7 +19,7 @@ class MapWidgetState extends State<MapWidget> {
 
   // Implement user coordinates
 
-  static const LatLng _center = LatLng(45.521563, -122.677433);
+  static const LatLng _center = LatLng(-13.616770, -50.946247);
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
@@ -32,6 +32,10 @@ class MapWidgetState extends State<MapWidget> {
         if (fireState is FireSuccess) {
           return BlocBuilder<OptionsCubit, MapType>(
               builder: ((optionsContext, mapType) {
+            Set<Marker> markers = Set<Marker>.of(fireState.markers);
+            print(
+                'marker lengththhh SET: ${markers.length} NORMAL: ${fireState.markers.length}');
+
             return GoogleMap(
               mapToolbarEnabled: true,
               mapType: mapType,
@@ -39,10 +43,10 @@ class MapWidgetState extends State<MapWidget> {
               myLocationButtonEnabled: true,
               myLocationEnabled: true,
               onMapCreated: _onMapCreated,
-              markers: Set<Marker>.of(fireState.markers),
+              markers: markers,
               initialCameraPosition: const CameraPosition(
                 target: _center,
-                zoom: 11.0,
+                zoom: 2.0,
               ),
             );
           }));

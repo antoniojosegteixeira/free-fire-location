@@ -17,4 +17,24 @@ class FirePageResponse extends FirePage {
       coordinatesList: mapInfoList,
     );
   }
+
+  factory FirePageResponse.fromCsvList(List<dynamic> csvList) {
+    List filteredList = [];
+    final List<MapInfoResponse> mapInfoList = [];
+
+    for (int i = 0; i < csvList.length; i++) {
+      final filteredCsv =
+          const CsvToListConverter(eol: '\n').convert(csvList[0].data);
+      filteredCsv.removeAt(0);
+      filteredList = [...filteredList, ...filteredCsv];
+    }
+
+    for (int i = 1; i < filteredList.length; i++) {
+      mapInfoList.add(MapInfoResponse.fromCsv(filteredList[i]));
+    }
+
+    return FirePageResponse(
+      coordinatesList: mapInfoList,
+    );
+  }
 }
