@@ -16,6 +16,7 @@ class MapPage extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primaryColor: AppColors.darkBrown),
       home: Scaffold(
+        backgroundColor: AppColors.darkBrown,
         drawer: const MenuWidget(),
         body: SafeArea(
           child: BlocBuilder<FireCubit, FireState>(
