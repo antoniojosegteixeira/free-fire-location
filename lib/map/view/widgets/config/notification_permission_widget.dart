@@ -22,8 +22,10 @@ class _NotificationPermissionWidgetState
           padding: const EdgeInsets.only(left: 25.0),
           child: Container(
             alignment: Alignment.centerLeft,
-            child: const Text('NOTIFICAÇÕES',
-                style: TextStyle(color: AppColors.white, fontSize: 16)),
+            child: const Text(
+              'Notificações',
+              style: TextStyle(color: AppColors.white, fontSize: 17.0),
+            ),
           ),
         ),
         BlocBuilder<NotificationPermissionCubit, NotificationPermissionState>(
