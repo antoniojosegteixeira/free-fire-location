@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/consts/colors.dart';
-import 'package:free_fire_location/map/view/cubit/notification/notification_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/notification_range/notification_range_cubit.dart';
 
-class NotificationSlider extends StatelessWidget {
-  const NotificationSlider({
+class NotificationRangeSlider extends StatelessWidget {
+  const NotificationRangeSlider({
     Key? key,
   }) : super(key: key);
 
@@ -18,39 +18,41 @@ class NotificationSlider extends StatelessWidget {
             padding: EdgeInsets.only(left: 25.0),
             child: Text(
               "Alcance (km)",
-              style: TextStyle(color: AppColors.white, fontSize: 16),
+              style: TextStyle(color: AppColors.white, fontSize: 17.0),
             ),
           ),
-          BlocBuilder<NotificationCubit, NotificationState>(
-              builder: ((notificationContext, state) {
-            if (state is NotificationInitial) {
+          BlocBuilder<NotificationRangeCubit, NotificationRangeState>(
+              builder: ((notificationRangeContext, state) {
+            if (state is NotificationRangeInitial) {
               const double currentValue = 1;
               return Slider(
                 activeColor: AppColors.primary,
                 inactiveColor: AppColors.white,
                 value: currentValue,
                 min: 0,
-                max: 10,
+                max: 50,
                 divisions: 10,
                 label: currentValue.round().toString(),
                 onChanged: (double value) {
-                  BlocProvider.of<NotificationCubit>(notificationContext)
+                  BlocProvider.of<NotificationRangeCubit>(
+                          notificationRangeContext)
                       .updateRangeValue(value);
                 },
               );
             }
 
-            if (state is NotificationOn) {
+            if (state is NotificationRangeOn) {
               return Slider(
                 activeColor: AppColors.primary,
                 inactiveColor: AppColors.white,
                 value: state.alertRange,
                 min: 0,
-                max: 10,
+                max: 50,
                 divisions: 10,
                 label: state.alertRange.round().toString(),
                 onChanged: (double value) {
-                  BlocProvider.of<NotificationCubit>(notificationContext)
+                  BlocProvider.of<NotificationRangeCubit>(
+                          notificationRangeContext)
                       .updateRangeValue(value);
                 },
               );

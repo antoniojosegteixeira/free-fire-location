@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/consts/colors.dart';
+import 'package:free_fire_location/map/view/pages/about_page.dart';
 import 'package:free_fire_location/map/view/pages/config_page.dart';
+import 'package:free_fire_location/map/view/widgets/menu/firefighter_button.dart';
 import 'package:free_fire_location/map/view/widgets/menu/menu_field.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MenuWidget extends StatefulWidget {
   const MenuWidget({Key? key}) : super(key: key);
@@ -36,15 +37,10 @@ class _MenuWidgetState extends State<MenuWidget> {
               const SizedBox(height: 57),
               const MenuField(description: 'Configurações', nav: ConfigPage()),
               const SizedBox(height: 20),
-              const MenuField(description: 'Sobre'),
+              const MenuField(description: 'Sobre', nav: AboutPage()),
               Expanded(child: Container()),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: AppColors.primary),
-                  onPressed: () async {
-                    Uri uri = Uri(scheme: 'tel', path: '193');
-                    await launchUrl(uri);
-                  },
-                  child: const Text('Chamar corpo de bombeiros'))
+              const FirefighterButton(),
+              const Padding(padding: EdgeInsets.only(bottom: 20))
             ],
           )),
     );
