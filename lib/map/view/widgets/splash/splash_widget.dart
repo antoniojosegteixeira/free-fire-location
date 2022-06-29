@@ -23,7 +23,7 @@ class SplashWidget extends StatelessWidget {
                   height: 25,
                 ),
                 const Text(
-                  'FreeFire Location',
+                  'FreeFire Locator',
                   style: TextStyle(
                       fontSize: 28,
                       color: AppColors.white,

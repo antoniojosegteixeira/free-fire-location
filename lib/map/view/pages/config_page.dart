@@ -19,10 +19,11 @@ class ConfigPage extends StatelessWidget {
         backgroundColor: AppColors.darkBrown,
         body: SafeArea(
             child: Column(children: const [
-          SizedBox(height: 60),
+          SizedBox(height: 50),
           NotificationPermissionWidget(),
           SizedBox(height: 20),
           NotificationRangeSlider(),
+          SizedBox(height: 45),
           DefaultLocationWidget(),
         ])));
   }

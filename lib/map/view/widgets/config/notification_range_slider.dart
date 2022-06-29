@@ -18,7 +18,7 @@ class NotificationRangeSlider extends StatelessWidget {
             padding: EdgeInsets.only(left: 25.0),
             child: Text(
               "Alcance (km)",
-              style: TextStyle(color: AppColors.white, fontSize: 16),
+              style: TextStyle(color: AppColors.white, fontSize: 17.0),
             ),
           ),
           BlocBuilder<NotificationRangeCubit, NotificationRangeState>(
@@ -30,7 +30,7 @@ class NotificationRangeSlider extends StatelessWidget {
                 inactiveColor: AppColors.white,
                 value: currentValue,
                 min: 0,
-                max: 10,
+                max: 50,
                 divisions: 10,
                 label: currentValue.round().toString(),
                 onChanged: (double value) {
@@ -47,7 +47,7 @@ class NotificationRangeSlider extends StatelessWidget {
                 inactiveColor: AppColors.white,
                 value: state.alertRange,
                 min: 0,
-                max: 10,
+                max: 50,
                 divisions: 10,
                 label: state.alertRange.round().toString(),
                 onChanged: (double value) {
