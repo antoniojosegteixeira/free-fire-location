@@ -51,6 +51,12 @@ class FireCubit extends Cubit<FireState> {
     });
   }
 
+  void changeAmountOfRequests(int newAmount) {
+    // Each request equals 10 minutes
+    numberOfRequests = newAmount;
+    getFireInfo();
+  }
+
   Future showSplash() {
     return Future.delayed(const Duration(seconds: 3), () {});
   }
