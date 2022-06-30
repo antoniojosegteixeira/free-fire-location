@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/map/data/repositories/fire_repository.dart';
 import 'package:free_fire_location/map/models/fire_page.dart';
+import 'package:free_fire_location/utils/generate_markers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 
@@ -11,7 +12,8 @@ part 'fire_state.dart';
 
 class FireCubit extends Cubit<FireState> {
   final _mapRepository = FireRepository();
-  late final List<Marker> markers;
+  late List<Marker> markers;
+  int numberOfRequests = 1;
   FireCubit() : super(FireInitial());
 
   void getFireInfo() async {
@@ -23,20 +25,19 @@ class FireCubit extends Cubit<FireState> {
     );
 
     try {
-      final FirePage fireInfo = await _mapRepository.getFireLocations();
+      final FirePage fireInfo =
+          await _mapRepository.getFireLocations(numberOfRequests);
 
-      List<Marker> markers = fireInfo.coordinatesList.map((item) {
-        return Marker(
-            markerId: MarkerId('${item.latitude}${item.longitude}${item.date}'),
-            position: LatLng(item.latitude, item.longitude),
-            infoWindow:
-                InfoWindow(title: '${item.satelliteName} - ${item.date}'),
-            icon: customMarker);
-      }).toList();
+      List<Marker> generatedMarkers = GenerateMarkers.generate(
+        customMarkerImage: customMarker,
+        coordinatesList: fireInfo.coordinatesList,
+      );
+
+      markers = generatedMarkers;
 
       emit.call(FireSuccess(markers: markers));
-    } catch (e) {
-      emit.call(FireError());
+    } catch (err) {
+      emit.call(FireError(error: err as Error));
     }
   }
 
@@ -48,6 +49,12 @@ class FireCubit extends Cubit<FireState> {
         getFireInfo();
       }
     });
+  }
+
+  void changeAmountOfRequests(int newAmount) {
+    // Each request equals 10 minutes
+    numberOfRequests = newAmount;
+    getFireInfo();
   }
 
   Future showSplash() {

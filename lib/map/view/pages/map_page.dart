@@ -41,6 +41,7 @@ class MapPage extends StatelessWidget {
               }
 
               if (state is FireError) {
+                print(state.error);
                 return const Center(
                   child: Text('Error'),
                 );

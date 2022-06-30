@@ -13,4 +13,7 @@ class FireSuccess extends FireState {
   FireSuccess({required this.markers});
 }
 
-class FireError extends FireState {}
+class FireError extends FireState {
+  final Error error;
+  FireError({required this.error});
+}
