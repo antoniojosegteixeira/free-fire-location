@@ -13,7 +13,7 @@ part 'fire_state.dart';
 class FireCubit extends Cubit<FireState> {
   final _mapRepository = FireRepository();
   late List<Marker> markers;
-  int numberOfRequests = 1;
+  int numberOfRequests = 2;
   FireCubit() : super(FireInitial());
 
   void getFireInfo() async {
@@ -34,6 +34,7 @@ class FireCubit extends Cubit<FireState> {
       );
 
       markers = generatedMarkers;
+      //print(fireInfo.coordinatesList);
 
       emit.call(FireSuccess(markers: markers));
     } catch (err) {

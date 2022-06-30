@@ -12,22 +12,21 @@ class FirePageResponse extends FirePage {
 
     for (int i = 0; i < csvList.length; i++) {
       final filteredCsv =
-          const CsvToListConverter(eol: '\n').convert(csvList[0].data);
+          const CsvToListConverter(eol: '\n').convert(csvList[i].data);
       filteredCsv.removeAt(0);
       filteredList = [...filteredList, ...filteredCsv];
     }
 
     for (int i = 1; i < filteredList.length; i++) {
       // Check if it's inside Brazil
-      for (int y = 0; y < filteredList[i].length; y++) {
-        bool isFireLocatedInBrazil = FilterMarkers.isFireLocatedInBrazil(
-          lat: filteredList[i][0],
-          lon: filteredList[i][1],
-        );
 
-        if (isFireLocatedInBrazil == true) {
-          mapInfoList.add(MapInfoResponse.fromCsv(filteredList[i]));
-        }
+      bool isFireLocatedInBrazil = FilterMarkers.isFireLocatedInBrazil(
+        lat: filteredList[i][0],
+        lon: filteredList[i][1],
+      );
+
+      if (isFireLocatedInBrazil == true) {
+        mapInfoList.add(MapInfoResponse.fromCsv(filteredList[i]));
       }
     }
 

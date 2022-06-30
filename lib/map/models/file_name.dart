@@ -20,7 +20,7 @@ class FileName {
       dateNow.month,
       dateNow.day,
       dateNow.hour,
-      dateNow.minute - 10,
+      amount == 0 ? dateNow.minute : dateNow.minute - amount * 10,
     );
     String year = date.year.toString();
     String month = date.month.toString().padLeft(2, '0');
@@ -31,6 +31,7 @@ class FileName {
     //focos_abertos_20220608_092000.csv	2022-06-08 09:19	24K
     final String fileName =
         "focos_abertos_$year$month$day" "_" "$hour$minute" "000.csv";
+
     return fileName;
   }
 }

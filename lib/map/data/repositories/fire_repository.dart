@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:free_fire_location/map/data/response_models/fire_page_response.dart';
 import 'package:free_fire_location/map/models/file_name.dart';
 
@@ -16,10 +17,9 @@ class FireRepository {
 
     List<Future> requests = [];
 
-    for (int i = amount; i > 0; i--) {
+    for (int i = amount; i >= 0; i--) {
       final uri = Uri.https(baseUrl,
           "queimadas/users/dados_abertos/focos/10min/${FileName.getPastFileName(i)}");
-
       requests.add(client.get(
         uri.toString(),
         options: Options(headers: <String, String>{'authorization': auth}),
