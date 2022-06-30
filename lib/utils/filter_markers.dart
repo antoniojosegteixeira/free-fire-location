@@ -6,8 +6,8 @@ class FilterMarkers {
 
   static bool isFireLocatedInBrazil(
       {required double lat, required double lon}) {
-    bool isInsideLat = lat > southernMostLat && lat < northernMostLat;
-    bool isInsideLon = lon > westernMostLon && lat < easternMostLon;
+    final bool isInsideLat = lat > southernMostLat && lat < northernMostLat;
+    final bool isInsideLon = lon > westernMostLon && lon < easternMostLon;
 
     if (isInsideLon == true && isInsideLat == true) {
       return true;

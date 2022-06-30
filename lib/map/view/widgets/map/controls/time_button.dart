@@ -16,12 +16,13 @@ class TimeButton extends StatefulWidget {
 class _TimeButtonState extends State<TimeButton> {
   String intToString(int value) {
     switch (value) {
-      case 1:
-        return '10 min';
-      case 3:
+      case 2:
         return '30 min';
       case 6:
         return '1 hora';
+      case 11:
+        return '2 horas';
+
       default:
         return 'Error - out of range';
     }
@@ -42,16 +43,16 @@ class _TimeButtonState extends State<TimeButton> {
           itemBuilder: (BuildContext context) {
             return [
               PopupMenuItem<int>(
-                value: 1,
-                child: Text(intToString(1)),
-              ),
-              PopupMenuItem<int>(
-                value: 3,
-                child: Text(intToString(3)),
+                value: 2,
+                child: Text(intToString(2)),
               ),
               PopupMenuItem<int>(
                 value: 6,
                 child: Text(intToString(6)),
+              ),
+              PopupMenuItem<int>(
+                value: 11,
+                child: Text(intToString(11)),
               ),
             ];
           });
