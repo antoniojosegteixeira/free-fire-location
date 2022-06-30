@@ -11,6 +11,7 @@ class LocationButton extends StatelessWidget {
           primary: AppColors.primary,
           shape: const CircleBorder(),
           padding: const EdgeInsets.all(12),
+          elevation: 0,
         ),
         onPressed: () {},
         child: const Icon(
