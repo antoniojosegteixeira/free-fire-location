@@ -25,7 +25,7 @@ class FirePageResponse extends FirePage {
         lon: filteredList[i][1],
       );
 
-      if (isFireLocatedInBrazil == true) {
+      if (isFireLocatedInBrazil) {
         mapInfoList.add(MapInfoResponse.fromCsv(filteredList[i]));
       }
     }
