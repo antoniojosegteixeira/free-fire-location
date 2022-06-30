@@ -12,7 +12,8 @@ part 'fire_state.dart';
 
 class FireCubit extends Cubit<FireState> {
   final _mapRepository = FireRepository();
-  late final List<Marker> markers;
+  late List<Marker> markers;
+  int numberOfRequests = 1;
   FireCubit() : super(FireInitial());
 
   void getFireInfo() async {
@@ -24,40 +25,19 @@ class FireCubit extends Cubit<FireState> {
     );
 
     try {
-      final FirePage fireInfo = await _mapRepository.getFireLocations();
-
-      GenerateMarkers.generate(
-        customMarkerImage: customMarker,
-        coordinatesList: fireInfo.coordinatesList,
-      );
-
-      emit.call(FireSuccess(markers: markers));
-    } catch (e) {
-      emit.call(FireError());
-    }
-  }
-
-  void getMultipleFireInfo() async {
-    emit.call(FireLoading());
-
-    final customMarker = await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(size: Size(20, 20)),
-      "assets/images/splash.png",
-    );
-
-    try {
       final FirePage fireInfo =
-          await _mapRepository.getMultipleFireLocations(6);
+          await _mapRepository.getFireLocations(numberOfRequests);
 
-      GenerateMarkers.generate(
+      List<Marker> generatedMarkers = GenerateMarkers.generate(
         customMarkerImage: customMarker,
         coordinatesList: fireInfo.coordinatesList,
       );
+
+      markers = generatedMarkers;
 
       emit.call(FireSuccess(markers: markers));
     } catch (err) {
-      print(err);
-      emit.call(FireError());
+      emit.call(FireError(error: err as Error));
     }
   }
 

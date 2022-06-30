@@ -10,25 +10,7 @@ class FireRepository {
 
   final client = Dio();
 
-  Future<FirePageResponse> getFireLocations() async {
-    final uri = Uri.https(baseUrl,
-        "queimadas/users/dados_abertos/focos/10min/${FileName.getFileName()}");
-
-    final String auth =
-        'Basic ${base64Encode(utf8.encode('$username:$password'))}';
-
-    final response = await client.get(
-      uri.toString(),
-      options: Options(headers: <String, String>{'authorization': auth}),
-    );
-
-    FirePageResponse pageResponse = FirePageResponse.fromCsv(response.data);
-
-    return pageResponse;
-  }
-
-  Future<FirePageResponse> getMultipleFireLocations(int amount) async {
-    print("requesting");
+  Future<FirePageResponse> getFireLocations(int amount) async {
     final String auth =
         'Basic ${base64Encode(utf8.encode('$username:$password'))}';
 

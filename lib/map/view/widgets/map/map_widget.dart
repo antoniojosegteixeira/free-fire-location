@@ -33,9 +33,7 @@ class MapWidgetState extends State<MapWidget> {
           return BlocBuilder<OptionsCubit, MapType>(
               builder: ((optionsContext, mapType) {
             Set<Marker> markers = Set<Marker>.of(fireState.markers);
-            print(
-                'marker lengththhh SET: ${markers.length} NORMAL: ${fireState.markers.length}');
-
+            print('LENGTH: ${markers.length}');
             return GoogleMap(
               mapToolbarEnabled: true,
               mapType: mapType,

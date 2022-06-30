@@ -2,7 +2,7 @@ import 'package:free_fire_location/map/models/fire_info.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GenerateMarkers {
-  static generate(
+  static List<Marker> generate(
       {required BitmapDescriptor customMarkerImage,
       required List<FireInfo> coordinatesList}) {
     List<Marker> markers = coordinatesList.map((item) {
