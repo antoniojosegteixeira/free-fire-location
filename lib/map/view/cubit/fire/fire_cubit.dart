@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/map/data/repositories/fire_repository.dart';
+import 'package:free_fire_location/map/models/fire_info.dart';
 import 'package:free_fire_location/map/models/fire_page.dart';
 import 'package:free_fire_location/utils/generate_markers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -19,7 +20,7 @@ class FireCubit extends Cubit<FireState> {
   void getFireInfo() async {
     emit.call(FireLoading());
 
-    final customMarker = await BitmapDescriptor.fromAssetImage(
+    final markerImage = await BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(size: Size(20, 20)),
       "assets/images/splash.png",
     );
@@ -28,15 +29,10 @@ class FireCubit extends Cubit<FireState> {
       final FirePage fireInfo =
           await _mapRepository.getFireLocations(numberOfRequests);
 
-      List<Marker> generatedMarkers = GenerateMarkers.generate(
-        customMarkerImage: customMarker,
+      emit.call(FireSuccess(
+        markerImage: markerImage,
         coordinatesList: fireInfo.coordinatesList,
-      );
-
-      markers = generatedMarkers;
-      //print(fireInfo.coordinatesList);
-
-      emit.call(FireSuccess(markers: markers));
+      ));
     } catch (err) {
       emit.call(FireError(error: err as Error));
     }
