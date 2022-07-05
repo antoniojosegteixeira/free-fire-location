@@ -29,54 +29,31 @@ class _NotificationPermissionWidgetState
           ),
         ),
         BlocBuilder<NotificationPermissionCubit, NotificationPermissionState>(
-            builder: ((notificationPermissionContext, state) {
-          if (state is NotificationPermissionOn) {
+          builder: ((notificationPermissionContext, state) {
             return Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Switch(
-                      activeColor: AppColors.primary,
-                      value: state.isActivated,
-                      onChanged: (bool newValue) {
-                        BlocProvider.of<NotificationPermissionCubit>(
-                                notificationPermissionContext)
-                            .updatePermissionValue(newValue);
-                      }),
+                    activeColor: AppColors.primary,
+                    value: state is NotificationPermissionOn,
+                    onChanged: (bool newValue) {
+                      BlocProvider.of<NotificationPermissionCubit>(
+                              notificationPermissionContext)
+                          .updatePermissionValue(newValue);
+                    },
+                  ),
                 ),
                 const Flexible(
                   child: Text(
-                      'Desejo ser notificado em caso de incêndio próximo',
-                      style: TextStyle(color: AppColors.white, fontSize: 14)),
+                    'Desejo ser notificado em caso de incêndio próximo',
+                    style: TextStyle(color: AppColors.white, fontSize: 14),
+                  ),
                 ),
               ],
             );
-          }
-
-          if (state is NotificationPermissionOff) {
-            return Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Switch(
-                      activeColor: AppColors.primary,
-                      value: false,
-                      onChanged: (bool newValue) {
-                        BlocProvider.of<NotificationPermissionCubit>(
-                                notificationPermissionContext)
-                            .updatePermissionValue(newValue);
-                      }),
-                ),
-                const Flexible(
-                  child: Text(
-                      'Desejo ser notificado em caso de incêndio próximo',
-                      style: TextStyle(color: AppColors.white, fontSize: 14)),
-                )
-              ],
-            );
-          }
-          return const Text('error - no widget');
-        })),
+          }),
+        ),
       ],
     );
   }

@@ -9,8 +9,7 @@ class NotificationPermissionCubit extends Cubit<NotificationPermissionState> {
     isActivated = newValue;
     if (isActivated) {
       emit.call(NotificationPermissionOn(isActivated: isActivated));
-    }
-    if (!isActivated) {
+    } else {
       emit.call(NotificationPermissionOff());
     }
   }

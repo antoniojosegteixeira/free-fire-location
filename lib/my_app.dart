@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/location/location_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/notification_permission/notification_permission_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/notification_range/notification_range_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/search/search_cubit.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -15,18 +17,23 @@ class MyApp extends StatelessWidget {
     final optionsCubit = OptionsCubit();
     final notificationRangeCubit = NotificationRangeCubit();
     final notificationPermissionCubit = NotificationPermissionCubit();
+    final locationCubit = LocationCubit();
+    final searchCubit = SearchCubit();
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => fireCubit..startRequesting()),
         BlocProvider(create: (_) => optionsCubit),
         BlocProvider(create: (_) => notificationRangeCubit),
-        BlocProvider(create: (_) => notificationPermissionCubit)
+        BlocProvider(create: (_) => notificationPermissionCubit),
+        BlocProvider(create: (_) => locationCubit..setMapLocationState()),
+        BlocProvider(create: (_) => searchCubit),
       ],
       child: MaterialApp(
         title: 'FreeFire Locator',
         theme: ThemeData(
           primarySwatch: Colors.orange,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         initialRoute: '/map',
         routes: {
