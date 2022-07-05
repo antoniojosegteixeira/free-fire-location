@@ -4,6 +4,8 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/location/location_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/location/location_state.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/map/view/pages/splash_page.dart';
@@ -51,35 +53,70 @@ class MapWidgetState extends State<MapWidget> {
                       .getWeatherInfoByCoordinates(latLng: latLng);
                 }).toSet();
 
-            return Stack(
-              children: [
-                GoogleMap(
-                  mapToolbarEnabled: true,
-                  mapType: mapType,
-                  compassEnabled: true,
-                  myLocationButtonEnabled: true,
-                  myLocationEnabled: true,
-                  onMapCreated: _onMapCreated,
-                  markers: generatedMarkers,
-                  initialCameraPosition: const CameraPosition(
-                    target: _center,
-                    zoom: 2.0,
+            return BlocBuilder<LocationCubit, LocationState>(
+                builder: ((locationContext, locationState) {
+              if (locationState is LocationEnabled) {
+                return Stack(
+                  children: [
+                    GoogleMap(
+                      mapToolbarEnabled: true,
+                      mapType: mapType,
+                      compassEnabled: true,
+                      myLocationButtonEnabled: true,
+                      myLocationEnabled: true,
+                      onMapCreated: _onMapCreated,
+                      markers: generatedMarkers,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(locationState.position.latitude,
+                            locationState.position.longitude),
+                        zoom: 14.0,
+                      ),
+                      onTap: (_) {
+                        customInfoWindowController.hideInfoWindow!();
+                      },
+                      onCameraMove: (_) {
+                        customInfoWindowController.onCameraMove!();
+                      },
+                    ),
+                    CustomInfoWindow(
+                      controller: customInfoWindowController,
+                      height: 220,
+                      width: 250,
+                      offset: 80,
+                    ),
+                  ],
+                );
+              }
+              return Stack(
+                children: [
+                  GoogleMap(
+                    mapToolbarEnabled: true,
+                    mapType: mapType,
+                    compassEnabled: true,
+                    myLocationButtonEnabled: true,
+                    myLocationEnabled: true,
+                    onMapCreated: _onMapCreated,
+                    markers: generatedMarkers,
+                    initialCameraPosition: const CameraPosition(
+                      target: _center,
+                      zoom: 5.0,
+                    ),
+                    onTap: (_) {
+                      customInfoWindowController.hideInfoWindow!();
+                    },
+                    onCameraMove: (_) {
+                      customInfoWindowController.onCameraMove!();
+                    },
                   ),
-                  onTap: (_) {
-                    customInfoWindowController.hideInfoWindow!();
-                  },
-                  onCameraMove: (_) {
-                    customInfoWindowController.onCameraMove!();
-                  },
-                ),
-                CustomInfoWindow(
-                  controller: customInfoWindowController,
-                  height: 220,
-                  width: 250,
-                  offset: 80,
-                ),
-              ],
-            );
+                  CustomInfoWindow(
+                    controller: customInfoWindowController,
+                    height: 220,
+                    width: 250,
+                    offset: 80,
+                  ),
+                ],
+              );
+            }));
           }));
         }
 
