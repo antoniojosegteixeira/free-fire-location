@@ -29,6 +29,16 @@
             {
               "client_id": "320174623311-356b0aaq8jidukcbjucvglru6019p574.apps.googleusercontent.com",
               "client_type": 3
+<<<<<<< HEAD
+=======
+            },
+            {
+              "client_id": "320174623311-euqdnonbua8bjvgqcju3jdm3a5rn1e9g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.freeFireLocation"
+              }
+>>>>>>> 2783ba30e3751d9c522b0256dbb567b91c69cdf8
             }
           ]
         }
