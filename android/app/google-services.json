@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "320174623311",
+    "project_id": "free-fire-locator",
+    "storage_bucket": "free-fire-locator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320174623311:android:195ffb870a4ee1aa68f83a",
+        "android_client_info": {
+          "package_name": "com.example.free_fire_location"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320174623311-356b0aaq8jidukcbjucvglru6019p574.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu3eTEmLxxJ2lf8mbxvD_RnWC3lSMopnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320174623311-356b0aaq8jidukcbjucvglru6019p574.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "320174623311-euqdnonbua8bjvgqcju3jdm3a5rn1e9g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.freeFireLocation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
