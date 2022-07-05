@@ -9,6 +9,6 @@ class FilterMarkers {
     final bool isInsideLat = lat > southernMostLat && lat < northernMostLat;
     final bool isInsideLon = lon > westernMostLon && lon < easternMostLon;
 
-    return isInsideLat && isInsideLon ? true : false;
+    return isInsideLat && isInsideLon;
   }
 }

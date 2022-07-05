@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
+
+@immutable
 abstract class NotificationPermissionState {}
 
 class NotificationPermissionOn extends NotificationPermissionState {
-  bool isActivated;
+  final bool isActivated;
 
   NotificationPermissionOn({required this.isActivated});
 }
