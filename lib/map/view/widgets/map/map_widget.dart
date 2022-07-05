@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/map/view/pages/splash_page.dart';
 import 'package:free_fire_location/utils/generate_markers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -18,15 +19,13 @@ class MapWidget extends StatefulWidget {
 
 class MapWidgetState extends State<MapWidget> {
   final Completer<GoogleMapController> _controller = Completer();
-  final CustomInfoWindowController _customInfoWindowController =
-      CustomInfoWindowController();
 
   // Implement user coordinates
 
   static const LatLng _center = LatLng(-13.616770, -50.946247);
 
   void _onMapCreated(GoogleMapController controller) {
-    _customInfoWindowController.googleMapController = controller;
+    context.read<WeatherInfoCubit>().setcustomInfoWindowController(controller);
     _controller.complete(controller);
   }
 
@@ -37,11 +36,20 @@ class MapWidgetState extends State<MapWidget> {
         if (fireState is FireSuccess) {
           return BlocBuilder<OptionsCubit, MapType>(
               builder: ((optionsContext, mapType) {
+            final CustomInfoWindowController customInfoWindowController =
+                context.read<WeatherInfoCubit>().customInfoWindowController;
+
+            // Setting markers
             Set<Marker> generatedMarkers = GenerateMarkers.generate(
-              customMarkerImage: fireState.markerImage,
-              coordinatesList: fireState.coordinatesList,
-              customInfoWindowController: _customInfoWindowController,
-            ).toSet();
+                customMarkerImage: fireState.markerImage,
+                coordinatesList: fireState.coordinatesList,
+                customInfoWindowController:
+                    context.read<WeatherInfoCubit>().customInfoWindowController,
+                callback: (LatLng latLng) {
+                  context
+                      .read<WeatherInfoCubit>()
+                      .getWeatherInfoByCoordinates(latLng: latLng);
+                }).toSet();
 
             return Stack(
               children: [
@@ -58,17 +66,17 @@ class MapWidgetState extends State<MapWidget> {
                     zoom: 2.0,
                   ),
                   onTap: (_) {
-                    _customInfoWindowController.hideInfoWindow!();
+                    customInfoWindowController.hideInfoWindow!();
                   },
                   onCameraMove: (_) {
-                    _customInfoWindowController.onCameraMove!();
+                    customInfoWindowController.onCameraMove!();
                   },
                 ),
                 CustomInfoWindow(
-                  controller: _customInfoWindowController,
-                  height: 75,
-                  width: 150,
-                  offset: 50,
+                  controller: customInfoWindowController,
+                  height: 220,
+                  width: 250,
+                  offset: 80,
                 ),
               ],
             );

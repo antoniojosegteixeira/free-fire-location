@@ -3,8 +3,6 @@ part of 'weather_info_cubit.dart';
 @immutable
 abstract class WeatherInfoState {}
 
-class WeatherInfoInitial extends WeatherInfoState {}
-
 class WeatherInfoLoading extends WeatherInfoState {}
 
 class WeatherInfoLoaded extends WeatherInfoState {
@@ -12,4 +10,7 @@ class WeatherInfoLoaded extends WeatherInfoState {
   WeatherInfoLoaded({required this.weatherResponse});
 }
 
-class WeatherInfoError extends WeatherInfoState {}
+class WeatherInfoError extends WeatherInfoState {
+  final Error error;
+  WeatherInfoError({required this.error});
+}

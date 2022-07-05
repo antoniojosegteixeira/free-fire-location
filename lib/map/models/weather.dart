@@ -6,6 +6,8 @@ class Weather {
   final double wind;
   final String windDir;
   final double precipitation;
+  final double latitude;
+  final double longitude;
 
   Weather({
     required this.name,
@@ -15,5 +17,7 @@ class Weather {
     required this.wind,
     required this.windDir,
     required this.precipitation,
+    required this.latitude,
+    required this.longitude,
   });
 }

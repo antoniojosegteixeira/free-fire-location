@@ -22,7 +22,7 @@ class FireCubit extends Cubit<FireState> {
 
     final markerImage = await BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(size: Size(20, 20)),
-      "assets/images/splash.png",
+      "assets/images/map_icon.png",
     );
 
     try {

@@ -4,6 +4,7 @@ import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/notification_permission/notification_permission_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/notification_range/notification_range_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -15,13 +16,15 @@ class MyApp extends StatelessWidget {
     final optionsCubit = OptionsCubit();
     final notificationRangeCubit = NotificationRangeCubit();
     final notificationPermissionCubit = NotificationPermissionCubit();
+    final weatherInfoCubit = WeatherInfoCubit();
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => fireCubit..startRequesting()),
         BlocProvider(create: (_) => optionsCubit),
         BlocProvider(create: (_) => notificationRangeCubit),
-        BlocProvider(create: (_) => notificationPermissionCubit)
+        BlocProvider(create: (_) => notificationPermissionCubit),
+        BlocProvider(create: (_) => weatherInfoCubit),
       ],
       child: MaterialApp(
         title: 'FreeFire Locator',
