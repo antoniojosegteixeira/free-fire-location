@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/location/location_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/location/location_state.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
 import 'package:free_fire_location/map/view/pages/splash_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -30,25 +32,45 @@ class MapWidgetState extends State<MapWidget> {
     return BlocBuilder<FireCubit, FireState>(
       builder: ((fireContext, fireState) {
         if (fireState is FireSuccess) {
+          print('fire success');
           return BlocBuilder<OptionsCubit, MapType>(
               builder: ((optionsContext, mapType) {
             Set<Marker> markers = Set<Marker>.of(fireState.markers);
-            return GoogleMap(
-              mapToolbarEnabled: true,
-              mapType: mapType,
-              compassEnabled: true,
-              myLocationButtonEnabled: true,
-              myLocationEnabled: true,
-              onMapCreated: _onMapCreated,
-              markers: markers,
-              initialCameraPosition: const CameraPosition(
-                target: _center,
-                zoom: 2.0,
-              ),
-            );
+            return BlocBuilder<LocationCubit, LocationState>(
+                builder: (((context, state) {
+              if (state is LocationEnabled) {
+                return GoogleMap(
+                  mapToolbarEnabled: true,
+                  mapType: mapType,
+                  compassEnabled: true,
+                  myLocationButtonEnabled: true,
+                  myLocationEnabled: true,
+                  onMapCreated: _onMapCreated,
+                  markers: markers,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                        state.position.latitude, state.position.longitude),
+                    zoom: 14.0,
+                  ),
+                );
+              }
+              return GoogleMap(
+                mapToolbarEnabled: true,
+                mapType: mapType,
+                compassEnabled: true,
+                myLocationButtonEnabled: true,
+                myLocationEnabled: true,
+                onMapCreated: _onMapCreated,
+                markers: markers,
+                initialCameraPosition: const CameraPosition(
+                  target: _center,
+                  zoom: 2.0,
+                ),
+              );
+            })));
           }));
         }
-
+        print('fire nao success');
         return const SplashPage();
       }),
     );
