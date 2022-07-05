@@ -69,7 +69,7 @@ class MapWidgetState extends State<MapWidget> {
                       initialCameraPosition: CameraPosition(
                         target: LatLng(locationState.position.latitude,
                             locationState.position.longitude),
-                        zoom: 14.0,
+                        zoom: 5.0,
                       ),
                       onTap: (_) {
                         customInfoWindowController.hideInfoWindow!();
@@ -86,36 +86,41 @@ class MapWidgetState extends State<MapWidget> {
                     ),
                   ],
                 );
-              }
-              return Stack(
-                children: [
-                  GoogleMap(
-                    mapToolbarEnabled: true,
-                    mapType: mapType,
-                    compassEnabled: true,
-                    myLocationButtonEnabled: true,
-                    myLocationEnabled: true,
-                    onMapCreated: _onMapCreated,
-                    markers: generatedMarkers,
-                    initialCameraPosition: const CameraPosition(
-                      target: _center,
-                      zoom: 5.0,
+              } else if (locationState is LocationDisabled) {
+                return Stack(
+                  children: [
+                    GoogleMap(
+                      mapToolbarEnabled: true,
+                      mapType: mapType,
+                      compassEnabled: true,
+                      myLocationButtonEnabled: true,
+                      myLocationEnabled: true,
+                      onMapCreated: _onMapCreated,
+                      markers: generatedMarkers,
+                      initialCameraPosition: const CameraPosition(
+                        target: _center,
+                        zoom: 5.0,
+                      ),
+                      onTap: (_) {
+                        customInfoWindowController.hideInfoWindow!();
+                      },
+                      onCameraMove: (_) {
+                        customInfoWindowController.onCameraMove!();
+                      },
                     ),
-                    onTap: (_) {
-                      customInfoWindowController.hideInfoWindow!();
-                    },
-                    onCameraMove: (_) {
-                      customInfoWindowController.onCameraMove!();
-                    },
-                  ),
-                  CustomInfoWindow(
-                    controller: customInfoWindowController,
-                    height: 220,
-                    width: 250,
-                    offset: 80,
-                  ),
-                ],
-              );
+                    CustomInfoWindow(
+                      controller: customInfoWindowController,
+                      height: 220,
+                      width: 250,
+                      offset: 80,
+                    ),
+                  ],
+                );
+              } else if (locationState is LocationInitial) {
+                return Container();
+              }
+
+              return Container();
             }));
           }));
         }
