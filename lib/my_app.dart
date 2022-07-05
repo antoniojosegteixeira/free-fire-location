@@ -5,6 +5,7 @@ import 'package:free_fire_location/map/view/cubit/location/location_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/notification_permission/notification_permission_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/notification_range/notification_range_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/search/search_cubit.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
     final optionsCubit = OptionsCubit();
     final notificationRangeCubit = NotificationRangeCubit();
     final notificationPermissionCubit = NotificationPermissionCubit();
+    final weatherInfoCubit = WeatherInfoCubit();
     final locationCubit = LocationCubit();
     final searchCubit = SearchCubit();
 
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => optionsCubit),
         BlocProvider(create: (_) => notificationRangeCubit),
         BlocProvider(create: (_) => notificationPermissionCubit),
+        BlocProvider(create: (_) => weatherInfoCubit),
         BlocProvider(create: (_) => locationCubit..setMapLocationState()),
         BlocProvider(create: (_) => searchCubit),
       ],
