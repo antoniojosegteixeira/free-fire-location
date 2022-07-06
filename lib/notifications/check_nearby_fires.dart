@@ -40,6 +40,7 @@ class CheckNearbyFires {
 
   void startFireNotification() async {
     final int numberOfFires = await _checkFires();
+    print(numberOfFires);
     if (numberOfFires > 0) {
       await createFireNotification(numberOfFires);
     }

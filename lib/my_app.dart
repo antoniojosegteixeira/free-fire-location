@@ -7,7 +7,6 @@ import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/search/search_cubit.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
-import 'package:free_fire_location/map/view/pages/test_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -36,10 +35,9 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.orange,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: '/',
+        initialRoute: '/map',
         routes: {
           '/map': (context) => const MapPage(),
-          '/': (context) => Teste(),
         },
       ),
     );

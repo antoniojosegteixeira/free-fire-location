@@ -56,10 +56,11 @@ void main() async {
   await initializeNotifications();
 
   initializeBackgroundRequests();
-  CheckNearbyFires().startFireNotification();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  CheckNearbyFires().startFireNotification();
   runApp(const MyApp());
 }
