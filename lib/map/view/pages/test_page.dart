@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/notifications/check_nearby_fires.dart';
+import 'package:free_fire_location/notifications/notifications.dart';
 
 class Teste extends StatefulWidget {
   Teste({Key? key}) : super(key: key);
@@ -10,14 +11,6 @@ class Teste extends StatefulWidget {
 
 class _TesteState extends State<Teste> {
   int numberOfFires = 0;
-  Future<int> checkNearbyFires() async {
-    try {
-      int numberOfNearbyFires = await CheckNearbyFires().check();
-      return numberOfNearbyFires;
-    } catch (err) {
-      return -1;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +21,17 @@ class _TesteState extends State<Teste> {
           children: [
             Text('$numberOfFires'),
             ElevatedButton(
-                onPressed: () async {
-                  int fires = await checkNearbyFires();
-                  setState(() {
-                    numberOfFires = fires;
-                  });
-                },
-                child: Text('$numberOfFires')),
+              onPressed: () async {
+                setState(() {});
+              },
+              child: Text('$numberOfFires'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await createFireNotification(2);
+              },
+              child: Text('SHOW NOT'),
+            ),
             ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('/map');
