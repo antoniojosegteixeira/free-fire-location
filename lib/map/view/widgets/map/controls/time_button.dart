@@ -30,8 +30,9 @@ class _TimeButtonState extends State<TimeButton> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FireCubit, FireState>(builder: ((context, state) {
-      return PopupMenuButton(
+    return BlocBuilder<FireCubit, FireState>(
+      builder: ((context, state) {
+        return PopupMenuButton(
           icon: const TimeIcon(),
           iconSize: 55,
           initialValue: BlocProvider.of<FireCubit>(context).numberOfRequests,
@@ -55,8 +56,10 @@ class _TimeButtonState extends State<TimeButton> {
                 child: Text(intToString(11)),
               ),
             ];
-          });
-    }));
+          },
+        );
+      }),
+    );
   }
 }
 

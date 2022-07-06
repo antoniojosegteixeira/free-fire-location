@@ -37,92 +37,95 @@ class MapWidgetState extends State<MapWidget> {
       builder: ((fireContext, fireState) {
         if (fireState is FireSuccess) {
           return BlocBuilder<OptionsCubit, MapType>(
-              builder: ((optionsContext, mapType) {
-            final CustomInfoWindowController customInfoWindowController =
-                context.read<WeatherInfoCubit>().customInfoWindowController;
+            builder: ((optionsContext, mapType) {
+              final CustomInfoWindowController customInfoWindowController =
+                  context.read<WeatherInfoCubit>().customInfoWindowController;
 
-            // Setting markers
-            Set<Marker> generatedMarkers = GenerateMarkers.generate(
-                customMarkerImage: fireState.markerImage,
-                coordinatesList: fireState.coordinatesList,
-                customInfoWindowController:
-                    context.read<WeatherInfoCubit>().customInfoWindowController,
-                callback: (LatLng latLng) {
-                  context
+              // Setting markers
+              Set<Marker> generatedMarkers = GenerateMarkers.generate(
+                  customMarkerImage: fireState.markerImage,
+                  coordinatesList: fireState.coordinatesList,
+                  customInfoWindowController: context
                       .read<WeatherInfoCubit>()
-                      .getWeatherInfoByCoordinates(latLng: latLng);
-                }).toSet();
+                      .customInfoWindowController,
+                  callback: (LatLng latLng) {
+                    context
+                        .read<WeatherInfoCubit>()
+                        .getWeatherInfoByCoordinates(latLng: latLng);
+                  }).toSet();
 
-            return BlocBuilder<LocationCubit, LocationState>(
+              return BlocBuilder<LocationCubit, LocationState>(
                 builder: ((locationContext, locationState) {
-              if (locationState is LocationEnabled) {
-                return Stack(
-                  children: [
-                    GoogleMap(
-                      mapToolbarEnabled: true,
-                      mapType: mapType,
-                      compassEnabled: true,
-                      myLocationButtonEnabled: true,
-                      myLocationEnabled: true,
-                      onMapCreated: _onMapCreated,
-                      markers: generatedMarkers,
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(locationState.position.latitude,
-                            locationState.position.longitude),
-                        zoom: 5.0,
-                      ),
-                      onTap: (_) {
-                        customInfoWindowController.hideInfoWindow!();
-                      },
-                      onCameraMove: (_) {
-                        customInfoWindowController.onCameraMove!();
-                      },
-                    ),
-                    CustomInfoWindow(
-                      controller: customInfoWindowController,
-                      height: 220,
-                      width: 250,
-                      offset: 80,
-                    ),
-                  ],
-                );
-              } else if (locationState is LocationDisabled) {
-                return Stack(
-                  children: [
-                    GoogleMap(
-                      mapToolbarEnabled: true,
-                      mapType: mapType,
-                      compassEnabled: true,
-                      myLocationButtonEnabled: true,
-                      myLocationEnabled: true,
-                      onMapCreated: _onMapCreated,
-                      markers: generatedMarkers,
-                      initialCameraPosition: const CameraPosition(
-                        target: _center,
-                        zoom: 5.0,
-                      ),
-                      onTap: (_) {
-                        customInfoWindowController.hideInfoWindow!();
-                      },
-                      onCameraMove: (_) {
-                        customInfoWindowController.onCameraMove!();
-                      },
-                    ),
-                    CustomInfoWindow(
-                      controller: customInfoWindowController,
-                      height: 220,
-                      width: 250,
-                      offset: 80,
-                    ),
-                  ],
-                );
-              } else if (locationState is LocationInitial) {
-                return Container();
-              }
+                  if (locationState is LocationEnabled) {
+                    return Stack(
+                      children: [
+                        GoogleMap(
+                          mapToolbarEnabled: true,
+                          mapType: mapType,
+                          compassEnabled: true,
+                          myLocationButtonEnabled: true,
+                          myLocationEnabled: true,
+                          onMapCreated: _onMapCreated,
+                          markers: generatedMarkers,
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(locationState.position.latitude,
+                                locationState.position.longitude),
+                            zoom: 5.0,
+                          ),
+                          onTap: (_) {
+                            customInfoWindowController.hideInfoWindow!();
+                          },
+                          onCameraMove: (_) {
+                            customInfoWindowController.onCameraMove!();
+                          },
+                        ),
+                        CustomInfoWindow(
+                          controller: customInfoWindowController,
+                          height: 220,
+                          width: 250,
+                          offset: 80,
+                        ),
+                      ],
+                    );
+                  } else if (locationState is LocationDisabled) {
+                    return Stack(
+                      children: [
+                        GoogleMap(
+                          mapToolbarEnabled: true,
+                          mapType: mapType,
+                          compassEnabled: true,
+                          myLocationButtonEnabled: true,
+                          myLocationEnabled: true,
+                          onMapCreated: _onMapCreated,
+                          markers: generatedMarkers,
+                          initialCameraPosition: const CameraPosition(
+                            target: _center,
+                            zoom: 5.0,
+                          ),
+                          onTap: (_) {
+                            customInfoWindowController.hideInfoWindow!();
+                          },
+                          onCameraMove: (_) {
+                            customInfoWindowController.onCameraMove!();
+                          },
+                        ),
+                        CustomInfoWindow(
+                          controller: customInfoWindowController,
+                          height: 220,
+                          width: 250,
+                          offset: 80,
+                        ),
+                      ],
+                    );
+                  } else if (locationState is LocationInitial) {
+                    return Container();
+                  }
 
-              return Container();
-            }));
-          }));
+                  return Container();
+                }),
+              );
+            }),
+          );
         }
 
         return const SplashPage();

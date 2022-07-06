@@ -30,26 +30,29 @@ class _MapTypeButtonState extends State<MapTypeButton> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OptionsCubit, MapType>(builder: ((context, mapType) {
-      return PopupMenuButton(
-          icon: const MapIcon(),
-          iconSize: 55,
-          initialValue: mapType,
-          elevation: 16,
-          onSelected: (MapType? newValue) {
-            if (newValue != null) {
-              BlocProvider.of<OptionsCubit>(context).changeMapType(newValue);
-            }
-          },
-          itemBuilder: (BuildContext context) {
-            return MapTypes.types.map<PopupMenuEntry<MapType>>((MapType value) {
-              return PopupMenuItem<MapType>(
-                value: value,
-                child: Text(typeToString(value)),
-              );
-            }).toList();
-          });
-    }));
+    return BlocBuilder<OptionsCubit, MapType>(
+      builder: ((context, mapType) {
+        return PopupMenuButton(
+            icon: const MapIcon(),
+            iconSize: 55,
+            initialValue: mapType,
+            elevation: 16,
+            onSelected: (MapType? newValue) {
+              if (newValue != null) {
+                BlocProvider.of<OptionsCubit>(context).changeMapType(newValue);
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return MapTypes.types
+                  .map<PopupMenuEntry<MapType>>((MapType value) {
+                return PopupMenuItem<MapType>(
+                  value: value,
+                  child: Text(typeToString(value)),
+                );
+              }).toList();
+            });
+      }),
+    );
   }
 }
 

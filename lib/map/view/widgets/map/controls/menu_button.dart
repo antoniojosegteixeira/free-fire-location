@@ -7,13 +7,14 @@ class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-        icon: const Icon(
-          Icons.menu,
-          size: 32,
-          color: AppColors.delete,
-        ));
+      onPressed: () {
+        Scaffold.of(context).openDrawer();
+      },
+      icon: const Icon(
+        Icons.menu,
+        size: 32,
+        color: AppColors.delete,
+      ),
+    );
   }
 }

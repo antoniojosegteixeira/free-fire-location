@@ -22,44 +22,45 @@ class NotificationRangeSlider extends StatelessWidget {
             ),
           ),
           BlocBuilder<NotificationRangeCubit, NotificationRangeState>(
-              builder: ((notificationRangeContext, state) {
-            if (state is NotificationRangeInitial) {
-              const double currentValue = 1;
-              return Slider(
-                activeColor: AppColors.primary,
-                inactiveColor: AppColors.white,
-                value: currentValue,
-                min: 0,
-                max: 50,
-                divisions: 10,
-                label: currentValue.round().toString(),
-                onChanged: (double value) {
-                  BlocProvider.of<NotificationRangeCubit>(
-                          notificationRangeContext)
-                      .updateRangeValue(value);
-                },
-              );
-            }
+            builder: ((notificationRangeContext, state) {
+              if (state is NotificationRangeInitial) {
+                const double currentValue = 1;
+                return Slider(
+                  activeColor: AppColors.primary,
+                  inactiveColor: AppColors.white,
+                  value: currentValue,
+                  min: 0,
+                  max: 50,
+                  divisions: 10,
+                  label: currentValue.round().toString(),
+                  onChanged: (double value) {
+                    BlocProvider.of<NotificationRangeCubit>(
+                            notificationRangeContext)
+                        .updateRangeValue(value);
+                  },
+                );
+              }
 
-            if (state is NotificationRangeOn) {
-              return Slider(
-                activeColor: AppColors.primary,
-                inactiveColor: AppColors.white,
-                value: state.alertRange,
-                min: 0,
-                max: 50,
-                divisions: 10,
-                label: state.alertRange.round().toString(),
-                onChanged: (double value) {
-                  BlocProvider.of<NotificationRangeCubit>(
-                          notificationRangeContext)
-                      .updateRangeValue(value);
-                },
-              );
-            }
+              if (state is NotificationRangeOn) {
+                return Slider(
+                  activeColor: AppColors.primary,
+                  inactiveColor: AppColors.white,
+                  value: state.alertRange,
+                  min: 0,
+                  max: 50,
+                  divisions: 10,
+                  label: state.alertRange.round().toString(),
+                  onChanged: (double value) {
+                    BlocProvider.of<NotificationRangeCubit>(
+                            notificationRangeContext)
+                        .updateRangeValue(value);
+                  },
+                );
+              }
 
-            return const Text('error - no widget');
-          })),
+              return const Text('error - no widget');
+            }),
+          ),
         ],
       ),
     );

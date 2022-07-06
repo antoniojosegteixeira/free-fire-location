@@ -7,16 +7,17 @@ class LocationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: AppColors.primary,
-          shape: const CircleBorder(),
-          padding: const EdgeInsets.all(12),
-          elevation: 0,
-        ),
-        onPressed: () {},
-        child: const Icon(
-          Icons.location_on,
-          size: 32,
-        ));
+      style: ElevatedButton.styleFrom(
+        primary: AppColors.primary,
+        shape: const CircleBorder(),
+        padding: const EdgeInsets.all(12),
+        elevation: 0,
+      ),
+      onPressed: () {},
+      child: const Icon(
+        Icons.location_on,
+        size: 32,
+      ),
+    );
   }
 }
