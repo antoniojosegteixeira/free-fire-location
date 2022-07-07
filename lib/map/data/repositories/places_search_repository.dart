@@ -13,7 +13,7 @@ class PlacesSearchRepository {
         Uri(scheme: 'http', host: baseUrl, path: path, queryParameters: {
       'input': input,
       'language': 'pt_br',
-      'types': '%28cities%29',
+      'types': '(cities)',
       'key': dotenv.env['WEATHER_API_KEY'],
     });
     try {
