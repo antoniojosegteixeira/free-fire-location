@@ -3,6 +3,7 @@ class FireInfo {
   final double longitude;
   final String satelliteName;
   final String date;
+
   FireInfo({
     required this.latitude,
     required this.longitude,
