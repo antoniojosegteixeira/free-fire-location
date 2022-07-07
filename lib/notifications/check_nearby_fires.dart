@@ -3,6 +3,7 @@ import 'package:free_fire_location/map/data/repositories/notification_local_repo
 import 'package:free_fire_location/map/data/response_models/notification_options.dart';
 import 'package:free_fire_location/map/models/fire_page.dart';
 import 'package:free_fire_location/notifications/notifications.dart';
+import 'package:free_fire_location/notifications/utils/coordinates_range_converter.dart';
 import 'package:free_fire_location/utils/location_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -24,7 +25,8 @@ class CheckNearbyFires {
   Future<int> _checkFires() async {
     FireRepository repository = FireRepository();
     int numberOfFiresNearby = 0;
-    double range = await _getRange();
+    double range =
+        CoordinatesRangeConverter.coordinatesToRange(await _getRange());
 
     try {
       final FirePage fireInfo = await repository.getFireLocations(2);
