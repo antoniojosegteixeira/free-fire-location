@@ -17,9 +17,11 @@ class NotificationLocalRepository {
   Future<NotificationOptionsResponse> getcachedNotificationOptions() async {
     final prefs = await SharedPreferences.getInstance();
 
-    final String cacheString =
-        prefs.getString('CACHED_NOTIFICATION_OPTIONS') as String;
+    final String? cacheString = prefs.getString('CACHED_NOTIFICATION_OPTIONS');
 
-    return NotificationOptionsResponse.fromJson(json.decode(cacheString));
+    if (cacheString is String) {
+      return NotificationOptionsResponse.fromJson(json.decode(cacheString));
+    }
+    return NotificationOptionsResponse(coordinates: [], range: 1);
   }
 }
