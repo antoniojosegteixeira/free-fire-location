@@ -10,23 +10,29 @@ class PlacesSearchRepository {
 
   Future<List<PlacesSearchResponse>> getAutoCompletePlaces(String input) async {
     final Uri uri =
-        Uri(scheme: 'http', host: baseUrl, path: path, queryParameters: {
+        Uri(scheme: 'https', host: baseUrl, path: path, queryParameters: {
       'input': input,
       'language': 'pt_br',
-      'types': '%28cities%29',
-      'key': dotenv.env['WEATHER_API_KEY'],
+      'types': '(cities)',
+      'key': dotenv.env['GOOGLE_API_KEY'],
     });
     try {
       final response = await client.get(uri.toString());
-      final json = convert.jsonDecode(response.data.body);
-      final predictions = json['predictions'] as List;
 
+      Map valueMap = convert.jsonDecode(convert.jsonEncode(response.data));
+      Map<String, dynamic> mapped = valueMap as Map<String, dynamic>;
+
+      print(
+          'REDIJADSNUHISDANUIODASNUOADS2ONIUADSIONUADSNUIODASONUI ${mapped['predictions']}');
+/*
       return predictions
           .map((place) => PlacesSearchResponse.fromJson(place))
           .toList();
+          */
+      return [];
     } catch (e) {
       print(e);
+      return [];
     }
-    throw Error();
   }
 }
