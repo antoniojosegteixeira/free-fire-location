@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/consts/colors.dart';
+import 'package:free_fire_location/map/data/repositories/places_search_repository.dart';
 
 class SearchInput extends StatelessWidget {
   const SearchInput({Key? key}) : super(key: key);
@@ -10,6 +11,12 @@ class SearchInput extends StatelessWidget {
 
     return TextField(
       controller: controller,
+      onChanged: (value) async {
+        //await Future.delayed(const Duration(seconds: 1));
+        PlacesSearchRepository places = PlacesSearchRepository();
+        dynamic sla = await places.getAutoCompletePlaces(value);
+        print(sla);
+      },
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.white,

@@ -78,6 +78,9 @@ class MapWidgetState extends State<MapWidget> {
                           onCameraMove: (_) {
                             customInfoWindowController.onCameraMove!();
                           },
+                          onLongPress: (_) {
+                            //TODO: report fire function
+                          },
                         ),
                         CustomInfoWindow(
                           controller: customInfoWindowController,
