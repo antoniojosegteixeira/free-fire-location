@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => fireCubit..startRequesting()),
         BlocProvider(create: (_) => optionsCubit),
-        BlocProvider(create: (_) => notificationRangeCubit),
+        BlocProvider(create: (_) => notificationRangeCubit..getCachedData()),
         BlocProvider(create: (_) => weatherInfoCubit),
         BlocProvider(create: (_) => locationCubit..setMapLocationState()),
         BlocProvider(create: (_) => searchCubit),
