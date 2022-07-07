@@ -47,6 +47,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   workmanager: ^0.5.0
   awesome_notifications: ^0.6.21
+  shared_preferences: ^2.0.15
 
 
 dev_dependencies:
