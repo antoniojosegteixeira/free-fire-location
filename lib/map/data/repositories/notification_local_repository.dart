@@ -22,6 +22,6 @@ class NotificationLocalRepository {
     if (cacheString is String) {
       return NotificationOptionsResponse.fromJson(json.decode(cacheString));
     }
-    return NotificationOptionsResponse(coordinates: [], range: 1);
+    return NotificationOptionsResponse(range: 0);
   }
 }

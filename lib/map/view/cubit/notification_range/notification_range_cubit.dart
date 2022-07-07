@@ -9,7 +9,7 @@ class NotificationRangeCubit extends Cubit<NotificationRangeState> {
   final NotificationLocalRepository notificationLocalRepository =
       NotificationLocalRepository();
   NotificationOptionsResponse notificationOptionsResponse =
-      NotificationOptionsResponse(range: 10, coordinates: []);
+      NotificationOptionsResponse(range: 10);
 
   NotificationRangeCubit() : super(NotificationRangeInitial());
 
@@ -29,8 +29,7 @@ class NotificationRangeCubit extends Cubit<NotificationRangeState> {
   }
 
   void updateRangeValue(double newValue) async {
-    notificationOptionsResponse = NotificationOptionsResponse(
-        range: newValue, coordinates: notificationOptionsResponse.coordinates);
+    notificationOptionsResponse = NotificationOptionsResponse(range: newValue);
     await notificationLocalRepository.cacheNotificationOptions(
         optionsToCache: notificationOptionsResponse);
     emit.call(NotificationRangeOn(options: notificationOptionsResponse));
