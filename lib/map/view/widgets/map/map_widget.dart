@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/location/location_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/location/location_state.dart';
+import 'package:free_fire_location/map/view/cubit/map_controller/map_controller_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/map/view/pages/splash_page.dart';
@@ -20,15 +21,16 @@ class MapWidget extends StatefulWidget {
 }
 
 class MapWidgetState extends State<MapWidget> {
+  static const LatLng _center = LatLng(-13.616770, -50.946247);
   final Completer<GoogleMapController> _controller = Completer();
 
-  // Implement user coordinates
+  void _onMapCreated(GoogleMapController activeController) {
+    _controller.complete(activeController);
 
-  static const LatLng _center = LatLng(-13.616770, -50.946247);
-
-  void _onMapCreated(GoogleMapController controller) {
-    context.read<WeatherInfoCubit>().setcustomInfoWindowController(controller);
-    _controller.complete(controller);
+    context
+        .read<WeatherInfoCubit>()
+        .setcustomInfoWindowController(activeController);
+    context.read<MapControllerCubit>().addActiveController(activeController);
   }
 
   @override
@@ -62,7 +64,7 @@ class MapWidgetState extends State<MapWidget> {
                       mapToolbarEnabled: true,
                       mapType: mapType,
                       compassEnabled: true,
-                      myLocationButtonEnabled: true,
+                      myLocationButtonEnabled: false,
                       myLocationEnabled: true,
                       onMapCreated: _onMapCreated,
                       markers: generatedMarkers,
@@ -93,7 +95,7 @@ class MapWidgetState extends State<MapWidget> {
                       mapToolbarEnabled: true,
                       mapType: mapType,
                       compassEnabled: true,
-                      myLocationButtonEnabled: true,
+                      myLocationButtonEnabled: false,
                       myLocationEnabled: true,
                       onMapCreated: _onMapCreated,
                       markers: generatedMarkers,
