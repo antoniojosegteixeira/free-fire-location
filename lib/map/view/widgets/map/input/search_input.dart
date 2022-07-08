@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/consts/colors.dart';
 import 'package:free_fire_location/map/data/repositories/places_search_repository.dart';
 
 class SearchInput extends StatelessWidget {
-  const SearchInput({Key? key}) : super(key: key);
+  Timer _timer = Timer(const Duration(days: 1), () {});
+  SearchInput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +14,14 @@ class SearchInput extends StatelessWidget {
 
     return TextField(
       controller: controller,
-      onChanged: (value) async {
-        //await Future.delayed(const Duration(seconds: 1));
+      onChanged: (value) {
         PlacesSearchRepository places = PlacesSearchRepository();
-        dynamic sla = await places.getAutoCompletePlaces(value);
-        print(sla);
+        _timer.cancel();
+        _timer = Timer(const Duration(milliseconds: 750), () async {
+          List<dynamic> suggestion = await places.getAutoCompletePlaces(value);
+          print(suggestion[0].description);
+          print(suggestion[0].placeId);
+        });
       },
       decoration: InputDecoration(
         filled: true,

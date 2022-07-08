@@ -10,13 +10,12 @@ class PlacesSearchCubit extends Cubit<PlacesSearchState> {
 
   Future<void> getAutoCompletePlaces(String input) async {
     try {
-      final Future<List<PlacesSearchResponse>> placesSearchResponse =
+      final Future<List> placesSearchResponse =
           _placesSearchRepository.getAutoCompletePlaces(input);
 
       emit.call(PlacesSearchResults(places: placesSearchResponse));
     } catch (e) {
-      print(e);
-      emit.call(PlacesSearchError());
+      emit.call(PlacesSearchError(error: e as Error));
     }
   }
 }

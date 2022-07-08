@@ -8,25 +8,26 @@ class PlacesSearchRepository {
   final String path = '/maps/api/place/autocomplete/json';
   final client = Dio();
 
-  Future<List<PlacesSearchResponse>> getAutoCompletePlaces(String input) async {
+  Future<List> getAutoCompletePlaces(String input) async {
     final Uri uri =
-        Uri(scheme: 'http', host: baseUrl, path: path, queryParameters: {
+        Uri(scheme: 'https', host: baseUrl, path: path, queryParameters: {
       'input': input,
       'language': 'pt_br',
       'types': '(cities)',
-      'key': dotenv.env['WEATHER_API_KEY'],
+      'key': dotenv.env['GOOGLE_API_KEY'],
     });
     try {
       final response = await client.get(uri.toString());
-      final json = convert.jsonDecode(response.data.body);
-      final predictions = json['predictions'] as List;
+      Map valueMap = convert.jsonDecode(convert.jsonEncode(response.data));
+      Map<String, dynamic> mapped = valueMap as Map<String, dynamic>;
+      List predictions = mapped["predictions"];
 
       return predictions
           .map((place) => PlacesSearchResponse.fromJson(place))
           .toList();
     } catch (e) {
-      print(e);
+      print('An error has occured $e');
+      return [];
     }
-    throw Error();
   }
 }

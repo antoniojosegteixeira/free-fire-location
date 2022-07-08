@@ -7,11 +7,15 @@ abstract class PlacesSearchState {}
 class PlacesSearchInitial extends PlacesSearchState {}
 
 class PlacesSearchResults extends PlacesSearchState {
-  final Future<List<PlacesSearchResponse>> places;
+  final Future<List> places;
 
   PlacesSearchResults({required this.places});
 }
 
 class PlacesSearchSuccess extends PlacesSearchState {}
 
-class PlacesSearchError extends PlacesSearchState {}
+class PlacesSearchError extends PlacesSearchState {
+  final Error error;
+
+  PlacesSearchError({required this.error});
+}
