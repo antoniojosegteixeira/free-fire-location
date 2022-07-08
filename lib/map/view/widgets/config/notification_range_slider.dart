@@ -24,15 +24,14 @@ class NotificationRangeSlider extends StatelessWidget {
           BlocBuilder<NotificationRangeCubit, NotificationRangeState>(
             builder: ((notificationRangeContext, state) {
               if (state is NotificationRangeInitial) {
-                const double currentValue = 1;
                 return Slider(
                   activeColor: AppColors.primary,
                   inactiveColor: AppColors.white,
-                  value: currentValue,
+                  value: 0,
                   min: 0,
                   max: 50,
                   divisions: 10,
-                  label: currentValue.round().toString(),
+                  label: 0.toString(),
                   onChanged: (double value) {
                     BlocProvider.of<NotificationRangeCubit>(
                             notificationRangeContext)
@@ -45,11 +44,11 @@ class NotificationRangeSlider extends StatelessWidget {
                 return Slider(
                   activeColor: AppColors.primary,
                   inactiveColor: AppColors.white,
-                  value: state.alertRange,
+                  value: state.options.range,
                   min: 0,
                   max: 50,
                   divisions: 10,
-                  label: state.alertRange.round().toString(),
+                  label: state.options.range.round().toString(),
                   onChanged: (double value) {
                     BlocProvider.of<NotificationRangeCubit>(
                             notificationRangeContext)

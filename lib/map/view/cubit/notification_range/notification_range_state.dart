@@ -6,15 +6,15 @@ abstract class NotificationRangeState {}
 class NotificationRangeInitial extends NotificationRangeState {}
 
 class NotificationRangeOff extends NotificationRangeState {
-  final double alertRange;
+  final NotificationOptionsResponse options;
   NotificationRangeOff({
-    required this.alertRange,
+    required this.options,
   });
 }
 
 class NotificationRangeOn extends NotificationRangeState {
-  final double alertRange;
+  final NotificationOptionsResponse options;
   NotificationRangeOn({
-    required this.alertRange,
+    required this.options,
   });
 }

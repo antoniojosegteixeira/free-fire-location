@@ -17,4 +17,23 @@ class LocationCubit extends Cubit<LocationState> {
       emit.call(LocationDisabled());
     }
   }
+
+  Future<bool> checkPermission() async {
+    await locationService.verifyEnablement();
+    return locationService.isEnabled;
+  }
+
+  Future<void> repeatPermissionRequest() async {
+    await Geolocator.openLocationSettings();
+
+    if (await checkPermission() == true) {
+      try {
+        location = await locationService.getLocation();
+
+        emit.call(LocationEnabled(position: location));
+      } catch (err) {
+        emit.call(LocationDisabled());
+      }
+    }
+  }
 }
