@@ -4,15 +4,11 @@ import 'package:free_fire_location/map/data/response_models/places_search_respon
 @immutable
 abstract class PlacesSearchState {}
 
-class PlacesSearchInitial extends PlacesSearchState {}
-
 class PlacesSearchResults extends PlacesSearchState {
-  final Future<List> places;
+  List places;
 
   PlacesSearchResults({required this.places});
 }
-
-class PlacesSearchSuccess extends PlacesSearchState {}
 
 class PlacesSearchError extends PlacesSearchState {
   final Error error;

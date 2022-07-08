@@ -6,16 +6,19 @@ import 'package:free_fire_location/map/view/cubit/places_search/places_search_st
 class PlacesSearchCubit extends Cubit<PlacesSearchState> {
   final PlacesSearchRepository _placesSearchRepository =
       PlacesSearchRepository();
-  PlacesSearchCubit() : super(PlacesSearchInitial());
+  PlacesSearchCubit() : super(PlacesSearchResults(places: []));
 
-  Future<void> getAutoCompletePlaces(String input) async {
+  Future<List> getAutoCompletePlaces(String input) async {
     try {
       final Future<List> placesSearchResponse =
           _placesSearchRepository.getAutoCompletePlaces(input);
 
-      emit.call(PlacesSearchResults(places: placesSearchResponse));
+      emit.call(PlacesSearchResults(places: await placesSearchResponse));
+
+      return placesSearchResponse;
     } catch (e) {
       emit.call(PlacesSearchError(error: e as Error));
     }
+    return [];
   }
 }

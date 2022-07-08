@@ -8,12 +8,9 @@ class MapAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          width: 70,
-          height: 60,
-          child: MenuButton(),
-        ),
+        const MenuButton(),
         Expanded(child: SearchInput()),
         const SizedBox(
           width: 25,
