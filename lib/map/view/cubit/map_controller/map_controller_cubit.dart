@@ -7,11 +7,9 @@ import 'package:meta/meta.dart';
 part 'map_controller_state.dart';
 
 class MapControllerCubit extends Cubit<MapControllerState> {
-  final Completer<GoogleMapController> controller = Completer();
-
   MapControllerCubit() : super(MapControllerInitial());
 
-  void completeController(GoogleMapController activeController) {
-    controller.complete(activeController);
+  void addActiveController(GoogleMapController activeController) {
+    emit.call(MapControllerCompleted(activeController: activeController));
   }
 }
