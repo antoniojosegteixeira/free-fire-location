@@ -27,7 +27,7 @@ class PlacesSearchRepository {
           .map((place) => PlacesSearchResponse.fromJson(place))
           .toList();
     } catch (e) {
-      print('An error has occured $e');
+      print('An error at Autocomplete API has occured: $e');
       return [];
     }
   }

@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/consts/colors.dart';
+import 'package:free_fire_location/map/data/repositories/places_info_repository.dart';
 import 'package:free_fire_location/map/data/repositories/places_search_repository.dart';
+import 'package:free_fire_location/map/data/response_models/places_info_response.dart';
 import 'package:free_fire_location/map/view/cubit/map_controller/map_controller_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/places_search/places_search_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/places_search/places_search_state.dart';
@@ -95,21 +97,33 @@ class SearchInput extends StatelessWidget {
                                                 35, 3, 15, 8),
                                             child: Text(place.description),
                                           ),
-                                          onTap: () {
+                                          onTap: () async {
                                             placesSearchContext
                                                 .read<PlacesSearchCubit>()
                                                 .setEmptySuggestions();
                                             final mapController =
                                                 mapControllerState
                                                     .activeController;
+                                            PlacesInfoRepository
+                                                placesInfoRepository =
+                                                PlacesInfoRepository();
+                                            PlacesInfoResponse? location =
+                                                await placesInfoRepository
+                                                    .getPlacesInfo(
+                                                        place.placeId);
                                             mapController.animateCamera(
                                               CameraUpdate.newCameraPosition(
                                                 CameraPosition(
-                                                  target: LatLng(-15, -55),
-                                                  zoom: 10.0,
+                                                  target: LatLng(
+                                                      location!.latitude,
+                                                      location.longitude),
+                                                  zoom: 12.0,
                                                 ),
                                               ),
                                             );
+                                            placesSearchContext
+                                                .read<PlacesSearchCubit>()
+                                                .setEmptySuggestions();
                                             if (!inputFocusScopeNode
                                                 .hasPrimaryFocus) {
                                               inputFocusScopeNode.unfocus();
