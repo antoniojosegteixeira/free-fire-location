@@ -21,4 +21,8 @@ class PlacesSearchCubit extends Cubit<PlacesSearchState> {
     }
     return [];
   }
+
+  void setEmptySuggestions() {
+    emit.call(PlacesSearchResults(places: []));
+  }
 }

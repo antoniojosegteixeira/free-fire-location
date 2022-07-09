@@ -11,12 +11,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SearchInput extends StatelessWidget {
   Timer _timer = Timer(const Duration(days: 1), () {});
-  String _labelText = '';
   SearchInput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = TextEditingController();
+    FocusScopeNode inputFocusScopeNode = FocusScope.of(context);
 
     return BlocBuilder<MapControllerCubit, MapControllerState>(
       builder: (mapControllerContext, mapControllerState) {
@@ -27,6 +27,14 @@ class SearchInput extends StatelessWidget {
                 return Column(
                   children: [
                     TextField(
+                      onSubmitted: (value) {
+                        placesSearchContext
+                            .read<PlacesSearchCubit>()
+                            .setEmptySuggestions();
+                        if (!inputFocusScopeNode.hasPrimaryFocus) {
+                          inputFocusScopeNode.unfocus();
+                        }
+                      },
                       controller: controller,
                       onChanged: (value) {
                         _timer.cancel();
@@ -36,6 +44,11 @@ class SearchInput extends StatelessWidget {
                               .read<PlacesSearchCubit>()
                               .getAutoCompletePlaces(value);
                         });
+                      },
+                      onEditingComplete: () {
+                        placesSearchContext
+                            .read<PlacesSearchCubit>()
+                            .setEmptySuggestions();
                       },
                       decoration: InputDecoration(
                         filled: true,
@@ -51,6 +64,9 @@ class SearchInput extends StatelessWidget {
                           ),
                           onPressed: () {
                             controller.clear();
+                            placesSearchContext
+                                .read<PlacesSearchCubit>()
+                                .setEmptySuggestions();
                           },
                         ),
                         hintText: 'Buscar...',
@@ -72,40 +88,47 @@ class SearchInput extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: placesSearchState.places
-                                      .map((place) => GestureDetector(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      35, 3, 15, 8),
-                                              child: Text(place.description),
-                                            ),
-                                            onTap: () {
-                                              controller.text =
-                                                  place.description;
-                                              final mapController =
-                                                  mapControllerState
-                                                      .activeController;
-                                              mapController.animateCamera(
-                                                  CameraUpdate
-                                                      .newCameraPosition(
+                                      .map(
+                                        (place) => GestureDetector(
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                35, 3, 15, 8),
+                                            child: Text(place.description),
+                                          ),
+                                          onTap: () {
+                                            placesSearchContext
+                                                .read<PlacesSearchCubit>()
+                                                .setEmptySuggestions();
+                                            final mapController =
+                                                mapControllerState
+                                                    .activeController;
+                                            mapController.animateCamera(
+                                              CameraUpdate.newCameraPosition(
                                                 CameraPosition(
                                                   target: LatLng(-15, -55),
                                                   zoom: 10.0,
                                                 ),
-                                              ));
-                                            },
-                                          ))
+                                              ),
+                                            );
+                                            if (!inputFocusScopeNode
+                                                .hasPrimaryFocus) {
+                                              inputFocusScopeNode.unfocus();
+                                            }
+                                          },
+                                        ),
+                                      )
                                       .toList(),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ],
-                    )
+                    ),
                   ],
                 );
               }
+
               if (placesSearchState is PlacesSearchError) {
                 return const TextField(
                   decoration: InputDecoration(hintText: 'ERRO'),

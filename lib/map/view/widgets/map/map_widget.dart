@@ -8,8 +8,10 @@ import 'package:free_fire_location/map/view/cubit/location/location_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/location/location_state.dart';
 import 'package:free_fire_location/map/view/cubit/map_controller/map_controller_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/places_search/places_search_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/map/view/pages/splash_page.dart';
+import 'package:free_fire_location/map/view/widgets/map/input/search_input.dart';
 import 'package:free_fire_location/utils/generate_markers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -35,6 +37,7 @@ class MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final FocusScopeNode focusScopeNode = FocusScope.of(context);
     return BlocBuilder<FireCubit, FireState>(
       builder: ((fireContext, fireState) {
         if (fireState is FireSuccess) {
@@ -76,6 +79,12 @@ class MapWidgetState extends State<MapWidget> {
                           ),
                           onTap: (_) {
                             customInfoWindowController.hideInfoWindow!();
+                            if (!focusScopeNode.hasPrimaryFocus) {
+                              focusScopeNode.unfocus();
+                            }
+                            context
+                                .read<PlacesSearchCubit>()
+                                .setEmptySuggestions();
                           },
                           onCameraMove: (_) {
                             customInfoWindowController.onCameraMove!();
