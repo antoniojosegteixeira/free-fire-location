@@ -9,9 +9,16 @@ import 'package:free_fire_location/notifications/check_nearby_fires.dart';
 import 'package:workmanager/workmanager.dart';
 
 void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) {
-    CheckNearbyFires().startFireNotification();
-    return Future.value(true);
+  Workmanager().executeTask((task, inputData) async {
+    try {
+      print("requested close fires");
+      await CheckNearbyFires().startFireNotification();
+      return Future.value(true);
+    } catch (err) {
+      print(err);
+    }
+
+    return Future.value(false);
   });
 }
 
@@ -48,18 +55,27 @@ Future<void> initializeNotifications() async {
   );
 }
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
   await initializeNotifications();
 
-  initializeBackgroundRequests();
+  //initializeBackgroundRequests();
+
+  Workmanager().initialize(
+      callbackDispatcher, // The top level function, aka callbackDispatcher
+      isInDebugMode:
+          true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+      );
+  Workmanager().registerOneOffTask("task-identifier", "simpleTask");
+  Workmanager().registerPeriodicTask("task-identifier", "simpleTask",
+      frequency: const Duration(minutes: 15));
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  CheckNearbyFires().startFireNotification();
+  await CheckNearbyFires().startFireNotification();
   runApp(const MyApp());
 }
