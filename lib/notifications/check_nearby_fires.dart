@@ -27,7 +27,6 @@ class CheckNearbyFires {
     int numberOfFiresNearby = 0;
     double range =
         CoordinatesRangeConverter.coordinatesToRange(await _getRange());
-
     try {
       final FirePage fireInfo = await repository.getFireLocations(2);
       final LatLng userPosition = await _getLocation();
@@ -48,7 +47,7 @@ class CheckNearbyFires {
     return numberOfFiresNearby;
   }
 
-  void startFireNotification() async {
+  Future<void> startFireNotification() async {
     final int numberOfFires = await _checkFires();
     print(numberOfFires);
     if (numberOfFires > 0) {

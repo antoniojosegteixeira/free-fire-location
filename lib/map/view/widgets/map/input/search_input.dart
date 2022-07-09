@@ -142,7 +142,6 @@ class SearchInput extends StatelessWidget {
                   ],
                 );
               }
-
               if (placesSearchState is PlacesSearchError) {
                 return const TextField(
                   decoration: InputDecoration(hintText: 'ERRO'),
