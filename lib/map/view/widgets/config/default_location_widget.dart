@@ -19,13 +19,14 @@ class DefaultLocationWidget extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.fromLTRB(20, 10, 20, 30),
           child: TextField(
-              decoration: InputDecoration(
-            hintText: 'Buscar endereço...',
-            border: OutlineInputBorder(),
-            fillColor: AppColors.white,
-            filled: true,
-            isDense: true,
-          )),
+            decoration: InputDecoration(
+              hintText: 'Buscar endereço...',
+              border: OutlineInputBorder(),
+              fillColor: AppColors.white,
+              filled: true,
+              isDense: true,
+            ),
+          ),
         ),
         Row(
           children: [

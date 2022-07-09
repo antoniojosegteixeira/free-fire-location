@@ -22,24 +22,25 @@ class PopUpContent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    weather.name,
-                    style: AppTextStyles.titleBold,
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    weather.region,
-                    style: AppTextStyles.subtitle,
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    "${weather.latitude}, ${weather.longitude}",
-                    style: AppTextStyles.subtitle,
-                    textAlign: TextAlign.center,
-                  )
-                ]),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  weather.name,
+                  style: AppTextStyles.titleBold,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  weather.region,
+                  style: AppTextStyles.subtitle,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "${weather.latitude}, ${weather.longitude}",
+                  style: AppTextStyles.subtitle,
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 12.0, top: 10.0),

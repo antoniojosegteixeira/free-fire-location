@@ -6,8 +6,8 @@ import 'package:free_fire_location/map/view/cubit/map_controller/map_controller_
 import 'package:free_fire_location/map/view/cubit/notification_range/notification_range_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
-import 'package:free_fire_location/map/view/cubit/search/search_cubit.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
+import 'map/view/cubit/places_search/places_search_cubit.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     final notificationRangeCubit = NotificationRangeCubit();
     final weatherInfoCubit = WeatherInfoCubit();
     final locationCubit = LocationCubit();
-    final searchCubit = SearchCubit();
+    final placesSearchCubit = PlacesSearchCubit();
     final mapControllerCubit = MapControllerCubit();
 
     return MultiBlocProvider(
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => notificationRangeCubit..getCachedData()),
         BlocProvider(create: (_) => weatherInfoCubit),
         BlocProvider(create: (_) => locationCubit..setMapLocationState()),
-        BlocProvider(create: (_) => searchCubit),
+        BlocProvider(create: (_) => placesSearchCubit),
         BlocProvider(create: (_) => mapControllerCubit),
       ],
       child: MaterialApp(

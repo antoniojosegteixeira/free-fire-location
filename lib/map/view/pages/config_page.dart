@@ -10,21 +10,25 @@ class ConfigPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Padding(
-              padding: EdgeInsets.only(left: 60), child: Text('CONFIGURAÇÕES')),
-          backgroundColor: AppColors.darkBrown,
-          elevation: 0,
-        ),
+      appBar: AppBar(
+        title: const Padding(
+            padding: EdgeInsets.only(left: 60), child: Text('CONFIGURAÇÕES')),
         backgroundColor: AppColors.darkBrown,
-        body: SafeArea(
-            child: Column(children: const [
-          SizedBox(height: 50),
-          NotificationPermissionWidget(),
-          SizedBox(height: 20),
-          NotificationRangeSlider(),
-          SizedBox(height: 45),
-          DefaultLocationWidget(),
-        ])));
+        elevation: 0,
+      ),
+      backgroundColor: AppColors.darkBrown,
+      body: SafeArea(
+        child: Column(
+          children: const [
+            SizedBox(height: 50),
+            NotificationPermissionWidget(),
+            SizedBox(height: 20),
+            NotificationRangeSlider(),
+            SizedBox(height: 45),
+            DefaultLocationWidget(),
+          ],
+        ),
+      ),
+    );
   }
 }

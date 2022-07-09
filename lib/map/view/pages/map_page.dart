@@ -54,8 +54,8 @@ class MapPage extends StatelessWidget {
                     alignment: AlignmentDirectional.topEnd,
                     children: const [
                       MapWidget(),
-                      MapAppBar(),
                       ControlBox(),
+                      MapAppBar(),
                     ],
                   ),
                 );

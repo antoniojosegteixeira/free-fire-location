@@ -60,13 +60,17 @@ class UnactiveLocationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: const Color.fromARGB(0, 255, 148, 26),
-          shape: const CircleBorder(),
-          padding: const EdgeInsets.all(12),
-          elevation: 0,
-        ),
-        onPressed: () {},
-        child: const SizedBox());
+      style: ElevatedButton.styleFrom(
+        primary: AppColors.primary,
+        shape: const CircleBorder(),
+        padding: const EdgeInsets.all(12),
+        elevation: 0,
+      ),
+      onPressed: () {},
+      child: const Icon(
+        Icons.location_on,
+        size: 32,
+      ),
+    );
   }
 }

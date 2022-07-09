@@ -6,14 +6,17 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FocusScopeNode focusScopeNode = FocusScope.of(context);
     return IconButton(
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-        icon: const Icon(
-          Icons.menu,
-          size: 32,
-          color: AppColors.delete,
-        ));
+      onPressed: () {
+        Scaffold.of(context).openDrawer();
+        focusScopeNode.requestFocus();
+      },
+      icon: const Icon(
+        Icons.menu,
+        size: 32,
+        color: AppColors.delete,
+      ),
+    );
   }
 }

@@ -30,66 +30,68 @@ class _NotificationPermissionWidgetState
   }
 
   void _toggleNotification() {
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) => {
-          if (!isAllowed)
-            {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text("Ativar notificações"),
-                  content: const Text(
-                      "Deseja ativar as notificações de incêndios próximos?"),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text("Não permitir")),
-                    TextButton(
-                        onPressed: () {
-                          AwesomeNotifications()
-                              .requestPermissionToSendNotifications()
-                              .then((bool result) {
-                            setState(() {
-                              isNotificationOn = result ? true : false;
+    AwesomeNotifications().isNotificationAllowed().then(
+          (isAllowed) => {
+            if (!isAllowed)
+              {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Ativar notificações"),
+                    content: const Text(
+                        "Deseja ativar as notificações de incêndios próximos?"),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Não permitir")),
+                      TextButton(
+                          onPressed: () {
+                            AwesomeNotifications()
+                                .requestPermissionToSendNotifications()
+                                .then((bool result) {
+                              setState(() {
+                                isNotificationOn = result ? true : false;
+                              });
+                              Navigator.pop(context);
                             });
-                            Navigator.pop(context);
-                          });
-                        },
-                        child: const Text("Permitir"))
-                  ],
+                          },
+                          child: const Text("Permitir"))
+                    ],
+                  ),
                 ),
-              ),
-            }
-          else if (isAllowed)
-            {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text("Desativar notificações"),
-                  content: const Text(
-                      "Deseja desativar as notificações de incêndios próximos?"),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text("Não")),
-                    TextButton(
-                        onPressed: () {
-                          AwesomeNotifications()
-                              .showNotificationConfigPage()
-                              .then((_) async {
+              }
+            else if (isAllowed)
+              {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("Desativar notificações"),
+                    content: const Text(
+                        "Deseja desativar as notificações de incêndios próximos?"),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
                             Navigator.pop(context);
-                            _toggleButton();
-                          });
-                        },
-                        child: const Text("Sim"))
-                  ],
+                          },
+                          child: const Text("Não")),
+                      TextButton(
+                          onPressed: () {
+                            AwesomeNotifications()
+                                .showNotificationConfigPage()
+                                .then((_) async {
+                              Navigator.pop(context);
+                              _toggleButton();
+                            });
+                          },
+                          child: const Text("Sim"))
+                    ],
+                  ),
                 ),
-              ),
-            }
-        });
+              }
+          },
+        );
   }
 
   @override

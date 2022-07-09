@@ -8,7 +8,7 @@ class FirePageResponse extends FirePage {
 
   factory FirePageResponse.fromCsvList(List<dynamic> csvList) {
     List filteredList = [];
-    final List<MapInfoResponse> mapInfoList = [];
+    final List<FireInfoResponse> mapInfoList = [];
 
     for (int i = 0; i < csvList.length; i++) {
       final filteredCsv =
@@ -26,7 +26,7 @@ class FirePageResponse extends FirePage {
       );
 
       if (isFireLocatedInBrazil) {
-        mapInfoList.add(MapInfoResponse.fromCsv(filteredList[i]));
+        mapInfoList.add(FireInfoResponse.fromCsv(filteredList[i]));
       }
     }
 

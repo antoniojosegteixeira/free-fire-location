@@ -17,10 +17,11 @@ class AboutPage extends StatelessWidget {
         ),
       ),
       body: const Center(
-          child: Text(
-        'Made with ❤️ by Antônio and Rodolfo',
-        style: TextStyle(color: AppColors.white, fontSize: 16),
-      )),
+        child: Text(
+          'Made with ❤️ by Antônio and Rodolfo',
+          style: TextStyle(color: AppColors.white, fontSize: 16),
+        ),
+      ),
     );
   }
 }

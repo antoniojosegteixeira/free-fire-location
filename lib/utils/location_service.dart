@@ -16,6 +16,7 @@ class LocationService {
       }
     }
     return Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
 }

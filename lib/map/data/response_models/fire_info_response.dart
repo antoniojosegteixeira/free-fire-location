@@ -1,15 +1,15 @@
 import 'package:free_fire_location/map/models/fire_info.dart';
 
-class MapInfoResponse extends FireInfo {
-  MapInfoResponse({
+class FireInfoResponse extends FireInfo {
+  FireInfoResponse({
     required super.latitude,
     required super.longitude,
     required super.satelliteName,
     required super.date,
   });
 
-  factory MapInfoResponse.fromCsv(dynamic csv) {
-    return MapInfoResponse(
+  factory FireInfoResponse.fromCsv(dynamic csv) {
+    return FireInfoResponse(
       latitude: csv[0],
       longitude: csv[1],
       satelliteName: csv[2],
