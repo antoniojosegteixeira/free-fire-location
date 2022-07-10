@@ -15,27 +15,48 @@ class FireCubit extends Cubit<FireState> {
   final _mapRepository = FireRepository();
   late List<Marker> markers;
   int numberOfRequests = 2;
+  late BitmapDescriptor markerImage;
+  late BitmapDescriptor userMarkerImage;
+
   FireCubit() : super(FireInitial());
+
+  Future<void> loadMarkers() async {
+    markerImage = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(20, 20)),
+      "assets/images/map_icon.png",
+    );
+  }
 
   void getFireInfo() async {
     emit.call(FireLoading());
 
-    final markerImage = await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(size: Size(20, 20)),
-      "assets/images/map_icon.png",
-    );
+    await loadMarkers();
 
     try {
       final FirePage fireInfo =
           await _mapRepository.getFireLocations(numberOfRequests);
+      print(fireInfo);
 
       emit.call(FireSuccess(
         markerImage: markerImage,
+        userMarkerImage: userMarkerImage,
         coordinatesList: fireInfo.coordinatesList,
       ));
     } catch (err) {
       emit.call(FireError(error: err as Error));
     }
+  }
+
+  void getUserMarkers() async {
+    //TODO: implement firestore fetching
+
+    await loadMarkers();
+    /*
+    emit.call(FireSuccess(
+      markerImage: userMarkerImage,
+      coordinatesList: fireInfo.coordinatesList,
+    ));
+    */
   }
 
   void updateEveryTenMinutes() {
@@ -59,6 +80,7 @@ class FireCubit extends Cubit<FireState> {
   }
 
   void startRequesting() async {
+    await loadMarkers();
     await showSplash();
     getFireInfo();
     updateEveryTenMinutes();

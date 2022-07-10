@@ -44,11 +44,11 @@ dependencies:
   custom_info_window: ^1.0.1
   geolocator: ^9.0.0
   firebase_core: ^1.19.1
+  firebase_database: ^9.0.18
   flutter_dotenv: ^5.0.2
   workmanager: ^0.5.0
   awesome_notifications: ^0.6.21
   shared_preferences: ^2.0.15
-
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +76,7 @@ flutter:
     - assets/images/splash.png
     - assets/images/house.png
     - assets/images/map_icon.png
+    - assets/images/user_map_icon.png
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

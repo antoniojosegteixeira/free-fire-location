@@ -6,6 +6,7 @@ import 'package:free_fire_location/map/view/pages/splash_page.dart';
 import 'package:free_fire_location/map/view/widgets/map/app_bar/map_app_bar.dart';
 import 'package:free_fire_location/map/view/widgets/map/controls/control_box.dart';
 import 'package:free_fire_location/map/view/widgets/map/map_widget.dart';
+import 'package:free_fire_location/map/view/widgets/map/map_widget2.dart';
 import 'package:free_fire_location/map/view/widgets/menu/menu_widget.dart';
 
 class MapPage extends StatelessWidget {
@@ -53,7 +54,7 @@ class MapPage extends StatelessWidget {
                   child: Stack(
                     alignment: AlignmentDirectional.topEnd,
                     children: const [
-                      MapWidget(),
+                      MapWidget2(),
                       ControlBox(),
                       MapAppBar(),
                     ],

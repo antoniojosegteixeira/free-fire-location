@@ -4,6 +4,8 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/map/view/cubit/fire/fire_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/firebase/firebase_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/firebase/firebase_state.dart';
 import 'package:free_fire_location/map/view/cubit/location/location_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/location/location_state.dart';
 import 'package:free_fire_location/map/view/cubit/map_controller/map_controller_cubit.dart';
@@ -38,112 +40,139 @@ class MapWidgetState extends State<MapWidget> {
   @override
   Widget build(BuildContext context) {
     final FocusScopeNode focusScopeNode = FocusScope.of(context);
-    return BlocBuilder<FireCubit, FireState>(
-      builder: ((fireContext, fireState) {
-        if (fireState is FireSuccess) {
-          return BlocBuilder<OptionsCubit, MapType>(
-            builder: ((optionsContext, mapType) {
-              final CustomInfoWindowController customInfoWindowController =
-                  context.read<WeatherInfoCubit>().customInfoWindowController;
+    return BlocBuilder<FirebaseCubit, FirebaseState>(
+      builder: (firebaseContext, firebaseState) {
+        if (firebaseState is FirebaseSuccess) {
+          return BlocBuilder<FireCubit, FireState>(
+            builder: ((fireContext, fireState) {
+              if (fireState is FireSuccess) {
+                return BlocBuilder<OptionsCubit, MapType>(
+                  builder: ((optionsContext, mapType) {
+                    final CustomInfoWindowController
+                        customInfoWindowController = context
+                            .read<WeatherInfoCubit>()
+                            .customInfoWindowController;
 
-              // Setting markers
-              Set<Marker> generatedMarkers = GenerateMarkers.generate(
-                  customMarkerImage: fireState.markerImage,
-                  coordinatesList: fireState.coordinatesList,
-                  customInfoWindowController: context
-                      .read<WeatherInfoCubit>()
-                      .customInfoWindowController,
-                  callback: (LatLng latLng) {
-                    context
-                        .read<WeatherInfoCubit>()
-                        .getWeatherInfoByCoordinates(latLng: latLng);
-                  }).toSet();
+                    // Setting markers
+                    List<Marker> generatedMarkers =
+                        GenerateMarkers.generateMarkers(
+                            customMarkerImage: fireState.markerImage,
+                            coordinatesList: fireState.coordinatesList,
+                            customInfoWindowController: context
+                                .read<WeatherInfoCubit>()
+                                .customInfoWindowController,
+                            callback: (LatLng latLng) {
+                              context
+                                  .read<WeatherInfoCubit>()
+                                  .getWeatherInfoByCoordinates(latLng: latLng);
+                            });
 
-              return BlocBuilder<LocationCubit, LocationState>(
-                builder: ((locationContext, locationState) {
-                  if (locationState is LocationEnabled) {
-                    return Stack(
-                      children: [
-                        GoogleMap(
-                          mapToolbarEnabled: true,
-                          mapType: mapType,
-                          compassEnabled: true,
-                          myLocationButtonEnabled: false,
-                          myLocationEnabled: true,
-                          onMapCreated: _onMapCreated,
-                          markers: generatedMarkers,
-                          initialCameraPosition: CameraPosition(
-                            target: LatLng(locationState.position.latitude,
-                                locationState.position.longitude),
-                            zoom: 5.0,
-                          ),
-                          onTap: (_) {
-                            customInfoWindowController.hideInfoWindow!();
-                            if (!focusScopeNode.hasPrimaryFocus) {
-                              focusScopeNode.unfocus();
-                            }
-                            context
-                                .read<PlacesSearchCubit>()
-                                .setEmptySuggestions();
-                          },
-                          onCameraMove: (_) {
-                            customInfoWindowController.onCameraMove!();
-                          },
-                          onLongPress: (_) {
-                            //TODO: report fire function
-                          },
-                        ),
-                        CustomInfoWindow(
-                          controller: customInfoWindowController,
-                          height: 220,
-                          width: 250,
-                          offset: 80,
-                        ),
-                      ],
+                    List<Marker> generatedUserMarkers =
+                        GenerateMarkers.generateUserMarker(
+                            customUserMarkerImage: fireState.userMarkerImage,
+                            coordinatesList: firebaseState.userFireList,
+                            customInfoWindowController: context
+                                .read<WeatherInfoCubit>()
+                                .customInfoWindowController,
+                            callback: (LatLng latLng) {
+                              context
+                                  .read<WeatherInfoCubit>()
+                                  .getWeatherInfoByCoordinates(latLng: latLng);
+                            });
+
+                    final Set<Marker> combinedMarkers =
+                        [...generatedUserMarkers, ...generatedMarkers].toSet();
+
+                    return BlocBuilder<LocationCubit, LocationState>(
+                      builder: ((locationContext, locationState) {
+                        if (locationState is LocationEnabled) {
+                          return Stack(
+                            children: [
+                              GoogleMap(
+                                mapToolbarEnabled: true,
+                                mapType: mapType,
+                                compassEnabled: true,
+                                myLocationButtonEnabled: false,
+                                myLocationEnabled: true,
+                                onMapCreated: _onMapCreated,
+                                markers: combinedMarkers,
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(
+                                      locationState.position.latitude,
+                                      locationState.position.longitude),
+                                  zoom: 5.0,
+                                ),
+                                onTap: (_) {
+                                  customInfoWindowController.hideInfoWindow!();
+                                  if (!focusScopeNode.hasPrimaryFocus) {
+                                    focusScopeNode.unfocus();
+                                  }
+                                  context
+                                      .read<PlacesSearchCubit>()
+                                      .setEmptySuggestions();
+                                },
+                                onCameraMove: (_) {
+                                  customInfoWindowController.onCameraMove!();
+                                },
+                                onLongPress: (_) {
+                                  //TODO: report fire function
+                                },
+                              ),
+                              CustomInfoWindow(
+                                controller: customInfoWindowController,
+                                height: 220,
+                                width: 250,
+                                offset: 80,
+                              ),
+                            ],
+                          );
+                        } else if (locationState is LocationDisabled) {
+                          return Stack(
+                            children: [
+                              GoogleMap(
+                                mapToolbarEnabled: true,
+                                mapType: mapType,
+                                compassEnabled: true,
+                                myLocationButtonEnabled: false,
+                                myLocationEnabled: true,
+                                onMapCreated: _onMapCreated,
+                                markers: combinedMarkers,
+                                initialCameraPosition: const CameraPosition(
+                                  target: _center,
+                                  zoom: 5.0,
+                                ),
+                                onTap: (_) {
+                                  customInfoWindowController.hideInfoWindow!();
+                                },
+                                onCameraMove: (_) {
+                                  customInfoWindowController.onCameraMove!();
+                                },
+                              ),
+                              CustomInfoWindow(
+                                controller: customInfoWindowController,
+                                height: 220,
+                                width: 250,
+                                offset: 80,
+                              ),
+                            ],
+                          );
+                        } else if (locationState is LocationInitial) {
+                          return Container();
+                        }
+
+                        return Container();
+                      }),
                     );
-                  } else if (locationState is LocationDisabled) {
-                    return Stack(
-                      children: [
-                        GoogleMap(
-                          mapToolbarEnabled: true,
-                          mapType: mapType,
-                          compassEnabled: true,
-                          myLocationButtonEnabled: false,
-                          myLocationEnabled: true,
-                          onMapCreated: _onMapCreated,
-                          markers: generatedMarkers,
-                          initialCameraPosition: const CameraPosition(
-                            target: _center,
-                            zoom: 5.0,
-                          ),
-                          onTap: (_) {
-                            customInfoWindowController.hideInfoWindow!();
-                          },
-                          onCameraMove: (_) {
-                            customInfoWindowController.onCameraMove!();
-                          },
-                        ),
-                        CustomInfoWindow(
-                          controller: customInfoWindowController,
-                          height: 220,
-                          width: 250,
-                          offset: 80,
-                        ),
-                      ],
-                    );
-                  } else if (locationState is LocationInitial) {
-                    return Container();
-                  }
+                  }),
+                );
+              }
 
-                  return Container();
-                }),
-              );
+              return const SplashPage();
             }),
           );
         }
-
         return const SplashPage();
-      }),
+      },
     );
   }
 }
