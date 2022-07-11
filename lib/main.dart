@@ -59,6 +59,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   await initializeNotifications();
 
   //initializeBackgroundRequests();
@@ -77,5 +81,6 @@ void main() async {
   );
 
   await CheckNearbyFires().startFireNotification();
+
   runApp(const MyApp());
 }

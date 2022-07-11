@@ -6,6 +6,21 @@ import 'package:free_fire_location/utils/filter_markers.dart';
 class FirePageResponse extends FirePage {
   FirePageResponse({required super.coordinatesList});
 
+  factory FirePageResponse.fromCsv(dynamic csv) {
+    final filteredCsv = const CsvToListConverter(eol: '\n').convert(csv);
+    final List<FireInfoResponse> mapInfoList = [];
+
+    if (filteredCsv.length > 1) {
+      for (int i = 1; i < filteredCsv.length; i++) {
+        mapInfoList.add(FireInfoResponse.fromCsv(filteredCsv[i]));
+      }
+    }
+
+    return FirePageResponse(
+      coordinatesList: mapInfoList,
+    );
+  }
+
   factory FirePageResponse.fromCsvList(List<dynamic> csvList) {
     List filteredList = [];
     final List<FireInfoResponse> mapInfoList = [];
@@ -29,7 +44,6 @@ class FirePageResponse extends FirePage {
         mapInfoList.add(FireInfoResponse.fromCsv(filteredList[i]));
       }
     }
-
     return FirePageResponse(
       coordinatesList: mapInfoList,
     );

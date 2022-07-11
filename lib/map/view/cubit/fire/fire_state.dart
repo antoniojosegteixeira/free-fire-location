@@ -11,7 +11,10 @@ class FireSuccess extends FireState {
   final BitmapDescriptor markerImage;
   final List<FireInfo> coordinatesList;
 
-  FireSuccess({required this.coordinatesList, required this.markerImage});
+  FireSuccess({
+    required this.coordinatesList,
+    required this.markerImage,
+  });
 }
 
 class FireError extends FireState {

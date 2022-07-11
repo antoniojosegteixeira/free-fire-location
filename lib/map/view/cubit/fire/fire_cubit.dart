@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/map/data/repositories/fire_repository.dart';
+import 'package:free_fire_location/map/data/response_models/fire_page_response.dart';
 import 'package:free_fire_location/map/models/fire_info.dart';
 import 'package:free_fire_location/map/models/fire_page.dart';
 import 'package:free_fire_location/utils/generate_markers.dart';
@@ -15,18 +16,24 @@ class FireCubit extends Cubit<FireState> {
   final _mapRepository = FireRepository();
   late List<Marker> markers;
   int numberOfRequests = 2;
+  late BitmapDescriptor markerImage;
+
   FireCubit() : super(FireInitial());
+
+  Future<void> loadMarkers() async {
+    markerImage = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(20, 20)),
+      "assets/images/map_icon.png",
+    );
+  }
 
   void getFireInfo() async {
     emit.call(FireLoading());
 
-    final markerImage = await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(size: Size(20, 20)),
-      "assets/images/map_icon.png",
-    );
+    await loadMarkers();
 
     try {
-      final FirePage fireInfo =
+      final FirePageResponse fireInfo =
           await _mapRepository.getFireLocations(numberOfRequests);
 
       emit.call(FireSuccess(
@@ -59,6 +66,7 @@ class FireCubit extends Cubit<FireState> {
   }
 
   void startRequesting() async {
+    await loadMarkers();
     await showSplash();
     getFireInfo();
     updateEveryTenMinutes();

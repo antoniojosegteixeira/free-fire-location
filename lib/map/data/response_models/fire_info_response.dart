@@ -8,6 +8,15 @@ class FireInfoResponse extends FireInfo {
     required super.date,
   });
 
+  factory FireInfoResponse.fromNasaCsv(dynamic csv) {
+    return FireInfoResponse(
+      latitude: csv[1],
+      longitude: csv[2],
+      satelliteName: csv[9],
+      date: csv[6],
+    );
+  }
+
   factory FireInfoResponse.fromCsv(dynamic csv) {
     return FireInfoResponse(
       latitude: csv[0],

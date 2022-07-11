@@ -5,8 +5,10 @@ import 'package:free_fire_location/map/view/cubit/location/location_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/map_controller/map_controller_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/notification_range/notification_range_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/user_fire/user_fire_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/map/view/pages/map_page.dart';
+import 'map/view/cubit/firebase/firebase_cubit.dart';
 import 'map/view/cubit/places_search/places_search_cubit.dart';
 
 class MyApp extends StatelessWidget {
@@ -18,9 +20,11 @@ class MyApp extends StatelessWidget {
     final optionsCubit = OptionsCubit();
     final notificationRangeCubit = NotificationRangeCubit();
     final weatherInfoCubit = WeatherInfoCubit();
+    final userFireCubit = UserFireCubit();
     final locationCubit = LocationCubit();
     final placesSearchCubit = PlacesSearchCubit();
     final mapControllerCubit = MapControllerCubit();
+    final firebaseCubit = FirebaseCubit();
 
     return MultiBlocProvider(
       providers: [
@@ -28,9 +32,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => optionsCubit),
         BlocProvider(create: (_) => notificationRangeCubit..getCachedData()),
         BlocProvider(create: (_) => weatherInfoCubit),
+        BlocProvider(create: (_) => userFireCubit),
         BlocProvider(create: (_) => locationCubit..setMapLocationState()),
         BlocProvider(create: (_) => placesSearchCubit),
         BlocProvider(create: (_) => mapControllerCubit),
+        BlocProvider(create: (_) => firebaseCubit..getUserReport())
       ],
       child: MaterialApp(
         title: 'FreeFire Locator',
@@ -39,9 +45,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         initialRoute: '/map',
-        routes: {
-          '/map': (context) => const MapPage(),
-        },
+        routes: {'/map': (context) => const MapPage()},
       ),
     );
   }

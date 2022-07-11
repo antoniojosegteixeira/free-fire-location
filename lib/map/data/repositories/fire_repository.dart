@@ -4,13 +4,15 @@ import 'package:free_fire_location/map/data/response_models/fire_page_response.d
 import 'package:free_fire_location/map/models/file_name.dart';
 
 class FireRepository {
-  final String baseUrl = 'queimadas.dgi.inpe.br';
-  final String username = 'dados_abertos';
-  final String password = 'dados_abertos';
+  final String baseUrl = 'firms.modaps.eosdis.nasa.gov';
 
   final client = Dio();
 
   Future<FirePageResponse> getFireLocations(int amount) async {
+    const String baseUrl = 'queimadas.dgi.inpe.br';
+    const String username = 'dados_abertos';
+    const String password = 'dados_abertos';
+
     final String auth =
         'Basic ${base64Encode(utf8.encode('$username:$password'))}';
 
