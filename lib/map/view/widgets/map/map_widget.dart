@@ -11,8 +11,10 @@ import 'package:free_fire_location/map/view/cubit/location/location_state.dart';
 import 'package:free_fire_location/map/view/cubit/map_controller/map_controller_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/options/options_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/places_search/places_search_cubit.dart';
+import 'package:free_fire_location/map/view/cubit/user_fire/user_fire_cubit.dart';
 import 'package:free_fire_location/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/map/view/pages/splash_page.dart';
+import 'package:free_fire_location/map/view/widgets/map/add_user_fire/add_user_fire.dart';
 import 'package:free_fire_location/map/view/widgets/map/input/search_input.dart';
 import 'package:free_fire_location/utils/generate_markers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -118,10 +120,9 @@ class MapWidgetState extends State<MapWidget> {
                                   customInfoWindowController.onCameraMove!();
                                 },
                                 onLongPress: (LatLng coordinates) {
-                                  print('POSTING $coordinates');
-                                  context.read<FirebaseCubit>().postUserReport(
-                                      coordinates.latitude,
-                                      coordinates.longitude);
+                                  context.read<UserFireCubit>().openModal(
+                                        coordinates: coordinates,
+                                      );
                                 },
                               ),
                               CustomInfoWindow(
@@ -130,6 +131,7 @@ class MapWidgetState extends State<MapWidget> {
                                 width: 250,
                                 offset: 80,
                               ),
+                              const AddUserFire(),
                             ],
                           );
                         } else if (locationState is LocationDisabled) {
@@ -151,9 +153,9 @@ class MapWidgetState extends State<MapWidget> {
                                   customInfoWindowController.hideInfoWindow!();
                                 },
                                 onLongPress: (LatLng coordinates) {
-                                  context.read<FirebaseCubit>().postUserReport(
-                                      coordinates.latitude,
-                                      coordinates.longitude);
+                                  context.read<UserFireCubit>().openModal(
+                                        coordinates: coordinates,
+                                      );
                                 },
                                 onCameraMove: (_) {
                                   customInfoWindowController.onCameraMove!();
@@ -165,6 +167,7 @@ class MapWidgetState extends State<MapWidget> {
                                 width: 250,
                                 offset: 80,
                               ),
+                              const AddUserFire(),
                             ],
                           );
                         } else if (locationState is LocationInitial) {
