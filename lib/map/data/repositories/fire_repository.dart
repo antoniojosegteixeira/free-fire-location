@@ -4,31 +4,26 @@ import 'package:free_fire_location/map/data/response_models/fire_page_response.d
 import 'package:free_fire_location/map/models/file_name.dart';
 
 class FireRepository {
-  final String baseUrl = 'queimadas.dgi.inpe.br';
-  final String username = 'dados_abertos';
-  final String password = 'dados_abertos';
+  final String baseUrl = 'firms.modaps.eosdis.nasa.gov';
 
   final client = Dio();
 
-  Future<FirePageResponse> getFireLocations(int amount) async {
-    final String auth =
-        'Basic ${base64Encode(utf8.encode('$username:$password'))}';
-
+  Future<FirePageResponse> getFireLocations() async {
     List<Future> requests = [];
+    DateTime dateNow = DateTime.now();
+    String year = dateNow.year.toString();
+    String month = dateNow.month.toString().padLeft(2, '0');
+    String day = dateNow.day.toString().padLeft(2, '0');
 
-    for (int i = amount; i >= 0; i--) {
-      final uri = Uri.https(baseUrl,
-          "queimadas/users/dados_abertos/focos/10min/${FileName.getPastFileName(i)}");
-      requests.add(client.get(
-        uri.toString(),
-        options: Options(headers: <String, String>{'authorization': auth}),
-      ));
-    }
+    String key = 'c173c8f56ff3f081c173173ee3fc251e';
 
-    final List response = await Future.wait(requests);
+    final uri = Uri.https(baseUrl,
+        "/api/country/csv/$key/VIIRS_SNPP_NRT/BRA/1/$year-$month-$day");
+
+    final response = await client.get(uri.toString());
 
     final FirePageResponse pageResponse =
-        FirePageResponse.fromCsvList(response);
+        FirePageResponse.fromCsv(response.data);
 
     return pageResponse;
   }

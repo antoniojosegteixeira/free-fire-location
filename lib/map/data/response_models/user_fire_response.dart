@@ -10,10 +10,10 @@ class UserFireResponse extends UserFire {
 
   factory UserFireResponse.fromJson(json) {
     return UserFireResponse(
-      id: json['id'],
+      id: int.parse(json['id']),
       latitude: json["latitude"],
       longitude: json["longitude"],
-      date: json["data"],
+      date: json["data"] as String,
     );
   }
 }

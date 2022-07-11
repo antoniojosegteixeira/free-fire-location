@@ -16,4 +16,7 @@ class FirebaseSuccess extends FirebaseState {
   });
 }
 
-class FirebaseError extends FirebaseState {}
+class FirebaseError extends FirebaseState {
+  final Error error;
+  FirebaseError({required this.error});
+}

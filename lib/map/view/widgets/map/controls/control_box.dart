@@ -19,10 +19,12 @@ class ControlBox extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(4, 80, 4, 0),
                 child: MapTypeButton(),
               ),
+              /*
               Padding(
                 padding: EdgeInsets.only(top: 0.0),
                 child: TimeButton(),
               ),
+              */
               Padding(
                 padding: EdgeInsets.only(top: 8.0),
                 child: LocationButton(),

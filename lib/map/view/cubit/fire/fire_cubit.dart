@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/map/data/repositories/fire_repository.dart';
+import 'package:free_fire_location/map/data/response_models/fire_page_response.dart';
 import 'package:free_fire_location/map/models/fire_info.dart';
 import 'package:free_fire_location/map/models/fire_page.dart';
 import 'package:free_fire_location/utils/generate_markers.dart';
@@ -16,7 +17,6 @@ class FireCubit extends Cubit<FireState> {
   late List<Marker> markers;
   int numberOfRequests = 2;
   late BitmapDescriptor markerImage;
-  late BitmapDescriptor userMarkerImage;
 
   FireCubit() : super(FireInitial());
 
@@ -33,13 +33,10 @@ class FireCubit extends Cubit<FireState> {
     await loadMarkers();
 
     try {
-      final FirePage fireInfo =
-          await _mapRepository.getFireLocations(numberOfRequests);
-      print(fireInfo);
+      final FirePageResponse fireInfo = await _mapRepository.getFireLocations();
 
       emit.call(FireSuccess(
         markerImage: markerImage,
-        userMarkerImage: userMarkerImage,
         coordinatesList: fireInfo.coordinatesList,
       ));
     } catch (err) {

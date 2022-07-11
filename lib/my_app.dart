@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locationCubit..setMapLocationState()),
         BlocProvider(create: (_) => placesSearchCubit),
         BlocProvider(create: (_) => mapControllerCubit),
-        BlocProvider(create: (_) => firebaseCubit..initRef())
+        BlocProvider(create: (_) => firebaseCubit..getUserReport())
       ],
       child: MaterialApp(
         title: 'FreeFire Locator',

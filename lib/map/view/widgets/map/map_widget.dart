@@ -69,7 +69,8 @@ class MapWidgetState extends State<MapWidget> {
 
                     List<Marker> generatedUserMarkers =
                         GenerateMarkers.generateUserMarker(
-                            customUserMarkerImage: fireState.userMarkerImage,
+                            customUserMarkerImage:
+                                firebaseState.userMarkerImage,
                             coordinatesList: firebaseState.userFireList,
                             customInfoWindowController: context
                                 .read<WeatherInfoCubit>()
@@ -80,8 +81,10 @@ class MapWidgetState extends State<MapWidget> {
                                   .getWeatherInfoByCoordinates(latLng: latLng);
                             });
 
-                    final Set<Marker> combinedMarkers =
-                        [...generatedUserMarkers, ...generatedMarkers].toSet();
+                    final Set<Marker> combinedMarkers = <Marker>{
+                      ...generatedUserMarkers,
+                      ...generatedMarkers
+                    };
 
                     return BlocBuilder<LocationCubit, LocationState>(
                       builder: ((locationContext, locationState) {
@@ -114,8 +117,11 @@ class MapWidgetState extends State<MapWidget> {
                                 onCameraMove: (_) {
                                   customInfoWindowController.onCameraMove!();
                                 },
-                                onLongPress: (_) {
-                                  //TODO: report fire function
+                                onLongPress: (LatLng coordinates) {
+                                  print('POSTING $coordinates');
+                                  context.read<FirebaseCubit>().postUserReport(
+                                      coordinates.latitude,
+                                      coordinates.longitude);
                                 },
                               ),
                               CustomInfoWindow(
@@ -144,6 +150,11 @@ class MapWidgetState extends State<MapWidget> {
                                 onTap: (_) {
                                   customInfoWindowController.hideInfoWindow!();
                                 },
+                                onLongPress: (LatLng coordinates) {
+                                  context.read<FirebaseCubit>().postUserReport(
+                                      coordinates.latitude,
+                                      coordinates.longitude);
+                                },
                                 onCameraMove: (_) {
                                   customInfoWindowController.onCameraMove!();
                                 },
@@ -167,11 +178,21 @@ class MapWidgetState extends State<MapWidget> {
                 );
               }
 
-              return const SplashPage();
+              return const Text("Error");
             }),
           );
         }
-        return const SplashPage();
+
+        if (firebaseState is FirebaseError) {
+          print("ERROR");
+          print(firebaseState.error);
+          return const Text("FireBase error");
+        }
+
+        if (firebaseState is FirebaseLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return const Text("FireBase NOTHING error");
       },
     );
   }

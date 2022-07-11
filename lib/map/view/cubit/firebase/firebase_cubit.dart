@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
@@ -22,7 +23,7 @@ class FirebaseCubit extends Cubit<FirebaseState> {
   Future<BitmapDescriptor> _loadMarkers() async {
     final userMarkerImage = await BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(size: Size(20, 20)),
-      'asset/images/user_map_icon.png',
+      "assets/images/user_map_icon.png",
     );
 
     return userMarkerImage;
@@ -34,38 +35,49 @@ class FirebaseCubit extends Cubit<FirebaseState> {
   }
 
   void getUserReport() async {
+    print("called firebase");
+    initRef();
     emit.call(FirebaseLoading());
     final userFireIcon = await _loadMarkers();
+    List<UserFireResponse> userFireList = [];
 
     try {
-      final markersMatrixSnapshot = await markersMatrixRef.get();
-      markersMatrix = markersMatrixSnapshot.value as List<Map<String, dynamic>>;
+      Stream<DatabaseEvent> stream = markersMatrixRef.onValue;
 
-      List<UserFireResponse> userFireList = List<UserFireResponse>.from(
-        markersMatrix.map(
-          (markerInfo) => UserFireResponse.fromJson(markerInfo),
-        ),
-      );
+// Subscribe to the stream!
+      stream.listen((DatabaseEvent event) {
+        print('Event Type: ${event.type}'); // DatabaseEventType.value;
+        print('Snapshot: ${event.snapshot}');
 
-      emit.call(FirebaseSuccess(
-          userFireList: userFireList, userMarkerImage: userFireIcon));
-    } catch (e) {
-      emit.call(FirebaseError());
+        var value = Map<String, dynamic>.from(event.snapshot.value as Map);
+        var markers = value["userMarkers"];
+
+        for (var item in markers.values) {
+          userFireList.add(UserFireResponse.fromJson(item));
+        }
+
+        emit.call(FirebaseSuccess(
+            userFireList: userFireList,
+            userMarkerImage: userFireIcon)); // DataSnapshot
+      });
+    } catch (error) {
+      print(error);
+      emit.call(FirebaseError(error: error as Error));
     }
 
     markersMatrixSubscription =
         markersMatrixRef.onValue.listen((DatabaseEvent event) {
-      print(event.snapshot.value);
+      print('event snapshot');
     });
 
-    print(markersMatrix);
+    print('markers: $markersMatrix');
   }
 
   void postUserReport(double latitude, double longitude) async {
     final now = DateTime.now();
     final String randomId = _idGenerator();
     DatabaseReference ref =
-        FirebaseDatabase.instance.ref("markersMatrix/$randomId");
+        FirebaseDatabase.instance.ref("markersMatrix/userMarkers/$randomId");
 
     await ref.set({
       'id': randomId,
@@ -74,5 +86,6 @@ class FirebaseCubit extends Cubit<FirebaseState> {
       'data': DateTime.utc(now.year, now.month, now.day, now.hour, now.minute)
           .toString()
     });
+    print('posted $latitude $longitude');
   }
 }
