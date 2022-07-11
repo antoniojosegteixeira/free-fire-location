@@ -25,7 +25,6 @@ class ConfigPage extends StatelessWidget {
             SizedBox(height: 20),
             NotificationRangeSlider(),
             SizedBox(height: 45),
-            DefaultLocationWidget(),
           ],
         ),
       ),

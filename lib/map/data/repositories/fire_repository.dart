@@ -8,22 +8,29 @@ class FireRepository {
 
   final client = Dio();
 
-  Future<FirePageResponse> getFireLocations() async {
+  Future<FirePageResponse> getFireLocations(int amount) async {
+    const String baseUrl = 'queimadas.dgi.inpe.br';
+    const String username = 'dados_abertos';
+    const String password = 'dados_abertos';
+
+    final String auth =
+        'Basic ${base64Encode(utf8.encode('$username:$password'))}';
+
     List<Future> requests = [];
-    DateTime dateNow = DateTime.now();
-    String year = dateNow.year.toString();
-    String month = dateNow.month.toString().padLeft(2, '0');
-    String day = dateNow.day.toString().padLeft(2, '0');
 
-    String key = 'c173c8f56ff3f081c173173ee3fc251e';
+    for (int i = amount; i >= 0; i--) {
+      final uri = Uri.https(baseUrl,
+          "queimadas/users/dados_abertos/focos/10min/${FileName.getPastFileName(i)}");
+      requests.add(client.get(
+        uri.toString(),
+        options: Options(headers: <String, String>{'authorization': auth}),
+      ));
+    }
 
-    final uri = Uri.https(baseUrl,
-        "/api/country/csv/$key/VIIRS_SNPP_NRT/BRA/1/$year-$month-$day");
-
-    final response = await client.get(uri.toString());
+    final List response = await Future.wait(requests);
 
     final FirePageResponse pageResponse =
-        FirePageResponse.fromCsv(response.data);
+        FirePageResponse.fromCsvList(response);
 
     return pageResponse;
   }

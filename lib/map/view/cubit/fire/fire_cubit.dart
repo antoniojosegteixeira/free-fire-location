@@ -33,7 +33,8 @@ class FireCubit extends Cubit<FireState> {
     await loadMarkers();
 
     try {
-      final FirePageResponse fireInfo = await _mapRepository.getFireLocations();
+      final FirePageResponse fireInfo =
+          await _mapRepository.getFireLocations(numberOfRequests);
 
       emit.call(FireSuccess(
         markerImage: markerImage,
@@ -42,18 +43,6 @@ class FireCubit extends Cubit<FireState> {
     } catch (err) {
       emit.call(FireError(error: err as Error));
     }
-  }
-
-  void getUserMarkers() async {
-    //TODO: implement firestore fetching
-
-    await loadMarkers();
-    /*
-    emit.call(FireSuccess(
-      markerImage: userMarkerImage,
-      coordinatesList: fireInfo.coordinatesList,
-    ));
-    */
   }
 
   void updateEveryTenMinutes() {

@@ -28,7 +28,7 @@ class CheckNearbyFires {
     double range =
         CoordinatesRangeConverter.coordinatesToRange(await _getRange());
     try {
-      final FirePage fireInfo = await repository.getFireLocations();
+      final FirePage fireInfo = await repository.getFireLocations(3);
       final LatLng userPosition = await _getLocation();
 
       for (int i = 0; i < fireInfo.coordinatesList.length; i++) {
