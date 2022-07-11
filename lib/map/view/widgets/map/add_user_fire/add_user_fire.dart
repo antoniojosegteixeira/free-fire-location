@@ -56,6 +56,9 @@ class AddUserFire extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
                                           child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: AppColors.primary,
+                                              ),
                                               onPressed: () {
                                                 context
                                                     .read<FirebaseCubit>()
@@ -74,12 +77,17 @@ class AddUserFire extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
                                           child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: AppColors.lightBrown,
+                                              ),
                                               onPressed: () {
                                                 context
                                                     .read<UserFireCubit>()
                                                     .closeModal();
                                               },
-                                              child: Text("Não")),
+                                              child: const Text(
+                                                "Não",
+                                              )),
                                         ),
                                       ],
                                     ),

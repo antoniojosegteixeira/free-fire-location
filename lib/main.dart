@@ -62,7 +62,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-/*
+
   await initializeNotifications();
 
   //initializeBackgroundRequests();
@@ -80,8 +80,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  //await CheckNearbyFires().startFireNotification();
-  */
+  await CheckNearbyFires().startFireNotification();
 
   runApp(const MyApp());
 }
