@@ -44,22 +44,24 @@ class FirebaseCubit extends Cubit<FirebaseState> {
     try {
       Stream<DatabaseEvent> stream = markersMatrixRef.onValue;
 
-// Subscribe to the stream!
       stream.listen((DatabaseEvent event) {
         print('Event Type: ${event.type}'); // DatabaseEventType.value;
         print('Snapshot: ${event.snapshot}');
-
+        print(event.snapshot.value);
         var value = Map<String, dynamic>.from(event.snapshot.value as Map);
         var markers = value["userMarkers"];
 
-        for (var item in markers.values) {
-          userFireList.add(UserFireResponse.fromJson(item));
+        if (markers != null) {
+          for (var item in markers.values) {
+            userFireList.add(UserFireResponse.fromJson(item));
+          }
         }
 
         emit.call(FirebaseSuccess(
-            userFireList: userFireList,
-            userMarkerImage: userFireIcon)); // DataSnapshot
+            userFireList: userFireList, userMarkerImage: userFireIcon));
       });
+      emit.call(FirebaseSuccess(
+          userFireList: userFireList, userMarkerImage: userFireIcon));
     } catch (error) {
       print(error);
       emit.call(FirebaseError(error: error as Error));
