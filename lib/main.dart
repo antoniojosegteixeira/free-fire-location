@@ -65,7 +65,7 @@ void main() async {
 
   await initializeNotifications();
 
-  //initializeBackgroundRequests();
+  initializeBackgroundRequests();
 
   Workmanager().initialize(
       callbackDispatcher, // The top level function, aka callbackDispatcher

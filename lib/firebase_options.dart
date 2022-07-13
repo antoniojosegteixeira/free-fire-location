@@ -26,16 +26,6 @@ class DefaultFirebaseOptions {
         return ios;
       case TargetPlatform.macOS:
         return macos;
-      case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -44,40 +34,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCrbf_vM-znpKkE4ZHu3RWzUP_n4YG6BOI',
-    appId: '1:320174623311:web:525e210a97281f4368f83a',
-    messagingSenderId: '320174623311',
-    projectId: 'free-fire-locator',
-    authDomain: 'free-fire-locator.firebaseapp.com',
-    storageBucket: 'free-fire-locator.appspot.com',
-    measurementId: 'G-16MT0P04ZY',
+    apiKey: 'AIzaSyDTKv4sh7EEvPki3B93rBqV8mjT-9UgfIo',
+    appId: '1:5331781592:web:cb501c537ebad29af394ad',
+    messagingSenderId: '5331781592',
+    projectId: 'free-fire-locator-c7835',
+    authDomain: 'free-fire-locator-c7835.firebaseapp.com',
+    databaseURL: 'https://free-fire-locator-c7835-default-rtdb.firebaseio.com',
+    storageBucket: 'free-fire-locator-c7835.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBu3eTEmLxxJ2lf8mbxvD_RnWC3lSMopnI',
-    appId: '1:320174623311:android:195ffb870a4ee1aa68f83a',
-    messagingSenderId: '320174623311',
-    projectId: 'free-fire-locator',
-    storageBucket: 'free-fire-locator.appspot.com',
+    apiKey: 'AIzaSyCcHIB1NfmrUr767He1g1E89RrXYDR1Kcw',
+    appId: '1:5331781592:android:548efc2dcb0c27eaf394ad',
+    messagingSenderId: '5331781592',
+    projectId: 'free-fire-locator-c7835',
+    storageBucket: 'free-fire-locator-c7835.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyALynwGtP0nYcg1ReAp6hE_b9dcO_A-JD8',
-    appId: '1:320174623311:ios:80a160f47b10f4d968f83a',
-    messagingSenderId: '320174623311',
-    projectId: 'free-fire-locator',
-    storageBucket: 'free-fire-locator.appspot.com',
-    iosClientId: '320174623311-euqdnonbua8bjvgqcju3jdm3a5rn1e9g.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBuyKnlJge4As4ZzekSL6pp7YN1VYqY9wE',
+    appId: '1:5331781592:ios:a5a71f63a6b88f06f394ad',
+    messagingSenderId: '5331781592',
+    projectId: 'free-fire-locator-c7835',
+    storageBucket: 'free-fire-locator-c7835.appspot.com',
+    iosClientId: '5331781592-gi1p44r60e3cd7355kmididn0bh1n2a8.apps.googleusercontent.com',
     iosBundleId: 'com.example.freeFireLocation',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyALynwGtP0nYcg1ReAp6hE_b9dcO_A-JD8',
-    appId: '1:320174623311:ios:80a160f47b10f4d968f83a',
-    messagingSenderId: '320174623311',
-    projectId: 'free-fire-locator',
-    storageBucket: 'free-fire-locator.appspot.com',
-    iosClientId: '320174623311-euqdnonbua8bjvgqcju3jdm3a5rn1e9g.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBuyKnlJge4As4ZzekSL6pp7YN1VYqY9wE',
+    appId: '1:5331781592:ios:a5a71f63a6b88f06f394ad',
+    messagingSenderId: '5331781592',
+    projectId: 'free-fire-locator-c7835',
+    storageBucket: 'free-fire-locator-c7835.appspot.com',
+    iosClientId: '5331781592-gi1p44r60e3cd7355kmididn0bh1n2a8.apps.googleusercontent.com',
     iosBundleId: 'com.example.freeFireLocation',
   );
 }

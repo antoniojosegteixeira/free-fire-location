@@ -35,7 +35,6 @@ class FirebaseCubit extends Cubit<FirebaseState> {
   }
 
   void getUserReport() async {
-    print("called firebase");
     initRef();
     emit.call(FirebaseLoading());
     final userFireIcon = await _loadMarkers();
@@ -44,33 +43,28 @@ class FirebaseCubit extends Cubit<FirebaseState> {
     try {
       Stream<DatabaseEvent> stream = markersMatrixRef.onValue;
 
-// Subscribe to the stream!
       stream.listen((DatabaseEvent event) {
-        print('Event Type: ${event.type}'); // DatabaseEventType.value;
-        print('Snapshot: ${event.snapshot}');
-
         var value = Map<String, dynamic>.from(event.snapshot.value as Map);
         var markers = value["userMarkers"];
 
-        for (var item in markers.values) {
-          userFireList.add(UserFireResponse.fromJson(item));
+        if (markers != null) {
+          userFireList.clear();
+          for (var item in markers.values) {
+            userFireList.add(UserFireResponse.fromJson(item));
+          }
         }
 
         emit.call(FirebaseSuccess(
-            userFireList: userFireList,
-            userMarkerImage: userFireIcon)); // DataSnapshot
+            userFireList: userFireList, userMarkerImage: userFireIcon));
       });
+      emit.call(FirebaseSuccess(
+          userFireList: userFireList, userMarkerImage: userFireIcon));
     } catch (error) {
-      print(error);
       emit.call(FirebaseError(error: error as Error));
     }
 
     markersMatrixSubscription =
-        markersMatrixRef.onValue.listen((DatabaseEvent event) {
-      print('event snapshot');
-    });
-
-    print('markers: $markersMatrix');
+        markersMatrixRef.onValue.listen((DatabaseEvent event) {});
   }
 
   void postUserReport(double latitude, double longitude) async {
@@ -79,13 +73,12 @@ class FirebaseCubit extends Cubit<FirebaseState> {
     DatabaseReference ref =
         FirebaseDatabase.instance.ref("markersMatrix/userMarkers/$randomId");
 
+    String postDate = now.toUtc().toString();
     await ref.set({
       'id': randomId,
       'latitude': latitude,
       'longitude': longitude,
-      'data': DateTime.utc(now.year, now.month, now.day, now.hour, now.minute)
-          .toString()
+      'data': postDate
     });
-    print('posted $latitude $longitude');
   }
 }
