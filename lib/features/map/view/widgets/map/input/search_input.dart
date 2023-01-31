@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/consts/colors.dart';
 import 'package:free_fire_location/features/map/view/cubit/map_controller/map_controller_cubit.dart';
-import 'package:free_fire_location/features/map/view/widgets/map/places_search/places_search_cubit.dart';
+import 'package:free_fire_location/features/map/view/cubit/places_search/places_search_cubit.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SearchInput extends StatefulWidget {
   const SearchInput({Key? key}) : super(key: key);
@@ -17,31 +18,48 @@ class _SearchInputState extends State<SearchInput> {
   Timer _timer = Timer(const Duration(days: 1), () {});
   final TextEditingController controller = TextEditingController();
   late final PlacesSearchCubit placesSearchCubit;
+  late final MapControllerCubit mapControllerCubit;
+  late FocusScopeNode inputFocusScopeNode;
 
   @override
   void initState() {
     placesSearchCubit = context.read<PlacesSearchCubit>();
+    mapControllerCubit = context.read<MapControllerCubit>();
+
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    FocusScopeNode inputFocusScopeNode = FocusScope.of(context);
+  void didChangeDependencies() {
+    inputFocusScopeNode = FocusScope.of(context);
 
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<MapControllerCubit, MapControllerState>(
       builder: (mapControllerContext, mapControllerState) {
         if (mapControllerState is MapControllerCompleted) {
-          return BlocBuilder<PlacesSearchCubit, PlacesSearchState>(
+          return BlocConsumer<PlacesSearchCubit, PlacesSearchState>(
+            listener: (context, state) {
+              if (state is PlaceInfoLocation) {
+                mapControllerCubit.moveCameraToPlace(
+                  latlng: LatLng(
+                      state.placeInfo.latitude, state.placeInfo.longitude),
+                  zoom: 7,
+                );
+              }
+            },
             builder: (placesSearchContext, placesSearchState) {
-              if (placesSearchState is PlacesSearchResults) {
-                return Column(
+              return SizedBox(
+                child: Column(
                   children: [
                     TextField(
+                      autofocus: true,
                       onSubmitted: (value) {
                         placesSearchCubit.setEmptySuggestions();
-                        if (!inputFocusScopeNode.hasPrimaryFocus) {
-                          inputFocusScopeNode.unfocus();
-                        }
+                        inputFocusScopeNode.unfocus();
                       },
                       controller: controller,
                       onChanged: (value) {
@@ -68,7 +86,6 @@ class _SearchInputState extends State<SearchInput> {
                           ),
                           onPressed: () {
                             controller.clear();
-
                             placesSearchCubit.setEmptySuggestions();
                           },
                         ),
@@ -100,19 +117,14 @@ class _SearchInputState extends State<SearchInput> {
                                           ),
                                           onTap: () async {
                                             placesSearchCubit
-                                                .setEmptySuggestions();
-                                            /*
-                                            final mapController =
-                                                mapControllerState
-                                                    .activeController;
-                                                    */
-
+                                                .getSearchPlaceLocation(
+                                              place.placeId,
+                                            );
+                                            controller.clear();
                                             placesSearchCubit
                                                 .setEmptySuggestions();
-                                            if (!inputFocusScopeNode
-                                                .hasPrimaryFocus) {
-                                              inputFocusScopeNode.unfocus();
-                                            }
+
+                                            inputFocusScopeNode.unfocus();
                                           },
                                         ),
                                       )
@@ -125,14 +137,8 @@ class _SearchInputState extends State<SearchInput> {
                       ],
                     ),
                   ],
-                );
-              }
-              if (placesSearchState is PlacesSearchError) {
-                return const TextField(
-                  decoration: InputDecoration(hintText: 'ERRO'),
-                );
-              }
-              return Container();
+                ),
+              );
             },
           );
         } else {

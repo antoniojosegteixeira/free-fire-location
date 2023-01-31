@@ -6,7 +6,7 @@ import 'package:free_fire_location/features/map/view/pages/splash_page.dart';
 import 'package:free_fire_location/features/map/view/widgets/map/app_bar/map_app_bar.dart';
 import 'package:free_fire_location/features/map/view/widgets/map/controls/control_box.dart';
 import 'package:free_fire_location/features/map/view/widgets/map/map_widget.dart';
-import 'package:free_fire_location/features/map/view/widgets/menu/menu_widget.dart';
+import 'package:free_fire_location/features/menu/menu_widget.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);

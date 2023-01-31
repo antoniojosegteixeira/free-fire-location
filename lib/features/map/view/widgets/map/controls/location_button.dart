@@ -7,9 +7,14 @@ import 'package:free_fire_location/features/map/view/cubit/map_controller/map_co
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class LocationButton extends StatelessWidget {
+class LocationButton extends StatefulWidget {
   const LocationButton({Key? key}) : super(key: key);
 
+  @override
+  State<LocationButton> createState() => _LocationButtonState();
+}
+
+class _LocationButtonState extends State<LocationButton> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MapControllerCubit, MapControllerState>(
@@ -26,16 +31,9 @@ class LocationButton extends StatelessWidget {
                     elevation: 0,
                   ),
                   onPressed: () {
-                    final activeController = state.activeController;
-                    activeController
-                        .animateCamera(CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                        bearing: 0,
-                        target: LatLng(locationState.position.latitude,
-                            locationState.position.longitude),
-                        zoom: 10.0,
-                      ),
-                    ));
+                    context.read<MapControllerCubit>().moveCameraToPlace(
+                        latlng: LatLng(locationState.position.latitude,
+                            locationState.position.longitude));
                   },
                   child: const Icon(
                     Icons.location_on,

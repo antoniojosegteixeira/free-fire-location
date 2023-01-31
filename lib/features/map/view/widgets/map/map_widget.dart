@@ -8,8 +8,8 @@ import 'package:free_fire_location/features/map/view/cubit/location/location_cub
 import 'package:free_fire_location/features/map/view/cubit/location/location_state.dart';
 import 'package:free_fire_location/features/map/view/cubit/map_controller/map_controller_cubit.dart';
 import 'package:free_fire_location/features/map/view/cubit/options/options_cubit.dart';
+import 'package:free_fire_location/features/map/view/cubit/places_search/places_search_cubit.dart';
 import 'package:free_fire_location/features/map/view/cubit/weather_info/weather_info_cubit.dart';
-import 'package:free_fire_location/features/map/view/widgets/map/places_search/places_search_cubit.dart';
 
 import 'package:free_fire_location/utils/generate_markers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -86,9 +86,7 @@ class MapWidgetState extends State<MapWidget> {
                           ),
                           onTap: (_) {
                             customInfoWindowController.hideInfoWindow!();
-                            if (!focusScopeNode.hasPrimaryFocus) {
-                              focusScopeNode.unfocus();
-                            }
+                            focusScopeNode.unfocus();
                             context
                                 .read<PlacesSearchCubit>()
                                 .setEmptySuggestions();

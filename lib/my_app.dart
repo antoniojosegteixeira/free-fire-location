@@ -4,9 +4,9 @@ import 'package:free_fire_location/features/map/view/cubit/fire/fire_cubit.dart'
 import 'package:free_fire_location/features/map/view/cubit/location/location_cubit.dart';
 import 'package:free_fire_location/features/map/view/cubit/map_controller/map_controller_cubit.dart';
 import 'package:free_fire_location/features/map/view/cubit/options/options_cubit.dart';
+import 'package:free_fire_location/features/map/view/cubit/places_search/places_search_cubit.dart';
 import 'package:free_fire_location/features/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/features/map/view/pages/map_page.dart';
-import 'package:free_fire_location/features/map/view/widgets/map/places_search/places_search_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 class MyApp extends StatelessWidget {

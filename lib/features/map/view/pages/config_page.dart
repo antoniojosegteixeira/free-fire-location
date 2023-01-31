@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/consts/colors.dart';
-import 'package:free_fire_location/features/map/view/widgets/config/notification_permission_widget.dart';
+import 'package:free_fire_location/features/map/view/widgets/location/notification_permission_widget.dart';
 
 class ConfigPage extends StatelessWidget {
   const ConfigPage({Key? key}) : super(key: key);

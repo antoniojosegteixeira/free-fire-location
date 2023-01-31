@@ -1,7 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:free_fire_location/features/map/domain/entities/weather_entity.dart';
 import 'package:free_fire_location/features/map/domain/usecases/get_weather_info_usecase.dart';
-import 'package:bloc/bloc.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 

@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/features/map/view/cubit/location/location_state.dart';
 import 'package:free_fire_location/utils/location_service.dart';
 import 'package:geolocator/geolocator.dart';

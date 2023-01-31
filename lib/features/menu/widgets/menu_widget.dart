@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:free_fire_location/consts/colors.dart';
 import 'package:free_fire_location/features/map/view/pages/about_page.dart';
-import 'package:free_fire_location/features/map/view/pages/config_page.dart';
-import 'package:free_fire_location/features/map/view/widgets/menu/firefighter_button.dart';
-import 'package:free_fire_location/features/map/view/widgets/menu/menu_field.dart';
+import 'package:free_fire_location/features/menu/widgets/firefighter_button.dart';
+import 'package:free_fire_location/features/menu/widgets/menu_field.dart';
 
 class MenuWidget extends StatefulWidget {
   const MenuWidget({Key? key}) : super(key: key);
@@ -23,11 +22,12 @@ class _MenuWidgetState extends State<MenuWidget> {
         child: Column(
           children: [
             const Padding(padding: EdgeInsets.all(20)),
+            const SizedBox(height: 5),
             SizedBox(
                 width: 100,
                 height: 100,
                 child: Image.asset('assets/images/splash.png')),
-            const SizedBox(height: 10),
+            const SizedBox(height: 16),
             const Center(
               child: Text(
                 'FreeFire Locator',
@@ -37,11 +37,9 @@ class _MenuWidgetState extends State<MenuWidget> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 57),
-            const MenuField(description: 'Configurações', nav: ConfigPage()),
-            const SizedBox(height: 20),
+            const SizedBox(height: 35),
             const MenuField(description: 'Sobre', nav: AboutPage()),
-            Expanded(child: Container()),
+            const Spacer(),
             const FirefighterButton(),
             const Padding(padding: EdgeInsets.only(bottom: 20))
           ],

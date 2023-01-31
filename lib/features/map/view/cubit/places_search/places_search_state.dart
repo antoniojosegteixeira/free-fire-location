@@ -19,3 +19,9 @@ class PlacesSearchResults extends PlacesSearchState {
 class PlacesSearchError extends PlacesSearchState {
   const PlacesSearchError({super.places = const []});
 }
+
+class PlaceInfoLocation extends PlacesSearchState {
+  const PlaceInfoLocation({super.places = const [], required this.placeInfo});
+
+  final PlacesInfoEntity placeInfo;
+}

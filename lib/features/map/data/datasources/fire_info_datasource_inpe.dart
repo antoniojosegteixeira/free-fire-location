@@ -20,7 +20,7 @@ class FireInfoDatasourceInpe implements FireInfoDatasource {
 
     List<Future> requests = [];
 
-    for (int i = amount; i >= 0; i--) {
+    for (int i = amount; i >= 1; i--) {
       final uri = Uri.https(baseUrl,
           "queimadas/users/dados_abertos/focos/10min/${FileName.getPastFileName(i)}");
       requests.add(client.get(
