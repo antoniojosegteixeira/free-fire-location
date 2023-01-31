@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:free_fire_location/core/infra/http_request.dart';
 import 'package:free_fire_location/features/map/data/datasources/fire_info_datasource_inpe.dart';
 import 'package:free_fire_location/features/map/data/datasources/fire_info_datasource_nasa.dart';
 import 'package:free_fire_location/features/map/data/datasources/places_autocomplete_datasource.dart';
@@ -24,21 +26,28 @@ class DependencyInjection {
   final i = GetIt.instance;
 
   void setup() {
+    // Http Client
+    i.registerSingleton<Dio>(
+      Dio(),
+    );
+    i.registerSingleton<HttpRequest>(
+      HttpRequest(dio: i<Dio>()),
+    );
     // Datasources
     i.registerSingleton<FireInfoDatasourceInpe>(
-      FireInfoDatasourceInpe(),
+      FireInfoDatasourceInpe(client: i<HttpRequest>()),
     );
     i.registerSingleton<FireInfoDatasourceNasa>(
-      FireInfoDatasourceNasa(),
+      FireInfoDatasourceNasa(client: i<HttpRequest>()),
     );
     i.registerSingleton<WeatherInfoDatasourceImpl>(
-      WeatherInfoDatasourceImpl(),
+      WeatherInfoDatasourceImpl(client: i<HttpRequest>()),
     );
     i.registerSingleton<PlacesInfoDatasourceImpl>(
-      PlacesInfoDatasourceImpl(),
+      PlacesInfoDatasourceImpl(client: i<HttpRequest>()),
     );
     i.registerSingleton<PlacesAutocompleteDatasourceImpl>(
-      PlacesAutocompleteDatasourceImpl(),
+      PlacesAutocompleteDatasourceImpl(client: i<HttpRequest>()),
     );
 
     // Repositories

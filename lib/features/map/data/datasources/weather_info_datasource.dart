@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:free_fire_location/core/infra/http_request.dart';
+import 'package:free_fire_location/core/infra/request_config/weather_config.dart';
 import 'package:free_fire_location/features/map/data/models/weather_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -10,21 +10,18 @@ abstract class WeatherInfoDatasource {
 }
 
 class WeatherInfoDatasourceImpl implements WeatherInfoDatasource {
-  WeatherInfoDatasourceImpl();
+  WeatherInfoDatasourceImpl({required this.client});
 
-  final client = Dio();
-  final String baseUrl = 'api.weatherapi.com';
-  final String path = '/v1/current.json';
+  final HttpRequest client;
 
   @override
   Future<WeatherModel> getWeatherByCoordinates({required LatLng latLng}) async {
-    final Uri uri =
-        Uri(scheme: 'http', host: baseUrl, path: path, queryParameters: {
-      'key': dotenv.env['WEATHER_API_KEY'],
-      'q': '${latLng.latitude},${latLng.longitude}'
-    });
+    final requestUrl = WeatherConfig().createRequestUrl(latLng: latLng);
 
-    final response = await client.get(uri.toString());
+    final response = await client.doRequest(
+      endpoint: requestUrl,
+      requestMethod: RequestMethod.get,
+    );
 
     final WeatherModel weatherResponse =
         WeatherModel.fromJson(response.data, latLng);

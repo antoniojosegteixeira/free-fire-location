@@ -1,6 +1,6 @@
 import 'dart:convert' as convert;
-import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:free_fire_location/core/infra/http_request.dart';
+import 'package:free_fire_location/core/infra/request_config/places_info_config.dart';
 import 'package:free_fire_location/features/map/data/models/places_info_model.dart';
 
 abstract class PlacesInfoDatasource {
@@ -8,21 +8,17 @@ abstract class PlacesInfoDatasource {
 }
 
 class PlacesInfoDatasourceImpl implements PlacesInfoDatasource {
-  PlacesInfoDatasourceImpl();
+  PlacesInfoDatasourceImpl({required this.client});
 
-  final String baseUrl = 'maps.googleapis.com';
-  final String path = '/maps/api/place/details/json';
-  final client = Dio();
+  final HttpRequest client;
 
   @override
   Future<PlacesInfoModel> getPlacesInfo({required String placeId}) async {
-    final Uri uri =
-        Uri(scheme: 'https', host: baseUrl, path: path, queryParameters: {
-      'key': dotenv.env['GOOGLE_API_KEY'],
-      'place_id': placeId,
-    });
-
-    final response = await client.get(uri.toString());
+    final requestUrl = PlacesInfoConfig().createRequestUrl(placeId: placeId);
+    final response = await client.doRequest(
+      endpoint: requestUrl,
+      requestMethod: RequestMethod.get,
+    );
 
     Map valueMap = convert.jsonDecode(convert.jsonEncode(response.data));
     Map<String, dynamic> mapped = valueMap as Map<String, dynamic>;
