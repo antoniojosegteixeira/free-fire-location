@@ -4,6 +4,7 @@ import 'package:free_fire_location/features/map/data/models/places_autocomplete_
 import 'package:free_fire_location/features/map/data/models/places_info_model.dart';
 import 'package:free_fire_location/features/map/data/models/weather_model.dart';
 import 'package:free_fire_location/features/map/domain/entities/fire_page_entity.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DataMock {
   static FirePageEntity tFirePageInpeModel = const FirePageModel(
@@ -98,4 +99,8 @@ class DataMock {
     'NOAA-20',
     '2023-02-01 02:57:00',
   ];
+
+  static const String placeId = 'iOosmn72n9dcn34dDd';
+
+  static const LatLng latLng = LatLng(-15.14698, -56.6589);
 }

@@ -1,33 +1,41 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:free_fire_location/core/error/failures.dart';
-import 'package:free_fire_location/core/usecase/usecase.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:free_fire_location/features/map/data/repositories/places_repository_impl.dart';
 import 'package:free_fire_location/features/map/domain/entities/places_info_entity.dart';
+import 'package:free_fire_location/features/map/domain/usecases/get_places_info_usecase.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
-class GetPlacesInfoUsecase
-    implements UseCase<PlacesInfoEntity, GetPlacesInfoParams> {
-  GetPlacesInfoUsecase({required this.repository});
-  final PlacesRepositoryImpl repository;
+import '../../../../test_utils/data_mock.dart';
+import 'get_places_info_usecase.mocks.dart';
 
-  @override
-  Future<Either<Failure, PlacesInfoEntity>> call(
-    GetPlacesInfoParams params,
-  ) async {
-    return repository.getPlacesInfo(
-      placeId: params.placeId,
-    );
-  }
-}
+@GenerateMocks([PlacesRepositoryImpl])
+void main() {
+  late GetPlacesInfoUsecase useCase;
+  final mockRepository = MockPlacesRepositoryImpl();
 
-class GetPlacesInfoParams extends Equatable {
-  const GetPlacesInfoParams({
-    required this.placeId,
+  setUp(() {
+    useCase = GetPlacesInfoUsecase(repository: mockRepository);
   });
-  final String placeId;
 
-  @override
-  List<Object> get props => [
-        placeId,
-      ];
+  test('Places Info usecase - should get PlacesInfoEntity from the repository',
+      () async {
+    //arrange
+    when(mockRepository.getPlacesInfo(placeId: DataMock.placeId))
+        .thenAnswer((_) async => Right(DataMock.tPlacesInfoModel));
+
+    //act
+    final result = await useCase(
+      const GetPlacesInfoParams(placeId: DataMock.placeId),
+    );
+
+    //assert
+    verify(mockRepository.getPlacesInfo(placeId: DataMock.placeId));
+    expect(
+      result,
+      Right<dynamic, PlacesInfoEntity>(
+        DataMock.tPlacesInfoModel,
+      ),
+    );
+  });
 }
