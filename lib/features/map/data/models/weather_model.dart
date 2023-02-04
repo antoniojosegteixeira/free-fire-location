@@ -16,9 +16,9 @@ class WeatherModel extends WeatherEntity {
 
   factory WeatherModel.fromJson(Map<String, dynamic> json, LatLng latLng) =>
       WeatherModel(
-        name: json["location"]["name"],
-        region: json["location"]["region"],
-        country: json["location"]["country"],
+        name: json["location"]["name"].toString().trim(),
+        region: json["location"]["region"].toString().trim(),
+        country: json["location"]["country"].toString().trim(),
         temperature: json["current"]["temp_c"].toDouble(),
         wind: json["current"]["wind_kph"].toDouble(),
         windDir: json["current"]["wind_dir"],

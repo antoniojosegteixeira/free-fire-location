@@ -22,7 +22,7 @@ void main() {
       () async {
     //arrange
     when(
-      mockRepository.getFireLocationsInpe(amount: 10),
+      mockRepository.getFireLocationsNasa(amount: 10),
     ).thenAnswer((_) async => Right(DataMock.tFirePageNasaModel));
 
     //act
@@ -33,7 +33,7 @@ void main() {
     );
 
     //assert
-    verify(mockRepository.getFireLocationsInpe(amount: 10));
+    verify(mockRepository.getFireLocationsNasa(amount: 10));
     expect(
       result,
       Right<dynamic, FirePageEntity>(

@@ -3,11 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:free_fire_location/core/error/failures.dart';
 import 'package:free_fire_location/core/infra/http_request.dart';
 import 'package:free_fire_location/features/map/data/datasources/fire_info_datasource_inpe.dart';
-import 'package:free_fire_location/features/map/data/models/fire_page_response.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../fixtures/fixture.dart';
+import '../../../../test_utils/data_mock.dart';
 import '../../../../test_utils/test_initializer.dart';
 import 'fire_info_datasource_inpe_test.mocks.dart';
 
@@ -82,12 +82,11 @@ void main() {
       () async {
         setUpMockSuccess200();
 
-        final response = await datasourceImpl.getFireLocations(amount: 2);
+        final response = await datasourceImpl.getFireLocations(amount: 1);
 
         await verifyRequest();
 
-        expect(response.coordinatesList,
-            equals(FirePageModel(coordinatesList: response.coordinatesList)));
+        expect(response, DataMock.tFirePageInpeModel);
       },
     );
 
@@ -99,7 +98,7 @@ void main() {
         dynamic response;
 
         try {
-          response = await datasourceImpl.getFireLocations(amount: 2);
+          response = await datasourceImpl.getFireLocations(amount: 1);
         } catch (err) {
           response = err;
         }

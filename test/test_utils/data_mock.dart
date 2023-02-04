@@ -46,6 +46,16 @@ class DataMock {
     placeId: 'ChIJJWNL5x3GyJQRKsJ4IWo65Rc',
   );
 
+  static List<PlacesAutocompleteModel> tPlacesAutocompleteModelList = const [
+    PlacesAutocompleteModel(
+      description: 'Campinas, SP, Brasil',
+      placeId: 'ChIJJWNL5x3GyJQRKsJ4IWo65Rc',
+    ),
+    PlacesAutocompleteModel(
+        description: 'Campinas - Laranjeiras de Caldas, Caldas - MG, Brasil',
+        placeId: 'ChIJ9xL66XPsyZQRK8LxlVWvj_s'),
+  ];
+
   static PlacesInfoModel tPlacesInfoModel =
       const PlacesInfoModel(latitude: -22.9099384, longitude: -47.0626332);
 
@@ -57,8 +67,8 @@ class DataMock {
     wind: 15.1,
     windDir: 'SSE',
     precipitation: 0.0,
-    latitude: -15.0,
-    longitude: -56.0,
+    latitude: -15.658485,
+    longitude: -56.58942,
   );
 
   static FireInfoModel tFireInfoNasaModel = const FireInfoModel(

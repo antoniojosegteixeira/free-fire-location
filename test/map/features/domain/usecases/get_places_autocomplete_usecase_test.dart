@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:free_fire_location/core/error/failures.dart';
 import 'package:free_fire_location/features/map/data/repositories/places_repository_impl.dart';
 import 'package:free_fire_location/features/map/domain/entities/places_autocomplete_entity.dart';
 import 'package:free_fire_location/features/map/domain/usecases/get_places_autocomplete_usecase.dart';
@@ -19,11 +20,11 @@ void main() {
   });
 
   test(
-      'Places Autocomplete usecase - should get FirePageEntity from the repository',
+      'Places Autocomplete usecase - should get PlacesAutocompleteEntity from the repository',
       () async {
     //arrange
     when(mockRepository.getAutocompleteInfo(input: 'Campinas'))
-        .thenAnswer((_) async => Right([DataMock.tPlacesAutocompleteModel]));
+        .thenAnswer((_) async => Right(DataMock.tPlacesAutocompleteModelList));
 
     //act
     final result = await useCase(
@@ -34,8 +35,8 @@ void main() {
     verify(mockRepository.getAutocompleteInfo(input: 'Campinas'));
     expect(
       result,
-      Right<dynamic, List<PlacesAutocompleteEntity>>(
-        [DataMock.tPlacesAutocompleteModel],
+      Right<Failure, List<PlacesAutocompleteEntity>>(
+        DataMock.tPlacesAutocompleteModelList,
       ),
     );
   });

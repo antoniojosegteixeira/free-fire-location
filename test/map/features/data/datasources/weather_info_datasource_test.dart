@@ -11,6 +11,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../fixtures/fixture.dart';
+import '../../../../test_utils/data_mock.dart';
 import '../../../../test_utils/test_initializer.dart';
 import 'weather_info_datasource_test.mocks.dart';
 
@@ -68,9 +69,9 @@ void main() {
     );
   }
 
-  group('Places Info Datasource', () {
+  group('Weather Info Datasource', () {
     test(
-      'should perform a GET request on Places Info URL with correct params',
+      'should perform a GET request on Weather Info URL with correct params',
       () {
         setUpMockSuccess200();
 
@@ -81,7 +82,7 @@ void main() {
     );
 
     test(
-      'should perform a GET request on  Places Info URL and return a List<PlacesInfoEntity> with matching values',
+      'should perform a GET request on  Weather Info URL and return a WeatherEntity with matching values',
       () async {
         setUpMockSuccess200();
 
@@ -90,13 +91,12 @@ void main() {
 
         verifyRequest();
 
-        expect(response, equals(response));
-        // TODO: trocar isso
+        expect(response, DataMock.tWeatherModel);
       },
     );
 
     test(
-      'should perform a failed GET request on  Places Info URL and return a ServerFailure',
+      'should perform a failed GET request on  Weather Info URL and return a ServerFailure',
       () async {
         setUpMockFailure404();
 

@@ -12,8 +12,8 @@ class FireInfoModel extends FireInfoEntity {
     return FireInfoModel(
       latitude: csv[1],
       longitude: csv[2],
-      satelliteName: csv[9],
-      date: csv[6],
+      satelliteName: csv[9].toString().trim(),
+      date: csv[6].toString().trim(),
     );
   }
 
@@ -21,8 +21,8 @@ class FireInfoModel extends FireInfoEntity {
     return FireInfoModel(
       latitude: csv[0],
       longitude: csv[1],
-      satelliteName: csv[2],
-      date: csv[3],
+      satelliteName: csv[2].toString().trim(),
+      date: csv[3].toString().trim(),
     );
   }
 }

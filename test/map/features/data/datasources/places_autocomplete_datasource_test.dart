@@ -9,6 +9,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../fixtures/fixture.dart';
+import '../../../../test_utils/data_mock.dart';
 import '../../../../test_utils/test_initializer.dart';
 import 'places_autocomplete_datasource_test.mocks.dart';
 
@@ -87,7 +88,7 @@ void main() {
 
         verifyRequest();
 
-        expect(response, equals(response));
+        expect(response, DataMock.tPlacesAutocompleteModelList);
       },
     );
 
