@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:csv/csv.dart';
 import 'package:free_fire_location/features/map/data/models/fire_info_response.dart';
 import 'package:free_fire_location/features/map/domain/entities/fire_info_entity.dart';
@@ -14,6 +16,21 @@ class FirePageModel extends FirePageEntity {
     if (filteredCsv.length > 1) {
       for (int i = 1; i < filteredCsv.length; i++) {
         mapInfoList.add(FireInfoModel.fromCsv(filteredCsv[i]));
+      }
+    }
+
+    return FirePageModel(
+      coordinatesList: mapInfoList,
+    );
+  }
+
+  factory FirePageModel.fromNasaCsv(dynamic csv) {
+    final filteredCsv = const CsvToListConverter(eol: '\n').convert(csv);
+    final List<FireInfoEntity> mapInfoList = [];
+
+    if (filteredCsv.length > 1) {
+      for (int i = 1; i < filteredCsv.length; i++) {
+        mapInfoList.add(FireInfoModel.fromNasaCsv(filteredCsv[i]));
       }
     }
 

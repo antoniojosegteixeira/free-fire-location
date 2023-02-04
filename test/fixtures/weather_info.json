@@ -1,0 +1,41 @@
+{
+	"location":{
+	   "name":"Quiindy",
+	   "region":"Paraguari",
+	   "country":"Paraguay",
+	   "lat":-26.0,
+	   "lon":-57.37,
+	   "tz_id":"America/Asuncion",
+	   "localtime_epoch":1675478845,
+	   "localtime":"2023-02-03 23:47"
+	},
+	"current":{
+	   "last_updated_epoch":1675478700,
+	   "last_updated":"2023-02-03 23:45",
+	   "temp_c":29.3,
+	   "temp_f":84.7,
+	   "is_day":0,
+	   "condition":{
+		  "text":"Partly cloudy",
+		  "icon":"//cdn.weatherapi.com/weather/64x64/night/116.png",
+		  "code":1003
+	   },
+	   "wind_mph":9.4,
+	   "wind_kph":15.1,
+	   "wind_degree":163,
+	   "wind_dir":"SSE",
+	   "pressure_mb":1009.0,
+	   "pressure_in":29.79,
+	   "precip_mm":0.0,
+	   "precip_in":0.0,
+	   "humidity":37,
+	   "cloud":45,
+	   "feelslike_c":28.9,
+	   "feelslike_f":84.0,
+	   "vis_km":10.0,
+	   "vis_miles":6.0,
+	   "uv":1.0,
+	   "gust_mph":14.3,
+	   "gust_kph":23.0
+	}
+ }

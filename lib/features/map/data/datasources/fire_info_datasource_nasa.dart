@@ -16,7 +16,7 @@ class FireInfoDatasourceNasa implements FireInfoDatasource {
       requestMethod: RequestMethod.get,
     );
 
-    final FirePageModel pageResponse = FirePageModel.fromCsv(response.data);
+    final FirePageModel pageResponse = FirePageModel.fromNasaCsv(response.data);
 
     return pageResponse;
   }

@@ -24,8 +24,9 @@ class PlacesAutocompleteDatasourceImpl implements PlacesAutocompleteDatasource {
       requestMethod: RequestMethod.get,
     );
 
-    Map valueMap = convert.jsonDecode(convert.jsonEncode(response.data));
-    Map<String, dynamic> mapped = valueMap as Map<String, dynamic>;
+    final json = convert.jsonEncode(response.data);
+    final mapped = convert.jsonDecode(json) as Map<String, dynamic>;
+
     List predictions = mapped["predictions"];
 
     final result = predictions

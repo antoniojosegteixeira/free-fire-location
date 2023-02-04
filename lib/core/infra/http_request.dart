@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 enum RequestMethod {
@@ -6,6 +8,23 @@ enum RequestMethod {
   put,
   patch,
   delete,
+}
+
+extension RequestMethodString on RequestMethod {
+  String get stringName {
+    switch (this) {
+      case RequestMethod.get:
+        return 'get';
+      case RequestMethod.post:
+        return 'post';
+      case RequestMethod.patch:
+        return 'patch';
+      case RequestMethod.put:
+        return 'put';
+      case RequestMethod.delete:
+        return 'delete';
+    }
+  }
 }
 
 class HttpRequest {
@@ -20,11 +39,11 @@ class HttpRequest {
     Map<String, dynamic>? headers,
   }) async {
     try {
-      final response = await dio.request<Map>(
+      final response = await dio.request(
         endpoint,
         data: body,
         options: Options(
-          method: requestMethod.toString(),
+          method: requestMethod.stringName,
           followRedirects: false,
           validateStatus: (int? status) {
             return true;
@@ -35,7 +54,7 @@ class HttpRequest {
 
       return response;
     } catch (e) {
-      throw Error();
+      rethrow;
     }
   }
 }

@@ -1,7 +1,7 @@
-import 'package:free_fire_location/features/map/data/models/fire_page_response.dart';
+import 'package:free_fire_location/features/map/domain/entities/fire_page_entity.dart';
 
 abstract class FireInfoDatasource {
-  Future<FirePageModel> getFireLocations({
+  Future<FirePageEntity> getFireLocations({
     required int amount,
   });
 }

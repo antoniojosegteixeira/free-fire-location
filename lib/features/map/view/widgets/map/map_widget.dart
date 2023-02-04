@@ -44,7 +44,6 @@ class MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final FocusScopeNode focusScopeNode = FocusScope.of(context);
     return BlocBuilder<FireCubit, FireState>(
       builder: ((fireContext, fireState) {
         if (fireState is FireSuccess) {
@@ -86,7 +85,8 @@ class MapWidgetState extends State<MapWidget> {
                           ),
                           onTap: (_) {
                             customInfoWindowController.hideInfoWindow!();
-                            focusScopeNode.unfocus();
+
+                            FocusManager.instance.primaryFocus?.unfocus();
                             context
                                 .read<PlacesSearchCubit>()
                                 .setEmptySuggestions();

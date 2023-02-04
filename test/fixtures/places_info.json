@@ -1,0 +1,155 @@
+{
+	"html_attributions":[
+	   
+	],
+	"result":{
+	   "address_components":[
+		  {
+			 "long_name":"Campinas",
+			 "short_name":"Campinas",
+			 "types":[
+				"locality",
+				"political"
+			 ]
+		  },
+		  {
+			 "long_name":"Campinas",
+			 "short_name":"Campinas",
+			 "types":[
+				"administrative_area_level_2",
+				"political"
+			 ]
+		  },
+		  {
+			 "long_name":"State of São Paulo",
+			 "short_name":"SP",
+			 "types":[
+				"administrative_area_level_1",
+				"political"
+			 ]
+		  },
+		  {
+			 "long_name":"Brazil",
+			 "short_name":"BR",
+			 "types":[
+				"country",
+				"political"
+			 ]
+		  }
+	   ],
+	   "adr_address":"Campinas, <span class=\"region\">State of São Paulo</span>, <span class=\"country-name\">Brazil</span>",
+	   "formatted_address":"Campinas, State of São Paulo, Brazil",
+	   "geometry":{
+		  "location":{
+			 "lat":-22.9099384,
+			 "lng":-47.0626332
+		  },
+		  "viewport":{
+			 "northeast":{
+				"lat":-22.73070215077426,
+				"lng":-46.91413085042909
+			 },
+			 "southwest":{
+				"lat":-23.05416624533235,
+				"lng":-47.2216583818406
+			 }
+		  }
+	   },
+	   "icon":"https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
+	   "icon_background_color":"#7B9EB0",
+	   "icon_mask_base_uri":"https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+	   "name":"Campinas",
+	   "photos":[
+		  {
+			 "height":991,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/101207044495545716731\">Matheus</a>"
+			 ],
+			 "photo_reference":"AfLeUgOKCPA9t6_sg_thdMNsNMlMRsJo2KNAX_Gk6AOau1uTT_vSmoN0WgchlUHQ6Tcvuf6uRnHRgsfGz4JzCcfwUVCT7unVHd7ugN2RAb7ZqVHEVNNeN7NLjUbYlBCxhzb4XI_w8Ogjk9Yz2Ud9sGAUo5siGpo6t9AT4rQfJoBj5lqcLL4",
+			 "width":825
+		  },
+		  {
+			 "height":822,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/101207044495545716731\">Matheus</a>"
+			 ],
+			 "photo_reference":"AfLeUgMv5V5JcMatIp8A1eU2uBANa43MG98XwvX2LvwYr1B4R9cq3ycaEuat6emBMtz8rC2Cv2boDUMg-qtZXTtEfIichgJjPRcxp7cPnEQmgmabu5IqxXM50jFdXfxqDvmm0r2fkhbJs_-65GiZ_B5y_wwSNY124Dp9t5BRDu1UGO_FBOg",
+			 "width":828
+		  },
+		  {
+			 "height":1006,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/101207044495545716731\">Matheus</a>"
+			 ],
+			 "photo_reference":"AfLeUgNIQGZD3Bzr0y-mG8qBq9kFJuwjOXiYuAAIwz-4c4zUHIgmurmvq6HQGCeav9sveCP7Cm94BIUHC1vq1BOxOkw8jL7IXcZBIZS1s1Vw_cugaQBSnLkEww8DLtED9bozvbQgBrd5czGCW-025cISUg8ofANPZ15Fgo5CDIy9dDWOseY",
+			 "width":827
+		  },
+		  {
+			 "height":976,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/101207044495545716731\">Matheus</a>"
+			 ],
+			 "photo_reference":"AfLeUgOwVX2ig5CdQwLKJlc6NNe91bin3cSQCVuqIlLhLAMy47lQBeOO_isDHeGVmWZcFpAE-DOzjEWCgSyY9ck2azroB-IvAUpXw8FvxWa1Qk0wNlxtmYOsIwhwAkTkzZ0aUAMzg_5fgTINhRxvivxloeguFPGKHlhmLyMiBXAmi2HHFLk",
+			 "width":827
+		  },
+		  {
+			 "height":1200,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/100909803563580708521\">Cadastramentos &amp; Resets</a>"
+			 ],
+			 "photo_reference":"AfLeUgOd5GveNXxw2FTG84VyPtv25VcCw5peqB_4uBfcpvQrAE8J35G1oVn6oYKtEyXIN5b6fdKs1Y6Sq4fHTmY6jlFcf9dSPr8qTFWV3ER-UgzGP9gkznlxQB1ghjlnkjSfpaGPiH3PLqhd0oclIPD1iVvYSgwqCmf2hyETMRssgTDVL8EJ",
+			 "width":1600
+		  },
+		  {
+			 "height":1009,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/101207044495545716731\">Matheus</a>"
+			 ],
+			 "photo_reference":"AfLeUgPK7nkzSBOS8EISFFuXIrDK9KEz2Qk9yfrVvl5mM4rtW4bVes-E4BfTZWPG_aSFqF4BOtMyobiKpvz8LYgGU9u50McWxb5Kz8WBbw8yelPHqLVIh2A9eVV0zdV-cW68sIqwwfuJEx6Fp88X-YF1CShSK1ITl1I8qJ6xll-xs3tFSrE",
+			 "width":827
+		  },
+		  {
+			 "height":992,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/101207044495545716731\">Matheus</a>"
+			 ],
+			 "photo_reference":"AfLeUgOMEhFltH8FAeUPlxfLeICwPR3tZPD866mjcNzYoEdMf5oBiaup-a3q9mbRAxJnBiql6grTJdCYDtRM8pju3F8Lqk23HQ3fDu1-Y1loj8RXtkNJ87fxKhjdaFd3eiy8VVXJiBZjglmNSKTtuhZgMhgc5xKiDKr87B6nAJ4w8J3bwBg",
+			 "width":828
+		  },
+		  {
+			 "height":1010,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/101207044495545716731\">Matheus</a>"
+			 ],
+			 "photo_reference":"AfLeUgNrB9TK5r-VzsanEXHCxxjnxNUNgNU2TB_kivM9nPk-L4A-E76mo2UqZT2t_70ajH1cfhmG1r3w5eXloJovhdMb9ouPPtgALhfNtYoQPh5mEVjRncZ9iNIX45ugE5yTOIJ8ZkKEguAFBU-2i_8KbHr77I3ploL7lL8f0TNGVJJ3ofA",
+			 "width":826
+		  },
+		  {
+			 "height":996,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/101207044495545716731\">Matheus</a>"
+			 ],
+			 "photo_reference":"AfLeUgPNUGyagzfdB6I6tuGypqen71ZYp_uHitpLtzPGEWJVlriL-hKZ-J5RXMdcrxzqqT7iILcLSeNo4FKElLe2KMXQI1T14sxk3We8fuGSYaCTf9XmPTXsWzHAkbIphm5OInrwmS97uFSvNoq6dJnFDMLN7lFR23dRGlrvR6v1n74iWOw",
+			 "width":828
+		  },
+		  {
+			 "height":2448,
+			 "html_attributions":[
+				"<a href=\"https://maps.google.com/maps/contrib/104858957423686595112\">eleana blanco</a>"
+			 ],
+			 "photo_reference":"AfLeUgONyGHzYZns_zOrVaptsB5QDwEUbKipg19QuqT14LbZaGZ4BgGg096JtZCgtk_lMuCQAF6UuPPwOqS8JAi_JAfFnUxE2EJQrnG7gPRgzJFZ-USqZuVs__Fx4fH0BfUWbaiNW2ubbpmbntOuRsO9x_ZC6NilXd9Ao7ivltSga7blzA37",
+			 "width":3264
+		  }
+	   ],
+	   "place_id":"ChIJJWNL5x3GyJQRKsJ4IWo65Rc",
+	   "reference":"ChIJJWNL5x3GyJQRKsJ4IWo65Rc",
+	   "types":[
+		  "locality",
+		  "political"
+	   ],
+	   "url":"https://maps.google.com/?q=Campinas,+State+of+S%C3%A3o+Paulo,+Brazil&ftid=0x94c8c61de74b6325:0x17e53a6a2178c22a",
+	   "utc_offset":-180,
+	   "vicinity":"Campinas"
+	},
+	"status":"OK"
+ }

@@ -90,7 +90,8 @@ class DependencyInjection {
     // Bloc / Cubit
     i.registerSingleton<FireCubit>(
       FireCubit(
-        getFireInfoUsecase: i<GetFireInfoInpeUsecase>(),
+        getFireInfoInpeUsecase: i<GetFireInfoInpeUsecase>(),
+        getFireInfoNasaUsecase: i<GetFireInfoNasaUsecase>(),
       ),
     );
     i.registerSingleton<OptionsCubit>(

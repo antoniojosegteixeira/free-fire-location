@@ -6,13 +6,13 @@ import 'package:free_fire_location/features/map/domain/entities/fire_page_entity
 import 'package:free_fire_location/features/map/domain/repositories/fire_info_repository.dart';
 
 class GetFireInfoInpeUsecase
-    implements UseCase<FirePageEntity, GetFireInfoParams> {
+    implements UseCase<FirePageEntity, GetFireInfoInpeParams> {
   GetFireInfoInpeUsecase({required this.repository});
   final FireInfoRepository repository;
 
   @override
   Future<Either<Failure, FirePageEntity>> call(
-    GetFireInfoParams params,
+    GetFireInfoInpeParams params,
   ) async {
     return repository.getFireLocationsInpe(
       amount: params.amount,
@@ -20,8 +20,8 @@ class GetFireInfoInpeUsecase
   }
 }
 
-class GetFireInfoParams extends Equatable {
-  const GetFireInfoParams({
+class GetFireInfoInpeParams extends Equatable {
+  const GetFireInfoInpeParams({
     required this.amount,
   });
   final int amount;

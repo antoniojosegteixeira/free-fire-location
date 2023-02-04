@@ -4,19 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/features/map/domain/entities/fire_info_entity.dart';
 import 'package:free_fire_location/features/map/domain/usecases/get_fire_info_inpe_usecase.dart';
+import 'package:free_fire_location/features/map/domain/usecases/get_fire_info_nasa_usecase.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'fire_state.dart';
 
 class FireCubit extends Cubit<FireState> {
-  final GetFireInfoInpeUsecase getFireInfoUsecase;
+  final GetFireInfoInpeUsecase getFireInfoInpeUsecase;
+  final GetFireInfoNasaUsecase getFireInfoNasaUsecase;
 
   late List<Marker> markers;
   int numberOfRequests = 2;
   late BitmapDescriptor markerImage;
 
   FireCubit({
-    required this.getFireInfoUsecase,
+    required this.getFireInfoInpeUsecase,
+    required this.getFireInfoNasaUsecase,
   }) : super(FireInitial());
 
   Future<void> loadMarkers() async {
@@ -31,8 +34,9 @@ class FireCubit extends Cubit<FireState> {
 
     await loadMarkers();
 
-    final fireInfo = await getFireInfoUsecase
-        .call(GetFireInfoParams(amount: numberOfRequests));
+    final fireInfo = await getFireInfoInpeUsecase.call(
+      const GetFireInfoInpeParams(amount: 10),
+    );
 
     fireInfo.fold((l) {
       emit.call(FireError(error: l as Error));

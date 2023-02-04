@@ -17,10 +17,9 @@ class FireInfoDatasourceInpe implements FireInfoDatasource {
       final uri = Uri.https(InpeConfig.baseUrl,
           "queimadas/users/dados_abertos/focos/10min/${FileName.getPastFileName(i)}");
       requests.add(client.doRequest(
-        endpoint: uri.toString(),
-        requestMethod: RequestMethod.get,
-        headers: <String, String>{'authorization': InpeConfig.auth},
-      ));
+          endpoint: uri.toString(),
+          requestMethod: RequestMethod.get,
+          headers: <String, dynamic>{'authorization': InpeConfig.auth}));
     }
 
     final List response = await Future.wait(requests);

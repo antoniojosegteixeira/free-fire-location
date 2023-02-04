@@ -49,6 +49,7 @@ class _SearchInputState extends State<SearchInput> {
                       state.placeInfo.latitude, state.placeInfo.longitude),
                   zoom: 7,
                 );
+                inputFocusScopeNode.unfocus();
               }
             },
             builder: (placesSearchContext, placesSearchState) {
@@ -56,10 +57,8 @@ class _SearchInputState extends State<SearchInput> {
                 child: Column(
                   children: [
                     TextField(
-                      autofocus: true,
                       onSubmitted: (value) {
                         placesSearchCubit.setEmptySuggestions();
-                        inputFocusScopeNode.unfocus();
                       },
                       controller: controller,
                       onChanged: (value) {
@@ -123,8 +122,6 @@ class _SearchInputState extends State<SearchInput> {
                                             controller.clear();
                                             placesSearchCubit
                                                 .setEmptySuggestions();
-
-                                            inputFocusScopeNode.unfocus();
                                           },
                                         ),
                                       )
