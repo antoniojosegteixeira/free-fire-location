@@ -76,12 +76,12 @@ class _SearchInputState extends State<SearchInput> {
                         fillColor: AppColors.white,
                         prefixIcon: const Icon(
                           Icons.search,
-                          color: AppColors.delete,
+                          color: AppColors.orange,
                         ),
                         suffixIcon: IconButton(
                           icon: const Icon(
                             Icons.clear,
-                            color: AppColors.delete,
+                            color: AppColors.orange,
                           ),
                           onPressed: () {
                             controller.clear();
@@ -89,7 +89,8 @@ class _SearchInputState extends State<SearchInput> {
                           },
                         ),
                         hintText: 'Buscar...',
-                        hintStyle: const TextStyle(color: AppColors.delete),
+                        hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 40, 40, 40)),
                         border: InputBorder.none,
                       ),
                     ),
