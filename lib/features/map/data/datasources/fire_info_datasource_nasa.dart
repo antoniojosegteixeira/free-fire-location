@@ -9,7 +9,7 @@ class FireInfoDatasourceNasa implements FireInfoDatasource {
   final HttpRequest client;
 
   @override
-  Future<FirePageModel> getFireLocations({required int amount}) async {
+  Future<FirePageModel> getFireLocations({int amount = 0}) async {
     String requestUrl = NasaConfig().createRequestUrl();
     final response = await client.doRequest(
       endpoint: requestUrl,

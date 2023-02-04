@@ -26,10 +26,10 @@ class FireInfoRepositoryImpl implements FireInfoRepository {
 
   @override
   Future<Either<Failure, FirePageEntity>> getFireLocationsNasa({
-    required int amount,
+    int amount = 0,
   }) {
     return _getFireLocations(() {
-      return datasourceNasa.getFireLocations(amount: amount);
+      return datasourceNasa.getFireLocations();
     });
   }
 

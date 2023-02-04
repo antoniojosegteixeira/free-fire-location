@@ -46,7 +46,6 @@ dependencies:
   awesome_notifications: ^0.6.21
   shared_preferences: ^2.0.15
   cloud_functions: ^3.3.1
-  equatable: ^2.0.5
   dartz: ^0.10.1
   get_it: ^7.2.0
   flutter_gen: ^5.1.0+1
@@ -54,6 +53,8 @@ dependencies:
   flutter_bloc: ^8.1.1
   mockito: ^5.3.2
   build_runner: ^2.3.3
+  collection: ^1.16.0
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,3 @@
-// ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:free_fire_location/features/map/data/models/fire_page_response.dart';
