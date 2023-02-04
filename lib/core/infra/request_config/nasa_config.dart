@@ -8,7 +8,7 @@ class NasaConfig {
     DateTime dateNow = DateTime.now();
     String year = dateNow.year.toString();
     String month = dateNow.month.toString().padLeft(2, '0');
-    String day = (dateNow.day - 1).toString().padLeft(2, '0');
+    String day = (dateNow.day - 2).toString().padLeft(2, '0');
 
     return "$year-$month-$day";
   }

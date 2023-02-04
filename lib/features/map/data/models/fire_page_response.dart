@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:csv/csv.dart';
 import 'package:free_fire_location/features/map/data/models/fire_info_response.dart';
 import 'package:free_fire_location/features/map/domain/entities/fire_info_entity.dart';
@@ -11,16 +9,16 @@ class FirePageModel extends FirePageEntity {
 
   factory FirePageModel.fromCsv(dynamic csv) {
     final filteredCsv = const CsvToListConverter(eol: '\n').convert(csv);
-    final List<FireInfoEntity> mapInfoList = [];
+    final List<FireInfoEntity> mapInfoInpeList = [];
 
     if (filteredCsv.length > 1) {
       for (int i = 1; i < filteredCsv.length; i++) {
-        mapInfoList.add(FireInfoModel.fromCsv(filteredCsv[i]));
+        mapInfoInpeList.add(FireInfoModel.fromCsv(filteredCsv[i]));
       }
     }
 
     return FirePageModel(
-      coordinatesList: mapInfoList,
+      coordinatesList: mapInfoInpeList,
     );
   }
 
@@ -39,18 +37,19 @@ class FirePageModel extends FirePageEntity {
     );
   }
 
-  factory FirePageModel.fromCsvList(List<dynamic> csvList) {
+  factory FirePageModel.fromCsvList(List<String> csvList) {
     List filteredList = [];
     final List<FireInfoEntity> mapInfoList = [];
 
     for (int i = 0; i < csvList.length; i++) {
       final filteredCsv =
-          const CsvToListConverter(eol: '\n').convert(csvList[i].data);
+          const CsvToListConverter(eol: '\n').convert(csvList[i]);
       filteredCsv.removeAt(0);
+
       filteredList = [...filteredList, ...filteredCsv];
     }
 
-    for (int i = 1; i < filteredList.length; i++) {
+    for (int i = 0; i < filteredList.length; i++) {
       // Check if it's inside Brazil
 
       bool isFireLocatedInBrazil = FilterMarkers.isFireLocatedInBrazil(
@@ -62,6 +61,7 @@ class FirePageModel extends FirePageEntity {
         mapInfoList.add(FireInfoModel.fromCsv(filteredList[i]));
       }
     }
+
     return FirePageModel(
       coordinatesList: mapInfoList,
     );

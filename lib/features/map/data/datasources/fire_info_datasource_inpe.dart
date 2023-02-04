@@ -12,6 +12,7 @@ class FireInfoDatasourceInpe implements FireInfoDatasource {
   @override
   Future<FirePageModel> getFireLocations({required int amount}) async {
     List<Future> requests = [];
+    List<String> csvList = [];
 
     for (int i = amount; i >= 1; i--) {
       final uri = Uri.https(InpeConfig.baseUrl,
@@ -22,9 +23,15 @@ class FireInfoDatasourceInpe implements FireInfoDatasource {
           headers: <String, dynamic>{'authorization': InpeConfig.auth}));
     }
 
-    final List response = await Future.wait(requests);
+    final List responses = await Future.wait(requests);
 
-    final FirePageModel pageResponse = FirePageModel.fromCsvList(response);
+    for (final response in responses) {
+      if (response.data?.runtimeType == String) {
+        csvList.add(response.data);
+      }
+    }
+
+    final FirePageModel pageResponse = FirePageModel.fromCsvList(csvList);
 
     return pageResponse;
   }
