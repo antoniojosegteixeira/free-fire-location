@@ -1,5 +1,4 @@
 import 'dart:convert' as convert;
-import 'dart:developer';
 import 'package:free_fire_location/core/infra/http_request.dart';
 import 'package:free_fire_location/core/infra/request_config/places_info_config.dart';
 import 'package:free_fire_location/features/map/data/models/places_info_model.dart';
