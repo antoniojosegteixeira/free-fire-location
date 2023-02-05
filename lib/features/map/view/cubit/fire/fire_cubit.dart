@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:free_fire_location/core/error/failures.dart';
 import 'package:free_fire_location/features/map/domain/entities/fire_info_entity.dart';
+import 'package:free_fire_location/features/map/domain/entities/fire_page_entity.dart';
 import 'package:free_fire_location/features/map/domain/usecases/get_fire_info_inpe_usecase.dart';
 import 'package:free_fire_location/features/map/domain/usecases/get_fire_info_nasa_usecase.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,7 +17,10 @@ class FireCubit extends Cubit<FireState> {
   final GetFireInfoNasaUsecase getFireInfoNasaUsecase;
 
   late List<Marker> markers;
-  int numberOfRequests = 2;
+  MapSourceParams mapSourceParams = const MapSourceParams(
+    amount: 2,
+    mapSource: MapSource.inpe,
+  );
   late BitmapDescriptor markerImage;
 
   FireCubit({
@@ -34,9 +40,17 @@ class FireCubit extends Cubit<FireState> {
 
     await loadMarkers();
 
-    final fireInfo = await getFireInfoInpeUsecase.call(
-      const GetFireInfoInpeParams(amount: 10),
-    );
+    late Either<Failure, FirePageEntity> fireInfo;
+
+    if (mapSourceParams.mapSource == MapSource.inpe) {
+      fireInfo = await getFireInfoInpeUsecase.call(
+        GetFireInfoInpeParams(amount: mapSourceParams.amount),
+      );
+    } else if (mapSourceParams.mapSource == MapSource.nasa) {
+      fireInfo = await getFireInfoNasaUsecase.call(
+        const GetFireInfoNasaParams(amount: 1),
+      );
+    }
 
     fireInfo.fold((l) {
       emit.call(FireError(error: l as Error));
@@ -58,9 +72,10 @@ class FireCubit extends Cubit<FireState> {
     });
   }
 
-  void changeAmountOfRequests(int newAmount) {
+  void changeAmountOfRequests(MapSourceParams newMapSourceParams) {
     // Each request equals 10 minutes
-    numberOfRequests = newAmount;
+    mapSourceParams = newMapSourceParams;
+
     getFireInfo();
   }
 
@@ -74,4 +89,19 @@ class FireCubit extends Cubit<FireState> {
     getFireInfo();
     updateEveryTenMinutes();
   }
+}
+
+class MapSourceParams {
+  final int amount;
+  final MapSource mapSource;
+
+  const MapSourceParams({
+    required this.amount,
+    required this.mapSource,
+  });
+}
+
+enum MapSource {
+  inpe,
+  nasa,
 }
