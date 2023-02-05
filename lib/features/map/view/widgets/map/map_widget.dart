@@ -13,7 +13,6 @@ import 'package:free_fire_location/features/map/view/cubit/user_fire/user_fire_c
 import 'package:free_fire_location/features/map/view/cubit/weather_info/weather_info_cubit.dart';
 import 'package:free_fire_location/features/map/view/widgets/map/modal/fire_add_confirmation_modal.dart';
 
-import 'package:free_fire_location/utils/generate_markers.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
