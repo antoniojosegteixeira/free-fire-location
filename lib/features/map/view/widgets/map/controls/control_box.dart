@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_fire_location/features/map/view/cubit/fire/fire_cubit.dart';
+import 'package:free_fire_location/features/map/view/widgets/map/controls/add_user_fire_info_button.dart';
 import 'package:free_fire_location/features/map/view/widgets/map/controls/location_button.dart';
 import 'package:free_fire_location/features/map/view/widgets/map/controls/map_type_button.dart';
 import 'package:free_fire_location/features/map/view/widgets/map/controls/time_button.dart';
@@ -25,6 +26,10 @@ class ControlBox extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 8.0),
+                child: AddUserFireInfoButton(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 14.0),
                 child: LocationButton(),
               ),
             ],
