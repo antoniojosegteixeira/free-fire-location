@@ -4,7 +4,12 @@ import 'package:free_fire_location/features/map/view/cubit/weather_info/weather_
 import 'package:free_fire_location/features/map/view/widgets/map/map_info_popup/popup_content.dart';
 
 class MapInfoPopup extends StatelessWidget {
-  const MapInfoPopup({Key? key}) : super(key: key);
+  const MapInfoPopup({
+    Key? key,
+    this.isFromUser,
+  }) : super(key: key);
+
+  final bool? isFromUser;
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +22,19 @@ class MapInfoPopup extends StatelessWidget {
             ),
           );
         } else if (state is WeatherInfoLoaded) {
-          return PopUpContent(weather: state.weatherResponse);
+          return PopUpContent(
+            weather: state.weatherResponse,
+            isFromUser: isFromUser,
+          );
         } else if (state is WeatherInfoError) {
           return Card(
             child: Column(
-              children: const [Text('Error')],
+              children: const [Text('Erro ao buscar informações.')],
             ),
           );
         }
 
-        return const Text("Empty");
+        return Container();
       }),
     );
   }

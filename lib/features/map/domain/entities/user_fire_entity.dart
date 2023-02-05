@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class UserFireEntity extends Equatable {
-  final int id;
+  final String id;
   final double latitude;
   final double longitude;
   final String date;

@@ -8,6 +8,10 @@ import 'package:free_fire_location/features/map/domain/entities/fire_info_entity
 import 'package:free_fire_location/features/map/domain/entities/fire_page_entity.dart';
 import 'package:free_fire_location/features/map/domain/usecases/get_fire_info_inpe_usecase.dart';
 import 'package:free_fire_location/features/map/domain/usecases/get_fire_info_nasa_usecase.dart';
+import 'package:free_fire_location/features/map/view/cubit/user_fire/user_fire_cubit.dart';
+import 'package:free_fire_location/features/map/view/cubit/weather_info/weather_info_cubit.dart';
+import 'package:free_fire_location/utils/generate_markers.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'fire_state.dart';
@@ -22,10 +26,12 @@ class FireCubit extends Cubit<FireState> {
     mapSource: MapSource.inpe,
   );
   late BitmapDescriptor markerImage;
+  final WeatherInfoCubit weatherInfoCubit;
 
   FireCubit({
     required this.getFireInfoInpeUsecase,
     required this.getFireInfoNasaUsecase,
+    required this.weatherInfoCubit,
   }) : super(FireInitial());
 
   Future<void> loadMarkers() async {
@@ -33,6 +39,21 @@ class FireCubit extends Cubit<FireState> {
       const ImageConfiguration(size: Size(20, 20)),
       "assets/images/map_icon.png",
     );
+  }
+
+  List<Marker> generateMarkers(
+      {required BitmapDescriptor customMarkerImage,
+      required List<FireInfoEntity> coordinatesList,
+      required}) {
+    List<Marker> generatedMarkers = GenerateMarkers.generateMarkers(
+      customMarkerImage: markerImage,
+      coordinatesList: coordinatesList,
+      customInfoWindowController: weatherInfoCubit.customInfoWindowController,
+      callback: (LatLng latLng) {
+        weatherInfoCubit.getWeatherInfoByCoordinates(latLng: latLng);
+      },
+    );
+    return generatedMarkers;
   }
 
   void getFireInfo() async {

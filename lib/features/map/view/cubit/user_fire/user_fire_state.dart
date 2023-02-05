@@ -13,6 +13,12 @@ class UserFireAddFireSuccess extends UserFireState {}
 
 class UserFireAddFireFailure extends UserFireState {}
 
-class UserFireGetFireSuccess extends UserFireState {}
+class UserFireGetFireSuccess extends UserFireState {
+  const UserFireGetFireSuccess(
+      {required this.userFireList, required this.markers});
+
+  final List<UserFireEntity> userFireList;
+  final List<Marker> markers;
+}
 
 class UserFireGetFireFailure extends UserFireState {}

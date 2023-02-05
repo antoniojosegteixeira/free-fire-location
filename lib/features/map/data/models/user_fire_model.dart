@@ -10,10 +10,10 @@ class UserFireModel extends UserFireEntity {
 
   factory UserFireModel.fromJson(json) {
     return UserFireModel(
-      id: int.parse(json['id']),
+      id: json["id"] as String,
       latitude: json["latitude"],
       longitude: json["longitude"],
-      date: json["data"] as String,
+      date: json["date"],
     );
   }
 }

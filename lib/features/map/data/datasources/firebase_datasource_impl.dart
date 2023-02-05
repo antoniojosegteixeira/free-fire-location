@@ -22,13 +22,15 @@ class FirebaseDatasourceImpl implements FirebaseDatasource {
       List<UserFireEntity> listOfFires = [];
       final response = await database.collection("userfires").get();
       for (final doc in response.docs) {
-        final UserFireEntity fireEntity = UserFireModel.fromJson(doc.data());
+        final a = doc.data();
+        a['id'] = doc.id;
+        final UserFireEntity fireEntity = UserFireModel.fromJson(a);
         listOfFires.add(fireEntity);
       }
 
       return listOfFires;
     } catch (e) {
-      throw Error();
+      rethrow;
     }
   }
 
@@ -45,7 +47,7 @@ class FirebaseDatasourceImpl implements FirebaseDatasource {
         "date": date.toIso8601String(),
       };
 
-      await database.collection("users").add(userFire);
+      await database.collection("userfires").add(userFire);
       return true;
     } catch (e) {
       throw Error();
