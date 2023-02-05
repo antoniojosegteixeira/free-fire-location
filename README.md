@@ -1,16 +1,11 @@
-# free_fire_location
+# Free Fire Location
 
-A new Flutter project.
+![image](https://user-images.githubusercontent.com/75284432/216848055-b130beb1-aa06-4d9d-9bc9-988d7c2fd025.png)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+FreeFireLocation é um aplicativo em Flutter para localização de incêndios em tempo real. Consome dados de satélites do INPE e NASA, além de prover informações sobre o tempo local. Usuários podem contribuir adicionando ocorrências de incêndio.
 
-A few resources to get you started if this is your first Flutter project:
+O aplicativo tem como objetivo mapear focos de incêndio a partir de dados de satélite coletados a partir do Instituto Nacional de Pesquisas Espaciais (INPE) e NASA (National Aeronautics and Space Administration), atualizados periodicamente a partir de 10 minutos. Visa principalmente auxiliar motoristas, moradores rurais e possivelmente corpo de bombeiros, indicando locais próximos afetados por queimadas. 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+É construído em padrão DDD (Domain Driven Design). As injeções de dependência são gerenciadas por GetIt e o gerenciador de estados de escolha foi Cubit. Seu back-end é construído em Firebase. Testes unitários foram realizados utilizando Mockito.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
